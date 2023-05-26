@@ -22,4 +22,9 @@ export const globalStyles = css`
     max-width: 100vw;
     overflow-x: hidden;
   }
+
+  button {
+    border: none;
+    cursor: pointer;
+  }
 `;

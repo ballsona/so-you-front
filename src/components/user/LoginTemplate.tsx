@@ -1,8 +1,11 @@
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
+import { LoginInputType } from '@/types/user';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { UseFormRegister } from 'react-hook-form';
 
-const SUB_MENUS = {
+const SUB_MENUS: Record<string, any> = {
   id_find: {
     text: '아이디 찾기',
     url: '/user/find-account',
@@ -15,40 +18,56 @@ const SUB_MENUS = {
     text: '회원가입',
     url: '/user/register',
   },
+} as const;
+
+export interface LoginTemplateProps {
+  onChangeLoginInput: UseFormRegister<LoginInputType>;
+  onSubmitLogin: () => Promise<void>;
+}
+
+const LoginTemplate = ({
+  onChangeLoginInput,
+  onSubmitLogin,
+}: LoginTemplateProps) => {
+  const router = useRouter();
+  return (
+    <TemplateWrapper>
+      <LoginForm>
+        <Text
+          size={80}
+          weight="800"
+          color={COLORS.primary}
+          className="logo-text"
+        >
+          SoYOU
+        </Text>
+        <LoginInput placeholder="EMAIL" {...onChangeLoginInput('email')} />
+        <LoginInput placeholder="PW" {...onChangeLoginInput('password')} />
+        <SubMenuContainer>
+          {Object.keys(SUB_MENUS).map((key, idx) => (
+            <>
+              <Text
+                key={key}
+                size={18}
+                weight="400"
+                color={COLORS.gray484}
+                onClick={() => router.push(SUB_MENUS[key].url)}
+              >
+                {SUB_MENUS[key].text}
+              </Text>
+              {idx !== 2 && <Hr />}
+            </>
+          ))}
+        </SubMenuContainer>
+        <LoginButton onClick={onSubmitLogin}>로그인</LoginButton>
+      </LoginForm>
+    </TemplateWrapper>
+  );
 };
 
-const LoginTemplate = () => (
-  <TemplateWrapper>
-    <LoginForm>
-      <Text size={80} weight="800" color={COLORS.primary} className="logo-text">
-        SoYOU
-      </Text>
-      <LoginInput name="id" value="" placeholder="ID" onChange={() => {}} />
-      <LoginInput
-        name="password"
-        value=""
-        placeholder="PW"
-        onChange={() => {}}
-      />
-      <SubMenuContainer>
-        <Text size={18} weight="400" color={COLORS.gray484} onClick={() => {}}>
-          {SUB_MENUS.id_find.text}
-        </Text>
-        <Hr />
-        <Text size={18} weight="400" color={COLORS.gray484} onClick={() => {}}>
-          {SUB_MENUS.pw_find.text}
-        </Text>
-        <Hr />
-        <Text size={18} weight="400" color={COLORS.gray484} onClick={() => {}}>
-          {SUB_MENUS.register.text}
-        </Text>
-      </SubMenuContainer>
-      <LoginButton onClick={() => {}}>로그인</LoginButton>
-    </LoginForm>
-  </TemplateWrapper>
-);
-
 export default LoginTemplate;
+
+/** LoginTemplate Style */
 
 const TemplateWrapper = styled.div`
   height: 100vh;
@@ -66,15 +85,16 @@ const LoginForm = styled.div`
   .logo-text {
     line-height: 80px;
     margin-bottom: 80px;
+    cursor: pointer;
   }
 `;
 
 const LoginInput = styled.input`
   width: 100%;
-  height: 56px;
+  height: 48px;
   font-size: 20px;
   font-weight: 400;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.grayB5B};
@@ -95,6 +115,10 @@ const SubMenuContainer = styled.div`
   align-items: center;
   gap: 35px;
   margin: 18px 0px 39px;
+
+  > div {
+    cursor: pointer;
+  }
 `;
 
 const Hr = styled.div`
@@ -105,8 +129,9 @@ const Hr = styled.div`
 
 const LoginButton = styled.button`
   width: 460px;
-  height: 64px;
-  border: 4px;
+  height: 60px;
+  border: none;
+  border-radius: 4px;
   background-color: ${COLORS.primary};
   color: ${COLORS.white};
   font-size: 20px;

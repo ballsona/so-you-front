@@ -27,4 +27,13 @@ export const globalStyles = css`
     border: none;
     cursor: pointer;
   }
+
+  input {
+    padding: 0;
+    margin: 0;
+
+    :focus {
+      outline: none;
+    }
+  }
 `;

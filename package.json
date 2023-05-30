@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "axios": "1.4.0",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "7.44.2",
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "8.0.1",
     "@types/node": "20.2.3",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",

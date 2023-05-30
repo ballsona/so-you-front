@@ -1,23 +1,26 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import Text from '@/components/common/Text';
+
 import { COLORS } from '@/styles/theme';
 
-import AdvertiserBackground from '@/assets/image/advertiser-background-img.jpg';
+import ClientBackground from '@/assets/image/client-background-img.jpg';
 import InfluencerBackground from '@/assets/image/influencer-background-img.jpg';
-import Text from '../common/Text';
+import ClientIcon from '@/assets/icon/client-logo.svg';
+import InfluencerIcon from '@/assets/icon/influencer-logo.svg';
 
 const INFO = {
-  advertiser: {
+  client: {
     title: '광고주',
-    icon: '',
     color: '#B15ADA',
-    background_img: AdvertiserBackground,
+    icon: ClientIcon,
+    background_img: ClientBackground,
     content: '나의 컨텐츠를 홍보해 줄 인플루언서를 매칭해보세요',
   },
   influencer: {
     title: '인플루언서',
-    icon: '',
     color: COLORS.primary,
+    icon: InfluencerIcon,
     background_img: InfluencerBackground,
     content: '나의 컨텐츠를 홍보해 줄 인플루언서를 매칭해보세요',
   },
@@ -27,19 +30,17 @@ const MainTemplate = () => (
   <TemplateWrapper>
     <MainSection>
       <Text color={COLORS.white} size={54} weight="400">
-        <Title
-          color={INFO.advertiser.color}
-        >{`'${INFO.advertiser.title}'`}</Title>
+        <Title color={INFO.client.color}>{`'${INFO.client.title}'`}</Title>
         이신가요?
       </Text>
       <Text color={COLORS.white} size={30} weight="300" className="content">
-        {INFO.advertiser.content}
+        {INFO.client.content}
       </Text>
-      <Button>매칭하기</Button>
+      <Button color={INFO.client.color}>매칭하기</Button>
 
       <Image
-        src={INFO.advertiser.background_img}
-        alt="advertiser"
+        src={INFO.client.background_img}
+        alt="client"
         className="background-img"
         layout="fill"
       />
@@ -54,8 +55,7 @@ const MainTemplate = () => (
       <Text color={COLORS.white} size={30} weight="300" className="content">
         {INFO.influencer.content}
       </Text>
-      <Button>등록하기</Button>
-
+      <Button color={INFO.influencer.color}>등록하기</Button>
       <Image
         src={INFO.influencer.background_img}
         alt="influencer"
@@ -95,12 +95,6 @@ const MainSection = styled.section`
   }
 `;
 
-const Background = styled.div`
-  width: 50%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-`;
-
 const Title = styled.span`
   color: ${(props) => props.color};
   font-weight: 700;
@@ -111,6 +105,7 @@ const Button = styled.button`
   height: 80px;
   border-radius: 200px;
   color: ${COLORS.white};
+  background-color: ${(props) => props.color};
   font-size: 32px;
   font-weight: 700;
 `;

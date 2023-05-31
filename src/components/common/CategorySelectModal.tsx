@@ -1,13 +1,25 @@
-import { COLORS } from '@/styles/theme';
+import { Dispatch, SetStateAction } from 'react';
 import styled from '@emotion/styled';
+import Text from './Text';
 
 import CloseIcon from '@/assets/icon/close.svg';
-import Text from './Text';
-import { themes } from '@/constants/influencer';
 
-const CategorySelectModal = () => (
+import { ThemeType, themes } from '@/constants/influencer';
+import { COLORS } from '@/styles/theme';
+
+interface CategorySelectModalProps {
+  category: ThemeType[];
+  handleModal: () => void;
+  onClickCategory: (theme: ThemeType) => void;
+}
+
+const CategorySelectModal = ({
+  category,
+  handleModal,
+  onClickCategory,
+}: CategorySelectModalProps) => (
   <ModalWrapper>
-    <CloseIcon className="close-icon" />
+    <CloseIcon className="close-icon" onClick={handleModal} />
     <Text size={20} weight="700" color={COLORS.gray484} className="title">
       카테고리 추가
     </Text>
@@ -17,12 +29,22 @@ const CategorySelectModal = () => (
     <Hr />
     <CategorysWrap>
       {themes.map((theme) => (
-        <Category key={theme}>{theme}</Category>
+        <Category
+          key={theme}
+          onClick={() => onClickCategory(theme)}
+          selected={category.includes(theme)}
+        >
+          {theme}
+        </Category>
       ))}
     </CategorysWrap>
     <ModalButtonsWrap>
-      <Button className="cancel-btn">취소</Button>
-      <Button className="add-btn">추가</Button>
+      <Button className="cancel-btn" onClick={handleModal}>
+        취소
+      </Button>
+      <Button className="add-btn" onClick={handleModal}>
+        추가
+      </Button>
     </ModalButtonsWrap>
   </ModalWrapper>
 );
@@ -40,11 +62,14 @@ const ModalWrapper = styled.div`
   padding: 38px 30px 0px;
   overflow: hidden;
   position: relative;
+  top: calc(50% - 180px);
+  left: calc(50% - 185px);
 
   .close-icon {
     position: absolute;
     top: 15px;
     right: 20px;
+    cursor: pointer;
   }
 
   .title {
@@ -68,7 +93,8 @@ const Category = styled.div`
   font-size: 12px;
   font-weight: 700;
   margin: 6px;
-  color: ${COLORS.gray484};
+  color: ${({ selected }: { selected: boolean }) =>
+    selected ? COLORS.primary : COLORS.gray484};
   cursor: pointer;
 `;
 

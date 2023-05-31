@@ -2,20 +2,27 @@ import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 import { RegisterInputType, userType } from '@/types/user';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { UseFormRegister } from 'react-hook-form';
 
 export interface RegisterTemplateProps {
   type: userType;
+  handleModal: () => void;
   onChangeInput: UseFormRegister<RegisterInputType>;
   onSubmitRegister: () => Promise<void>;
 }
 
 const RegisterTemplate = ({
   type,
+  handleModal,
   onChangeInput,
   onSubmitRegister,
 }: RegisterTemplateProps) => {
-  const isInfluencer = type === 'influencer';
+  const router = useRouter();
+  const onMoveBack = () => router.back();
+
+  const userType = type === 'influencer' ? '인플루언서' : '광고주';
+
   return (
     <TemplateWrapper>
       {/*<Text
@@ -28,50 +35,78 @@ const RegisterTemplate = ({
         </Text>*/}
       <RegisterForm>
         <Text size={24} weight="700" color={COLORS.gray484} className="title">
-          {isInfluencer ? '인플루언서' : '광고주'} 등록
+          {userType} 등록
         </Text>
         <RegisterInputWrap>
           <Label>이메일</Label>
           <Input
             type="email"
-            {...onChangeInput('email')}
+            placeholder="이메일을 입력해주세요"
             className="email-input"
+            {...onChangeInput('email')}
           />
           <MiniButton onClick={() => {}}>인증</MiniButton>
         </RegisterInputWrap>
         <RegisterInputWrap>
           <Label>패스워드</Label>
-          <Input type="password" {...onChangeInput('password')} />
+          <Input
+            type="password"
+            placeholder="숫자, 영문 포함 8글자 이상"
+            {...onChangeInput('password')}
+          />
+        </RegisterInputWrap>
+        <RegisterInputWrap>
+          <Label>패스워드 확인</Label>
+          <Input
+            type="password"
+            placeholder="비밀번호를 한번 더 입력해주세요"
+            className="password-check-input"
+            {...onChangeInput('passwordCheck')}
+          />
+          <MiniButton onClick={() => {}} className="password-check-btn">
+            비밀번호 확인
+          </MiniButton>
         </RegisterInputWrap>
         <RegisterInputWrap>
           <Label>이름</Label>
-          <Input {...onChangeInput('name')} />
+          <Input
+            placeholder={`${userType}님의 이름을 입력해주세요.`}
+            {...onChangeInput('name')}
+          />
         </RegisterInputWrap>
         <RegisterInputWrap>
           <Label>생년월일</Label>
-          <Input {...onChangeInput('birth_date')} />
+          <Input
+            placeholder={`${userType}님의 생년월일을 입력해주세요.`}
+            {...onChangeInput('birth_date')}
+          />
         </RegisterInputWrap>
 
-        {isInfluencer && (
+        {type === 'influencer' && (
           <>
             <RegisterInputWrap>
               <Label>카테고리</Label>
-              <Input />
+              <MiniButton onClick={handleModal}>추가</MiniButton>
             </RegisterInputWrap>
             <RegisterInputWrap>
-              <Label>예상광고비</Label>
-              <Input {...onChangeInput('cost')} />
-              {/*<MiniButton onClick={() => {}}>적용</MiniButton>*/}
+              <Label>예상 광고비</Label>
+              <Input
+                placeholder="예상 광고비를 입력해주세요"
+                {...onChangeInput('cost')}
+              />
             </RegisterInputWrap>
             <RegisterInputWrap>
-              <Label>채널링크</Label>
-              <Input {...onChangeInput('channel')} />
-              {/*<MiniButton onClick={() => {}}>적용</MiniButton>*/}
+              <Label>채널 링크</Label>
+              <Input
+                placeholder="연결할 유투브 링크를 등록해주세요"
+                {...onChangeInput('channel')}
+              />
             </RegisterInputWrap>
           </>
         )}
+
         <RegisterButtonsWrap>
-          <Button onClick={() => {}} className="cancel-btn">
+          <Button onClick={onMoveBack} className="cancel-btn">
             뒤로
           </Button>
           <Button onClick={onSubmitRegister} className="submit-btn">
@@ -114,13 +149,20 @@ const RegisterInputWrap = styled.div`
   .email-input {
     width: 250px;
   }
+
+  .password-check-input {
+    width: 220px;
+  }
+  .password-check-btn {
+    width: 114px;
+  }
 `;
 
 const Label = styled.div`
   width: 100px;
   height: 32px;
   border-right: 3px solid ${COLORS.primary};
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 32px;
   margin-right: 16px;
@@ -132,6 +174,12 @@ const Input = styled.input`
   border: 1px solid ${COLORS.grayA3A};
   border-radius: 0;
   padding-left: 5px;
+
+  ::placeholder {
+    font-size: 11px;
+    font-weight: 300;
+    color: ${COLORS.grayC4C};
+  }
 `;
 
 const MiniButton = styled.button`

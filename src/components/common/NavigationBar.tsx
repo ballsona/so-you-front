@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 
 import SearchIcon from '@/assets/icon/search.svg';
-import { NAV_INFO, NavInfoKeys } from '@/constants/navigation';
+import { NAV_INFO } from '@/constants/navigation';
 import Text from './Text';
 
-const NAV_LIST = Object.keys(NAV_INFO) as [NavInfoKeys];
+const navmenu = ['project', 'influencer', 'report', 'mypage'];
 
 const NavigationBar = () => (
   <Wrapper>
@@ -16,15 +16,15 @@ const NavigationBar = () => (
       <SearchIcon className="search-icon" />
     </SearchBar>
     <NavListContainer>
-      {NAV_LIST.map((item) => (
+      {navmenu.map((menu) => (
         <Text
-          key={item}
+          key={menu}
           size={15}
           weight="400"
           color={COLORS.white}
           className="nav-item"
         >
-          {NAV_INFO[item].label}
+          {NAV_INFO[menu].label}
         </Text>
       ))}
     </NavListContainer>

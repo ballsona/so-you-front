@@ -1,4 +1,5 @@
-export const NAV_INFO = {
+// TODO must edit type
+export const NAV_INFO: Record<string, any> = {
   project: {
     label: '프로젝트',
     url: '/project',
@@ -15,6 +16,18 @@ export const NAV_INFO = {
     label: '마이페이지',
     url: '/mypage',
   },
-} as const;
+  id_find: {
+    text: '아이디 찾기',
+    url: '/user/find-account',
+  },
+  pw_find: {
+    text: '비밀번호 찾기',
+    url: '/user/find-password',
+  },
+  register: {
+    text: '회원가입',
+    url: '/user/register',
+  },
+};
 
-export type NavInfoKeys = keyof typeof NAV_INFO;
+export type NavInfoKey = keyof typeof NAV_INFO;

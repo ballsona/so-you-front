@@ -33,4 +33,4 @@ export const themes = [
   '트랜드',
 ] as const;
 
-export type ThemeType = typeof themes;
+export type ThemeType = (typeof themes)[number];

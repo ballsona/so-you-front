@@ -1,70 +1,100 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import Text from '@/components/common/Text';
-
+import { useRouter } from 'next/router';
 import { COLORS } from '@/styles/theme';
+import { motion } from 'framer-motion';
+import { mainPageTitleVariants } from '@/styles/motion';
+import Text from '@/components/common/Text';
 
 import ClientBackground from '@/assets/image/client-background-img.jpg';
 import InfluencerBackground from '@/assets/image/influencer-background-img.jpg';
 import ClientIcon from '@/assets/icon/client-logo.svg';
 import InfluencerIcon from '@/assets/icon/influencer-logo.svg';
 
-const INFO = {
-  client: {
-    title: '광고주',
-    color: '#B15ADA',
-    icon: ClientIcon,
-    background_img: ClientBackground,
-    content: '나의 컨텐츠를 홍보해 줄 인플루언서를 매칭해보세요',
-  },
-  influencer: {
-    title: '인플루언서',
-    color: COLORS.primary,
-    icon: InfluencerIcon,
-    background_img: InfluencerBackground,
-    content: '나의 컨텐츠를 홍보해 줄 인플루언서를 매칭해보세요',
-  },
+const theme_color = {
+  client: '#B15ADA',
+  influencer: COLORS.primary,
 };
 
-const MainTemplate = () => (
-  <TemplateWrapper>
-    <MainSection>
-      <Text color={COLORS.white} size={54} weight="400">
-        <Title color={INFO.client.color}>{`'${INFO.client.title}'`}</Title>
-        이신가요?
-      </Text>
-      <Text color={COLORS.white} size={30} weight="300" className="content">
-        {INFO.client.content}
-      </Text>
-      <Button color={INFO.client.color}>매칭하기</Button>
-
-      <Image
-        src={INFO.client.background_img}
-        alt="client"
-        className="background-img"
-        layout="fill"
-      />
-    </MainSection>
-    <MainSection>
-      <Text color={COLORS.white} size={54} weight="400">
-        <Title
-          color={INFO.influencer.color}
-        >{`'${INFO.influencer.title}'`}</Title>
-        이신가요?
-      </Text>
-      <Text color={COLORS.white} size={30} weight="300" className="content">
-        {INFO.influencer.content}
-      </Text>
-      <Button color={INFO.influencer.color}>등록하기</Button>
-      <Image
-        src={INFO.influencer.background_img}
-        alt="influencer"
-        className="background-img"
-        layout="fill"
-      />
-    </MainSection>
-  </TemplateWrapper>
-);
+const MainTemplate = () => {
+  const router = useRouter();
+  return (
+    <TemplateWrapper>
+      <MainSection>
+        <motion.div
+          initial="exit"
+          animate="enter"
+          exit="exit"
+          variants={mainPageTitleVariants}
+          className="motion-div"
+        >
+          <ClientIcon />
+          <Text
+            color={COLORS.white}
+            size={32}
+            weight="400"
+            className="section-title"
+          >
+            <Title color={theme_color.client}>{`'광고주' `}</Title>
+            이신가요?
+          </Text>
+          <Text color={COLORS.white} size={20} weight="300" className="content">
+            나의 컨텐츠를 <br /> 홍보해 줄 인플루언서를 <br />
+            매칭해보세요
+          </Text>
+        </motion.div>
+        <Button
+          color={theme_color.client}
+          onClick={() => router.push('/user/register/client')}
+        >
+          매칭하기
+        </Button>
+        <Image
+          src={ClientBackground}
+          alt="client"
+          className="background-img"
+          layout="fill"
+        />
+      </MainSection>
+      <MainSection>
+        <motion.div
+          initial="exit"
+          animate="enter"
+          exit="exit"
+          variants={mainPageTitleVariants}
+          className="motion-div"
+        >
+          <InfluencerIcon />
+          <Text
+            color={COLORS.white}
+            size={32}
+            weight="400"
+            className="section-title"
+          >
+            <Title color={theme_color.influencer}>{`'인플루언서' `}</Title>
+            이신가요?
+          </Text>
+          <Text color={COLORS.white} size={20} weight="300" className="content">
+            나만의 카테고리와 <br />
+            적합한 광고주 분들과 <br /> 협업해보세요
+          </Text>
+        </motion.div>
+        <Button
+          color={theme_color.influencer}
+          onClick={() => router.push('/user/register/influencer')}
+        >
+          등록하기
+        </Button>
+        <Image
+          src={InfluencerBackground}
+          alt="influencer"
+          className="background-img"
+          layout="fill"
+        />
+      </MainSection>
+    </TemplateWrapper>
+  );
+};
 
 export default MainTemplate;
 
@@ -86,12 +116,24 @@ const MainSection = styled.section`
   align-items: center;
   justify-content: center;
 
-  .background-img {
-    z-index: -10;
+  .motion-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-title {
+    margin: 24px 0px 20px;
   }
 
   .content {
-    width: 290px;
+    width: 190px;
+    text-align: center;
+  }
+
+  > span {
+    z-index: -10;
   }
 `;
 
@@ -101,11 +143,12 @@ const Title = styled.span`
 `;
 
 const Button = styled.button`
-  width: 240px;
-  height: 80px;
+  width: 120px;
+  height: 40px;
   border-radius: 200px;
   color: ${COLORS.white};
   background-color: ${(props) => props.color};
-  font-size: 32px;
+  font-size: 16px;
   font-weight: 700;
+  margin-top: 25px;
 `;

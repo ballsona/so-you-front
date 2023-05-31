@@ -15,6 +15,7 @@ export interface RegisterInputType {
   type: userType;
   email: string;
   password: string;
+  passwordCheck?: string;
   name: string;
   birth_date: string;
   channel?: string;

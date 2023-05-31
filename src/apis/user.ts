@@ -28,7 +28,7 @@ export async function registerAsync(
   birth_date: string,
   channel?: string,
   cost?: number,
-  category?: ThemeType[],
+  category?: Array<ThemeType>,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
   const influencer_data = { channel, cost, category };

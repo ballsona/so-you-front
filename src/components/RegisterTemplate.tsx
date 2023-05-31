@@ -48,7 +48,7 @@ const RegisterTemplate = ({
           <MiniButton onClick={() => {}}>인증</MiniButton>
         </RegisterInputWrap>
         <RegisterInputWrap>
-          <Label>패스워드</Label>
+          <Label>비밀번호</Label>
           <Input
             type="password"
             placeholder="숫자, 영문 포함 8글자 이상"
@@ -56,7 +56,7 @@ const RegisterTemplate = ({
           />
         </RegisterInputWrap>
         <RegisterInputWrap>
-          <Label>패스워드 확인</Label>
+          <Label>비밀번호 확인</Label>
           <Input
             type="password"
             placeholder="비밀번호를 한번 더 입력해주세요"
@@ -178,7 +178,7 @@ const Input = styled.input`
   ::placeholder {
     font-size: 11px;
     font-weight: 300;
-    color: ${COLORS.grayC4C};
+    color: ${COLORS.grayA3A};
   }
 `;
 

@@ -1,35 +1,50 @@
+import { useRouter } from 'next/router';
+import { NAV_INFO } from '@/constants/navigation';
 import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 
-import SearchIcon from '@/assets/icon/search.svg';
-import { NAV_INFO } from '@/constants/navigation';
 import Text from './Text';
+import SearchIcon from '@/assets/icon/search.svg';
 
-const navmenu = ['project', 'influencer', 'report', 'mypage'];
+const navmenu = ['project', 'influencer', 'report', 'mypage'] as const;
 
-const NavigationBar = () => (
-  <Wrapper>
-    <Text size={25} weight="700" color={COLORS.white} className="logo-text">
-      SoYOU
-    </Text>
-    <SearchBar>
-      <SearchIcon className="search-icon" />
-    </SearchBar>
-    <NavListContainer>
-      {navmenu.map((menu) => (
-        <Text
-          key={menu}
-          size={15}
-          weight="400"
-          color={COLORS.white}
-          className="nav-item"
-        >
-          {NAV_INFO[menu].label}
-        </Text>
-      ))}
-    </NavListContainer>
-  </Wrapper>
-);
+interface NavigationBarProps {
+  activeTab?: (typeof navmenu)[number];
+}
+
+const NavigationBar = ({ activeTab }: NavigationBarProps) => {
+  const router = useRouter();
+  return (
+    <Wrapper>
+      <Text
+        size={25}
+        weight="700"
+        color={COLORS.white}
+        className="logo-text"
+        onClick={() => router.push('/')}
+      >
+        SoYOU
+      </Text>
+      <SearchBar>
+        <SearchIcon />
+      </SearchBar>
+      <NavListContainer>
+        {navmenu.map((menu) => (
+          <Text
+            key={menu}
+            size={15}
+            weight={activeTab === menu ? '700' : '400'}
+            color={COLORS.white}
+            className="nav-item"
+            onClick={() => router.push(NAV_INFO[menu].url)}
+          >
+            {NAV_INFO[menu].label}
+          </Text>
+        ))}
+      </NavListContainer>
+    </Wrapper>
+  );
+};
 
 export default NavigationBar;
 
@@ -59,7 +74,10 @@ const SearchBar = styled.div`
   top: calc(50% - 17px);
   left: calc(50% - 150px);
 
-  .search-icon {
+  > svg {
+    position: absolute;
+    top: calc(50% - 9px);
+    right: 15px;
   }
 `;
 
@@ -71,4 +89,8 @@ const NavListContainer = styled.div`
   position: absolute;
   top: calc(50% - 11.25px);
   right: 50px;
+
+  .nav-item {
+    cursor: pointer;
+  }
 `;

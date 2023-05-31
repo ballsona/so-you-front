@@ -3,12 +3,17 @@ import LoginTemplate from '@/components/user/LoginTemplate';
 
 import { loginAsync } from '@/apis/user';
 import { LoginInputType } from '@/types/user';
+import { useRef } from 'react';
 
 const Login = () => {
+  const messageRef = useRef(null);
   const { register, handleSubmit } = useForm<LoginInputType>();
 
   const onSubmitLogin = async (data: LoginInputType) => {
     const { email, password } = data;
+
+    if (email === '' || password === '') {
+    }
     const response = await loginAsync(email, password);
     console.log(response);
   };
@@ -16,6 +21,7 @@ const Login = () => {
   return (
     <>
       <LoginTemplate
+        messageRef={messageRef}
         onChangeLoginInput={register}
         onSubmitLogin={handleSubmit(onSubmitLogin)}
       />

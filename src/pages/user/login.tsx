@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import LoginTemplate from '@/components/user/LoginTemplate';
+import LoginTemplate from '@/components/LoginTemplate';
 
 import { loginAsync } from '@/apis/user';
 import { LoginInputType } from '@/types/user';

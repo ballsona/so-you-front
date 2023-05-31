@@ -1,4 +1,4 @@
-import MainTemplate from '@/components/main/MainTemplate';
+import MainTemplate from '@/components/MainTemplate';
 
 const Home = () => {
   return (

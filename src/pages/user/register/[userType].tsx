@@ -1,6 +1,6 @@
 import { registerAsync } from '@/apis/user';
 import CategorySelectModal from '@/components/common/CategorySelectModal';
-import RegisterTemplate from '@/components/user/RegisterTemplate';
+import RegisterTemplate from '@/components/RegisterTemplate';
 import { ThemeType } from '@/constants/influencer';
 import { RegisterInputType, userType } from '@/types/user';
 import styled from '@emotion/styled';

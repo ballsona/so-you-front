@@ -29,12 +29,7 @@ const MainTemplate = () => {
           className="motion-div"
         >
           <ClientIcon />
-          <Text
-            color={COLORS.white}
-            size={32}
-            weight="400"
-            className="section-title"
-          >
+          <Text color={COLORS.white} size={32} className="section-title">
             <Title color={theme_color.client}>{`'광고주' `}</Title>
             이신가요?
           </Text>
@@ -65,12 +60,7 @@ const MainTemplate = () => {
           className="motion-div"
         >
           <InfluencerIcon />
-          <Text
-            color={COLORS.white}
-            size={32}
-            weight="400"
-            className="section-title"
-          >
+          <Text color={COLORS.white} size={32} className="section-title">
             <Title color={theme_color.influencer}>{`'인플루언서' `}</Title>
             이신가요?
           </Text>

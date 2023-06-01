@@ -22,36 +22,35 @@ const InfluencerListTemplate = ({
         <Field>카테고리</Field>
         <Field>예산</Field>
       </TableHeader>
-      {InfluencerListData.map((influencer) => (
+      {InfluencerListData.map((inf) => (
         <TableBody
-          key={influencer.ranking}
-          onClick={() => onClickInfluencerItem(influencer.influencer_id)}
+          key={inf.ranking}
+          onClick={() => onClickInfluencerItem(inf.influencer_id)}
         >
           <Data>
             <Text size={14} color={COLORS.gray484}>
-              {influencer.ranking}
+              {inf.ranking}
             </Text>
           </Data>
           <Data className="profile-data">
             <ProfileImg />
             <ProfileTextWrap>
               <Text size={14} weight="700" color={COLORS.gray484}>
-                {influencer.name}
+                {inf.name}
               </Text>
               <Text size={12} color={COLORS.gray818}>
-                {influencer.followersCount}명 구독
+                {inf.followersCount}명 구독
               </Text>
             </ProfileTextWrap>
           </Data>
           <Data>
             <Text size={14} weight="700" color="#547AC3">
-              {influencer.category.join(', ')}
+              {inf.category.join(', ')}
             </Text>
           </Data>
           <Data>
             <Text size={14} color={COLORS.gray484}>
-              {influencer.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              원
+              {inf.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
             </Text>
           </Data>
         </TableBody>

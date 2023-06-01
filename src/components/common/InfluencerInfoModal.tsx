@@ -5,12 +5,14 @@ import { influencerInfoState } from '../../stores/influencerAtom';
 
 import Text from './Text';
 import CloseIcon from '@/assets/icon/close.svg';
+import { useRouter } from 'next/router';
 
 interface InfluencerInfoModalProps {
   handleModal: () => void;
 }
 
 const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
+  const router = useRouter();
   const influencerInfo = useRecoilValue(influencerInfoState);
 
   return (
@@ -39,10 +41,18 @@ const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
       </DetailInfoWrap>
 
       <ModalButtonsWrap>
-        <Button className="match-btn" onClick={handleModal}>
+        <Button
+          className="match-btn"
+          onClick={() => alert('매칭 기능은 준비중이에요☺️')}
+        >
           매칭
         </Button>
-        <Button className="details-btn" onClick={handleModal}>
+        <Button
+          className="details-btn"
+          onClick={() =>
+            router.push(`/influencer/${influencerInfo?.influencer_id}`)
+          }
+        >
           상세보기
         </Button>
       </ModalButtonsWrap>

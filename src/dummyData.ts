@@ -1,4 +1,7 @@
-import { InfluencerDataType } from '@/types/influencer';
+import {
+  InfluencerDataType,
+  InfluencerDetailDataType,
+} from '@/types/influencer';
 
 export const InfluencerListData: Array<InfluencerDataType> = [
   {
@@ -52,3 +55,19 @@ export const InfluencerListData: Array<InfluencerDataType> = [
     cost: 500000,
   },
 ];
+
+export const InfluencerDetailInfoData: InfluencerDetailDataType = {
+  influencer_id: 1,
+  ranking: 1,
+  working_time: 3,
+  name: '유투버 이름',
+  category: ['일상/Vlog', '뷰티'],
+  youtube_link: 'https://www.youtube.com/',
+  cost: 50000,
+  average_views: 900,
+  total_views: 10000,
+  followersCount: 2000,
+  followers_change_pct: +0.2,
+  average_views_change_pct: -0.1,
+  video_count: 3000,
+};

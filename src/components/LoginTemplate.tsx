@@ -49,7 +49,6 @@ const LoginTemplate = ({
             <Fragment key={menu}>
               <Text
                 size={13}
-                weight="400"
                 color={COLORS.gray484}
                 onClick={() => router.push(NAV_INFO[menu].url)}
               >
@@ -62,12 +61,7 @@ const LoginTemplate = ({
         <LoginButton onClick={onSubmitLogin}>로그인</LoginButton>
         <DivisionContainer>
           <Line />
-          <Text
-            color={COLORS.primary}
-            size={12}
-            weight="400"
-            className="division-text"
-          >
+          <Text color={COLORS.primary} size={12} className="division-text">
             or
           </Text>
           <Line />

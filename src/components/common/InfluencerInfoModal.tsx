@@ -23,13 +23,13 @@ const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
           {influencerInfo?.name}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {influencerInfo?.subscribeCount}명 구독
+          {influencerInfo?.followersCount}명 구독
         </Text>
       </ProfileWrap>
 
       <DetailInfoWrap>
         <Field>소요기간</Field>
-        <Data>{influencerInfo?.cost}일</Data>
+        <Data>{influencerInfo?.working_time}일</Data>
         <Field>금액</Field>
         <Data>{influencerInfo?.cost}원</Data>
         <Field>카테고리</Field>

@@ -8,4 +8,5 @@ export const COLORS = {
   grayDBD: '#DBDBDB',
   grayA3A: '#A3A3A3',
   gray818: '#818181',
+  caption: '#ff3868',
 };

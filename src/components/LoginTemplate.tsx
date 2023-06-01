@@ -1,4 +1,4 @@
-import { MutableRefObject } from 'react';
+import { Fragment, MutableRefObject } from 'react';
 import { useRouter } from 'next/router';
 import { UseFormRegister } from 'react-hook-form';
 import styled from '@emotion/styled';
@@ -15,7 +15,7 @@ import GoogleLogoIcon from '@/assets/icon/google-logo.svg';
 const SUB_MENU = ['id_find', 'pw_find', 'register'];
 
 export interface LoginTemplateProps {
-  messageRef: MutableRefObject<null>;
+  messageRef: MutableRefObject<HTMLParagraphElement>;
   onChangeLoginInput: UseFormRegister<LoginInputType>;
   onSubmitLogin: () => Promise<void>;
 }
@@ -46,9 +46,8 @@ const LoginTemplate = ({
         <LoginInput placeholder="PW" {...onChangeLoginInput('password')} />
         <SubMenuContainer>
           {SUB_MENU.map((menu, idx) => (
-            <>
+            <Fragment key={menu}>
               <Text
-                key={menu}
                 size={13}
                 weight="400"
                 color={COLORS.gray484}
@@ -57,7 +56,7 @@ const LoginTemplate = ({
                 {NAV_INFO[menu].text}
               </Text>
               {idx !== 2 && <Hr />}
-            </>
+            </Fragment>
           ))}
         </SubMenuContainer>
         <LoginButton onClick={onSubmitLogin}>로그인</LoginButton>
@@ -125,14 +124,17 @@ const LoginForm = styled.div`
   justify-content: center;
 
   .logo-text {
-    margin-bottom: 42px;
+    margin-bottom: 21px;
     cursor: pointer;
   }
 `;
 
-const LoginMessageBox = styled.div`
-  margin: 0 auto;
-  font-size: 10px;
+const LoginMessageBox = styled.p`
+  font-size: 11px;
+  font-weight: 300;
+  color: ${COLORS.caption};
+  height: 12px;
+  margin-bottom: 10px;
 `;
 
 const LoginInput = styled.input`

@@ -22,7 +22,7 @@ const CategorySelectModal = ({
     <Text size={20} weight="700" color={COLORS.gray484} className="title">
       카테고리 추가
     </Text>
-    <Text size={12} weight="400" color={COLORS.grayB5B} className="title">
+    <Text size={12} color={COLORS.grayB5B} className="title">
       내게 맞는 테마를 1개 이상 선택해주세요.
     </Text>
     <Hr />

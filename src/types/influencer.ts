@@ -18,3 +18,16 @@ export interface InfluencerDataType {
   /** 채널 링크 (유투브) */
   youtube_link?: string;
 }
+
+export interface InfluencerDetailDataType extends InfluencerDataType {
+  /** 조회수 평균 */
+  average_views: number;
+  /** 조회수 합계 */
+  total_views: number;
+  /** 팔로워 변동 퍼센트 (30일 기준) */
+  followers_change_pct: number;
+  /** 조회수 평균 변동 퍼센트 (30일 기준)*/
+  average_views_change_pct: number;
+  /** 동영상 개수 */
+  video_count: number;
+}

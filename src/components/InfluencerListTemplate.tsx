@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
-import { InfluencerListData } from './dummyData';
+import { InfluencerListData } from '../dummyData';
 
 interface InfluencerListTemplateProps {
   handleModal: () => void;

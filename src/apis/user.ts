@@ -3,7 +3,6 @@ import {
   LoginOutputType,
   RegisterInputType,
   RegisterOutputType,
-  EmailVerifyInputType,
 } from '@/types/user';
 import { postAsync } from '.';
 import { ApiResponse } from '@/types/api';
@@ -45,7 +44,7 @@ export async function registerAsync(
 
 /** 이메일 인증 요청 함수 */
 export async function verifyEmailAsync(email: string): ApiResponse<unknown> {
-  const response = await postAsync<unknown, EmailVerifyInputType>('/send', {
+  const response = await postAsync<unknown, { email: string }>('/send', {
     email,
   });
   return response;
@@ -56,8 +55,12 @@ export async function verifyEmailCodeAsync(
   email: string,
   code: string,
 ): ApiResponse<unknown> {
-  const response = await postAsync<unknown, EmailVerifyInputType>('/send', {
-    email,
-  });
+  const response = await postAsync<unknown, { email: string; code: string }>(
+    '/verify',
+    {
+      email,
+      code,
+    },
+  );
   return response;
 }

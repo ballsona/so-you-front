@@ -26,3 +26,14 @@ export interface RegisterInputType {
 export interface RegisterOutputType {
   success: true;
 }
+
+export interface EmailVerifyInputType {
+  email: string;
+}
+
+/**
+ *  1: 이메일 입력받는 중
+ *  2: 이메일 인증 요청 후 코드 기다리는 중
+ *  3: 코드 확인 후 검증 완료
+ * */
+export type EmailVerifyStatusType = 1 | 2 | 3;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
-import { InfluencerListData } from './dummyData';
+import { InfluencerListData } from '../dummyData';
 
 interface InfluencerListTemplateProps {
   handleModal: () => void;
@@ -39,7 +39,7 @@ const InfluencerListTemplate = ({
                 {influencer.name}
               </Text>
               <Text size={12} color={COLORS.gray818}>
-                {influencer.subscribeCount}명 구독
+                {influencer.followersCount}명 구독
               </Text>
             </ProfileTextWrap>
           </Data>

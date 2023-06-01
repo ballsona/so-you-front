@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import NavigationBar from '@/components/common/NavigationBar';
 import InfluencerRankTemplate from '@/components/InfluencerListTemplate';
 
-import { InfluencerListData } from '@/components/dummyData';
+import { InfluencerListData } from '../dummyData';
 import { influencerInfoState } from '../stores/influencerAtom';
 import InfluencerInfoModal from '@/components/common/InfluencerInfoModal';
 import styled from '@emotion/styled';

@@ -18,8 +18,7 @@ function handleError(error: unknown): ApiError {
     if (error.response) {
       return {
         code: error.response.status,
-        errorMessage: '문제가 발생했어요. 다시 시도해주세요.',
-        errorInfo: error.response.data,
+        errorMessage: error.response.data.err,
       };
     }
     // 요청 성공, 응답 실패

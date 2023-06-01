@@ -26,6 +26,10 @@ export const globalStyles = css`
   button {
     border: none;
     cursor: pointer;
+
+    :focus {
+      outline: none;
+    }
   }
 
   input {

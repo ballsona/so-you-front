@@ -39,7 +39,7 @@ const InfluencerListTemplate = ({
                 {influencer.name}
               </Text>
               <Text size={12} color={COLORS.gray818}>
-                {influencer.subscribeCount}명 구독
+                {influencer.followersCount}명 구독
               </Text>
             </ProfileTextWrap>
           </Data>

@@ -11,6 +11,7 @@ import {
 import { useMessageRefs } from '@/hooks/useMessageRefs';
 import { validateDate, validatePw } from '@/utils/validation';
 import { ThemeType } from '@/constants/influencer';
+import { NAV_INFO } from '@/constants/navigation';
 import { emailVerifyCodeAtom, emailVerifyStatusAtom } from '@/stores/userAtom';
 import { userType, RegisterInputType } from '@/types/user';
 
@@ -128,11 +129,11 @@ const Register = () => {
     );
     // 회원가입 성공
     if (response.isSuccess) {
-      router.replace('/login');
+      router.replace(NAV_INFO.login.url);
     }
     // 회원가입 실패
     else {
-      alert(response.result.errorMessage);
+      alert('회원가입에 실패했어요😢 다시 시도하시거나 문의해주세요');
     }
   };
 

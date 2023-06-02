@@ -16,6 +16,10 @@ export const NAV_INFO: Record<string, any> = {
     label: '마이페이지',
     url: '/mypage',
   },
+  login: {
+    text: '로그인',
+    url: '/user/login',
+  },
   id_find: {
     text: '아이디 찾기',
     url: '/user/find-account',

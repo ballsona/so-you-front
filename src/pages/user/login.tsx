@@ -31,7 +31,8 @@ const Login = () => {
     // 로그인 요청 성공
     else {
       // TODO 로그인 성공시 토큰 저장 작업 필요 (localStorage or Cookie)
-      router.replace('/');
+      // TODO 라우터 경로 수정 필요 (홈으로)
+      router.replace('/influencer');
     }
   };
 

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
@@ -34,6 +34,11 @@ const Register = () => {
 
   // 선택된 카테고리 배열
   const [category, setCategory] = useState<Array<ThemeType>>([]);
+
+  // 새로 페이지 진입할 때마다 verifyStatus 초기화 시켜줌
+  useEffect(() => {
+    setVerifyStatus(1);
+  }, []);
 
   const onClickCategory = (theme: ThemeType) => {
     if (!category.includes(theme) && category.length >= 5) {
@@ -80,8 +85,15 @@ const Register = () => {
   };
 
   const onSubmitRegister = async (data: RegisterInputType) => {
-    const { email, password, passwordCheck, name, birth_date, channel, cost } =
-      data;
+    const {
+      email,
+      password,
+      passwordCheck,
+      name,
+      birth_date,
+      youtube_link,
+      cost,
+    } = data;
 
     if (verifyStatus !== 3) {
       setMessage(0, '이메일 인증을 진행해주세요');
@@ -110,7 +122,7 @@ const Register = () => {
       password,
       name,
       birth_date,
-      channel,
+      youtube_link,
       cost,
       category,
     );

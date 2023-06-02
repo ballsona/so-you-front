@@ -135,7 +135,7 @@ const RegisterTemplate = ({
               <Label>채널 링크</Label>
               <Input
                 placeholder="연결할 유튜브 링크를 등록해주세요"
-                {...onChangeInput('channel')}
+                {...onChangeInput('youtube_link')}
               />
             </RegisterInputWrap>
           </>

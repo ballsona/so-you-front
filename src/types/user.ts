@@ -18,7 +18,7 @@ export interface RegisterInputType {
   passwordCheck?: string;
   name: string;
   birth_date: string;
-  channel?: string;
+  youtube_link?: string;
   cost?: number;
   category?: ThemeType[];
 }

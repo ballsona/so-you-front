@@ -28,12 +28,12 @@ export async function registerAsync(
   password: string,
   name: string,
   birth_date: string,
-  channel?: string,
+  youtube_link?: string,
   cost?: number,
   category?: Array<ThemeType>,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
-  const influencer_data = { channel, cost, category };
+  const influencer_data = { youtube_link, cost, category };
 
   const response = await postAsync<RegisterOutputType, RegisterInputType>(
     '/register',

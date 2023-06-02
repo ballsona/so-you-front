@@ -33,7 +33,11 @@ export async function registerAsync(
   category?: Array<ThemeType>,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
-  const influencer_data = { youtube_link, cost, category };
+  const influencer_data = {
+    youtube_link,
+    cost,
+    category: JSON.stringify(category),
+  };
 
   const response = await postAsync<RegisterOutputType, RegisterInputType>(
     '/register',

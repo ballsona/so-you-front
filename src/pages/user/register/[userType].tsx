@@ -68,6 +68,7 @@ const Register = () => {
           '이메일로 인증 코드를 발송했습니다. 5분 이내에 코드를 입력해주세요',
         );
       } else {
+        console.log(response);
         setMessage(0, response.result.errorMessage);
       }
       return;

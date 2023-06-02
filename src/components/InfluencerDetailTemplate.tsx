@@ -161,7 +161,8 @@ const TemplateWrapper = styled.div`
 
   .title {
     width: fit-content;
-    margin: 48px auto 29px;
+    margin: 0px auto 29px;
+    padding-top: 48px;
   }
 `;
 

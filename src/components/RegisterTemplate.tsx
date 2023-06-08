@@ -107,6 +107,7 @@ const RegisterTemplate = ({
         <RegisterInputWrap>
           <Label>생년월일</Label>
           <Input
+            type="number"
             placeholder={`${userType}님의 생년월일을 입력해주세요 (YYYY-MM-DD)`}
             {...onChangeInput('birth_date')}
           />
@@ -227,6 +228,11 @@ const Input = styled.input`
     font-size: 11px;
     font-weight: 300;
     color: ${COLORS.grayA3A};
+  }
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;
 

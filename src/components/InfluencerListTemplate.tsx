@@ -29,7 +29,7 @@ const InfluencerListTemplate = ({
       {data.map((inf, idx) => (
         <TableBody
           key={inf.index}
-          onClick={() => onClickInfluencerItem(inf.influencer_id)}
+          onClick={() => onClickInfluencerItem(inf.ide)}
         >
           <Data>
             <Text size={14} color={COLORS.gray484}>

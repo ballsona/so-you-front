@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 import { useRecoilValue } from 'recoil';
-import { influencerInfoState } from '../../stores/influencerAtom';
+import { focusedInfluencerData } from '../../stores/influencerAtom';
 
 import Text from './Text';
 import CloseIcon from '@/assets/icon/close.svg';
@@ -13,7 +13,7 @@ interface InfluencerInfoModalProps {
 
 const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
   const router = useRouter();
-  const influencerInfo = useRecoilValue(influencerInfoState);
+  const info = useRecoilValue(focusedInfluencerData);
 
   return (
     <ModalWrapper>
@@ -22,20 +22,20 @@ const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
       <ProfileWrap>
         <ProfileImg />
         <Text size={18} weight="700" color={COLORS.gray484}>
-          {influencerInfo?.name}
+          {info?.name}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {influencerInfo?.followersCount}명 구독
+          {info?.followersCount}명 구독
         </Text>
       </ProfileWrap>
 
       <DetailInfoWrap>
         <Field>소요기간</Field>
-        <Data>{influencerInfo?.working_time}일</Data>
+        <Data>{info?.working_time}일</Data>
         <Field>금액</Field>
-        <Data>{influencerInfo?.cost}원</Data>
+        <Data>{info?.cost}원</Data>
         <Field>카테고리</Field>
-        <Data>{influencerInfo?.category.join(', ')}</Data>
+        <Data>{info?.category.join(', ')}</Data>
         <Field>사용채널</Field>
         <Data>인스타그램, 유투브</Data>
       </DetailInfoWrap>
@@ -49,9 +49,7 @@ const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
         </Button>
         <Button
           className="details-btn"
-          onClick={() =>
-            router.push(`/influencer/${influencerInfo?.influencer_id}`)
-          }
+          onClick={() => router.push(`/influencer/${info?.influencer_id}`)}
         >
           상세보기
         </Button>

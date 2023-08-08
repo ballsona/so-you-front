@@ -6,15 +6,16 @@ import InfluencerRankTemplate from '@/components/InfluencerListTemplate';
 
 import InfluencerInfoModal from '@/components/common/InfluencerInfoModal';
 import styled from '@emotion/styled';
-import { influencerInfoState } from '@/stores/influencerAtom';
+import { focusedInfluencerData } from '@/stores/influencerAtom';
 import { InfluencerListData } from '../../dummyData';
 
 const Influencer = () => {
   // 인플루언서 정보 모달 열림 여부
   const [isModalOpened, setIsModalOpened] = useState(false);
   // 모달에 전달할 인플루언서 정보를 전역 상태에 저장하는 함수
-  const [influencerInfo, setFocusedInfluencerInfo] =
-    useRecoilState(influencerInfoState);
+  const [influencerInfo, setFocusedInfluencerInfo] = useRecoilState(
+    focusedInfluencerData,
+  );
 
   const handleModal = () => setIsModalOpened((prev) => !prev);
 

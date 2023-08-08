@@ -28,13 +28,16 @@ const CategorySelectModal = ({
     <Hr />
     <CategorysWrap>
       {themes.map((theme) => (
-        <Category
+        <Text
           key={theme}
+          size={12}
+          weight="700"
+          color={category.includes(theme) ? COLORS.primary : COLORS.gray484}
+          className="category"
           onClick={() => onClickCategory(theme)}
-          selected={category.includes(theme)}
         >
           {theme}
-        </Category>
+        </Text>
       ))}
     </CategorysWrap>
     <ModalButtonsWrap>
@@ -85,16 +88,12 @@ const Hr = styled.div`
 const CategorysWrap = styled.div`
   width: 300px;
   margin-top: 22px;
-`;
 
-const Category = styled.div`
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  margin: 6px;
-  color: ${({ selected }: { selected: boolean }) =>
-    selected ? COLORS.primary : COLORS.gray484};
-  cursor: pointer;
+  .category {
+    display: inline-block;
+    margin: 6px;
+    cursor: pointer;
+  }
 `;
 
 const ModalButtonsWrap = styled.div`

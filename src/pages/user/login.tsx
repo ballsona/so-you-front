@@ -5,6 +5,8 @@ import { loginAsync } from '@/apis/user';
 import { LoginInputType } from '@/types/user';
 import { MutableRefObject, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { tokenAtom, userDataAtom } from '@/stores/userAtom';
 
 const Login = () => {
   const router = useRouter();
@@ -12,6 +14,9 @@ const Login = () => {
     useRef<HTMLParagraphElement>() as MutableRefObject<HTMLParagraphElement>;
 
   const { register, handleSubmit } = useForm<LoginInputType>();
+
+  const [, setToken] = useRecoilState(tokenAtom);
+  const [, setUserData] = useRecoilState(userDataAtom);
 
   const onSubmitLogin = async (data: LoginInputType) => {
     const { email, password } = data;
@@ -27,13 +32,14 @@ const Login = () => {
     // 로그인 요청 실패
     if (!response.isSuccess) {
       messageRef.current.innerText = response.result.errorMessage;
+      return;
     }
     // 로그인 요청 성공
-    else {
-      // TODO 로그인 성공시 토큰 저장 작업 필요 (localStorage or Cookie)
-      // TODO 라우터 경로 수정 필요 (홈으로)
-      router.replace('/influencer');
-    }
+    const { token, refreshToken, type } = response.result;
+    setToken({ token, refreshToken });
+    setUserData({ type });
+
+    router.replace('/influencer');
   };
 
   return (

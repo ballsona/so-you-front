@@ -2,15 +2,19 @@ import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 import { InfluencerListData } from '../dummyData';
+import Image from 'next/image';
+import { channel } from 'diagnostics_channel';
 
 interface InfluencerListTemplateProps {
-  handleModal: () => void;
+  data: any[];
   onClickInfluencerItem: (id: number) => void;
 }
 
 const InfluencerListTemplate = ({
+  data,
   onClickInfluencerItem,
 }: InfluencerListTemplateProps) => {
+  console.log(data);
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
@@ -22,21 +26,27 @@ const InfluencerListTemplate = ({
         <Field>카테고리</Field>
         <Field>예산</Field>
       </TableHeader>
-      {InfluencerListData.map((inf) => (
+      {data.map((inf, idx) => (
         <TableBody
-          key={inf.ranking}
+          key={inf.index}
           onClick={() => onClickInfluencerItem(inf.influencer_id)}
         >
           <Data>
             <Text size={14} color={COLORS.gray484}>
-              {inf.ranking}
+              {idx + 1}
             </Text>
           </Data>
           <Data className="profile-data">
-            <ProfileImg />
-            <ProfileTextWrap>
+            <ProfileWrap>
+              <Image
+                src={inf.channel_Image}
+                layout="fill"
+                style={{ borderRadius: 20 }}
+              />
+            </ProfileWrap>
+            <ProfileTextWrap style={{ width: 130 }}>
               <Text size={14} weight="700" color={COLORS.gray484}>
-                {inf.name}
+                {inf.channel_Title}
               </Text>
               <Text size={12} color={COLORS.gray818}>
                 {inf.followersCount}명 구독
@@ -45,7 +55,7 @@ const InfluencerListTemplate = ({
           </Data>
           <Data>
             <Text size={14} weight="700" color="#547AC3">
-              {inf.category.join(', ')}
+              {JSON.parse(inf.category).join(', ')}
             </Text>
           </Data>
           <Data>
@@ -81,6 +91,7 @@ const TableHeader = styled.div`
   .profile-data {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 `;
 
@@ -111,13 +122,14 @@ const Data = styled.div`
   justify-content: center;
 `;
 
-const ProfileImg = styled.div`
+const ProfileWrap = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 20px;
   background-color: #f6f6f6;
   border: 1px solid #cdcdcd;
   margin-right: 16px;
+  position: relative;
 `;
 
 const ProfileTextWrap = styled.div``;

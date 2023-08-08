@@ -1,10 +1,22 @@
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
 
 import Text from './Text';
 import SearchIcon from '@/assets/icon/search.svg';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  detailSearchMode,
+  influencerSearchFilter,
+  searchKeyWord,
+} from '@/stores/influencerAtom';
+import DetailSearchModal from './DetailSearchModal/DetailSearchModal';
+import ArrowButton from './ArrowButton';
+import React, { useCallback } from 'react';
+import { tokenAtom } from '@/stores/userAtom';
+import { searchInfluencerAsync } from '@/apis/search';
 
 const navmenu = ['project', 'influencer', 'report', 'mypage'] as const;
 
@@ -12,37 +24,96 @@ interface NavigationBarProps {
   activeTab?: (typeof navmenu)[number];
 }
 
+// TODO 렌더링 관리가 상당히 필요해보이죠..
 const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   const router = useRouter();
+  // 검색 키워드
+  const [keyword, setKeyword] = useRecoilState(searchKeyWord);
+  const filter = useRecoilValue(influencerSearchFilter);
+  const { category, popularity, costRange } = filter;
+
+  // 상세 검색 여부
+  const [isDetailSearchMode, setDetailSearchMode] =
+    useRecoilState(detailSearchMode);
+  const { token } = useRecoilValue(tokenAtom);
+
+  const handleDetailSearchModal = () => setDetailSearchMode((prev) => !prev);
+
+  const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  const onSearchButtonClick = useCallback(async () => {
+    const res = await searchInfluencerAsync(
+      keyword,
+      category,
+      popularity,
+      costRange,
+      token,
+    );
+    if (!res.isSuccess) {
+      alert(res.result.errorMessage);
+    }
+  }, []);
+
   return (
-    <Wrapper>
-      <Text
-        size={25}
-        weight="700"
-        color={COLORS.white}
-        className="logo-text"
-        onClick={() => router.push('/')}
-      >
-        SoYOU
-      </Text>
-      <SearchBar>
-        <SearchIcon />
-      </SearchBar>
-      <NavListContainer>
-        {navmenu.map((menu) => (
-          <Text
-            key={menu}
-            size={15}
-            weight={activeTab === menu ? '700' : '400'}
-            color={COLORS.white}
-            className="nav-item"
-            onClick={() => router.push(NAV_INFO[menu].url)}
+    <>
+      <Wrapper>
+        <Text
+          size={25}
+          weight="700"
+          color={COLORS.white}
+          className="logo-text"
+          onClick={() => router.push('/')}
+        >
+          SoYOU
+        </Text>
+        <SearchBar>
+          <DetailSearchButton
+            onClick={handleDetailSearchModal}
+            initial={false}
+            animate={isDetailSearchMode ? 'open' : 'closed'}
           >
-            {NAV_INFO[menu].label}
-          </Text>
-        ))}
-      </NavListContainer>
-    </Wrapper>
+            <ArrowButton color={COLORS.white} />
+            <Text size={14} weight="400" color={COLORS.white}>
+              상세 검색
+            </Text>
+          </DetailSearchButton>
+          <SearchIcon onClick={onSearchButtonClick} />
+          <SearchBarInput value={keyword} onChange={handleKeyword} />
+        </SearchBar>
+        <NavListContainer>
+          {navmenu.map((menu) => (
+            <Text
+              key={menu}
+              size={15}
+              weight={activeTab === menu ? '700' : '400'}
+              color={COLORS.white}
+              className="nav-item"
+              onClick={() => router.push(NAV_INFO[menu].url)}
+            >
+              {NAV_INFO[menu].label}
+            </Text>
+          ))}
+        </NavListContainer>
+      </Wrapper>
+
+      <ModalContainer
+        animate={isDetailSearchMode ? 'open' : 'closed'}
+        initial={{ y: -30 }}
+        variants={{
+          open: { y: 0 },
+          closed: { opacity: 0 },
+        }}
+      >
+        <>
+          <DetailSearchModal />
+        </>
+      </ModalContainer>
+      {isDetailSearchMode && (
+        <ModalBackground onClick={handleDetailSearchModal} />
+      )}
+    </>
   );
 };
 
@@ -55,6 +126,7 @@ const Wrapper = styled.div`
   height: 60px;
   background-color: ${COLORS.primary};
   position: relative;
+  z-index: 1000;
 
   .logo-text {
     position: absolute;
@@ -65,11 +137,6 @@ const Wrapper = styled.div`
 `;
 
 const SearchBar = styled.div`
-  width: 300px;
-  height: 34px;
-  background-color: ${COLORS.white};
-  border-radius: 50px;
-
   position: absolute;
   top: calc(50% - 17px);
   left: calc(50% - 150px);
@@ -81,7 +148,27 @@ const SearchBar = styled.div`
   }
 `;
 
-const NavListContainer = styled.div`
+export const SearchBarInput = styled.input`
+  width: 300px;
+  height: 34px;
+  background-color: ${COLORS.white};
+  border-radius: 50px;
+  border: none;
+  padding: 0px 15px;
+`;
+
+export const DetailSearchButton = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+
+  position: absolute;
+  top: 5px;
+  left: -86px;
+`;
+
+export const NavListContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
@@ -93,4 +180,21 @@ const NavListContainer = styled.div`
   .nav-item {
     cursor: pointer;
   }
+`;
+
+export const ModalContainer = styled(motion.div)`
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 5;
+`;
+
+export const ModalBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 `;

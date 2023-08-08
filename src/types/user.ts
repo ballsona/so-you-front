@@ -8,7 +8,11 @@ export interface LoginInputType {
 }
 
 export interface LoginOutputType {
+  success: boolean;
+  email: string;
+  type: string;
   token: string;
+  refreshToken: string;
 }
 
 export interface RegisterInputType {
@@ -24,7 +28,7 @@ export interface RegisterInputType {
 }
 
 export interface RegisterOutputType {
-  success: true;
+  success: boolean;
 }
 
 /**

@@ -8,3 +8,12 @@ export const mainPageTitleVariants = {
     transition: { delay: 0.2, duration: 1, ease: easing },
   },
 };
+
+export const detailSearchModalVariants = {
+  exit: { y: -15, opacity: 0, transition: { duration: 0.2, ease: easing } },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.2, duration: 1, ease: easing },
+  },
+};

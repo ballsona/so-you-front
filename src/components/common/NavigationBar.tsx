@@ -43,7 +43,10 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
     setKeyword(e.target.value);
   };
 
-  const onSearchButtonClick = useCallback(async () => {
+  const onSearchButtonClick = async () => {
+    if (keyword === '') {
+      alert('검색어를 입력해주세요.');
+    }
     const res = await searchInfluencerAsync(
       keyword,
       category,
@@ -54,7 +57,7 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
     if (!res.isSuccess) {
       alert(res.result.errorMessage);
     }
-  }, []);
+  };
 
   return (
     <>
@@ -98,21 +101,16 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
         </NavListContainer>
       </Wrapper>
 
-      <ModalContainer
-        animate={isDetailSearchMode ? 'open' : 'closed'}
-        initial={{ y: -30 }}
-        variants={{
-          open: { y: 0 },
-          closed: { opacity: 0 },
-        }}
-      >
+      {isDetailSearchMode && <DetailSearchModal />}
+
+      {/*<ModalContainer>
         <>
           <DetailSearchModal />
         </>
       </ModalContainer>
       {isDetailSearchMode && (
         <ModalBackground onClick={handleDetailSearchModal} />
-      )}
+      )}*/}
     </>
   );
 };
@@ -180,21 +178,4 @@ export const NavListContainer = styled.div`
   .nav-item {
     cursor: pointer;
   }
-`;
-
-export const ModalContainer = styled(motion.div)`
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 5;
-`;
-
-export const ModalBackground = styled.div`
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
 `;

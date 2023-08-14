@@ -11,11 +11,11 @@ const ProgressBar = ({ activeStep }: ProgressBarProps) => {
     <BarWrapper>
       {new Array(5).fill(0).map((v, idx) =>
         activeStep === idx ? (
-          <ActiveCircleBorder>
+          <ActiveCircleBorder key={idx}>
             <ActiveCircle />
           </ActiveCircleBorder>
         ) : (
-          <Circle />
+          <Circle key={idx} />
         ),
       )}
       <Bar />

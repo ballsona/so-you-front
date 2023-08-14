@@ -12,13 +12,18 @@ import {
   popularityDegree,
   seasons,
 } from '@/constants/influencer';
+import { projectRequestData, projectRequestStep } from '@/stores/projectAtom';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 
-const RequestInputList = () => {
+const RequestForm = () => {
   const router = useRouter();
+  const [, setActiveStep] = useRecoilState(projectRequestStep);
+  const [, setRequestData] = useRecoilState(projectRequestData);
+
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [category, setCategory] = useState<Array<ThemeType>>([]);
   const [popularity, setPopularity] = useState<PopularityDegreeType | null>(
@@ -47,7 +52,16 @@ const RequestInputList = () => {
     setCostRange(range);
   };
 
-  const onSubmitForm = () => {};
+  const onSubmitForm = () => {
+    setActiveStep((prev) => prev + 1);
+    setRequestData((prev) => ({
+      ...prev,
+      category,
+      popularity,
+      season,
+      costRange,
+    }));
+  };
 
   return (
     <Wrapper>
@@ -103,7 +117,7 @@ const RequestInputList = () => {
         <Button onClick={() => router.back()} className="cancel-btn">
           뒤로
         </Button>
-        <Button onClick={() => {}} className="update-btn">
+        <Button onClick={onSubmitForm} className="update-btn">
           의뢰하기
         </Button>
       </ButtonsWrap>
@@ -111,7 +125,7 @@ const RequestInputList = () => {
   );
 };
 
-export default RequestInputList;
+export default RequestForm;
 
 const Wrapper = styled.div`
   display: flex;
@@ -154,7 +168,6 @@ const SeasonsWrap = styled.div`
 const ButtonsWrap = styled.div`
   margin: 50px auto 0px;
   display: flex;
-  z-index: -1;
 
   .cancel-btn {
     background-color: ${COLORS.grayC4C};

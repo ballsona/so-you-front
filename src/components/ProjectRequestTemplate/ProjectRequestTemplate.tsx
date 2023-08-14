@@ -10,8 +10,8 @@ import { PROCESS_INFO } from './RequestProcessInfo';
 
 const ProjectRequestTemplate = () => {
   const [activeStep, setActiveStep] = useRecoilState(projectRequestStep);
+  const { title, content: Content } = PROCESS_INFO[activeStep];
 
-  const { title, content: Content }: any = PROCESS_INFO[activeStep];
   return (
     <styles.TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">

@@ -6,7 +6,15 @@ export const projectRequestStep = atom({
   default: 0,
 });
 
-export const projectRequestData = atom<ProjectRequestDataType | null>({
+export const projectRequestData = atom<ProjectRequestDataType>({
   key: 'projectRequestData',
-  default: null,
+  default: {
+    clientName: '',
+    clientEmail: '',
+    influencerId: null,
+    season: null,
+    popularity: null,
+    costRange: null,
+    category: [],
+  },
 });

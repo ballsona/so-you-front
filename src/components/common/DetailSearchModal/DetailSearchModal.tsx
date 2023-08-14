@@ -9,10 +9,13 @@ import {
   themes,
 } from '@/constants/influencer';
 import { useRecoilState } from 'recoil';
-import { influencerSearchFilter } from '@/stores/influencerAtom';
+import {
+  detailSearchMode,
+  influencerSearchFilter,
+} from '@/stores/influencerAtom';
 
 import * as styles from './DetailSearchModal.style';
-import CostRangeMenu from './CostRangeMenu';
+import CostRangeMenu from '../CostRangeMenu';
 
 const Label = ({ text }: { text: string }) => (
   <Text color={COLORS.primary} size={14} weight="400" className="label">
@@ -23,6 +26,10 @@ const Label = ({ text }: { text: string }) => (
 const DetailSearchModal = () => {
   const [filter, setFilter] = useRecoilState(influencerSearchFilter);
   const { category, popularity, costRange } = filter;
+
+  // 상세 검색 여부
+  const [isDetailSearchMode, setDetailSearchMode] =
+    useRecoilState(detailSearchMode);
 
   const onClickCategory = (theme: ThemeType) => {
     if (!category.includes(theme)) {
@@ -44,44 +51,54 @@ const DetailSearchModal = () => {
   };
 
   return (
-    <styles.ModalWrapper>
-      <styles.Field>
-        <Label text="카테고리" />
-        <styles.CategorysWrap>
-          {themes.map((theme) => (
-            <Text
-              key={theme}
-              size={14}
-              weight={category.includes(theme) ? '700' : '400'}
-              color={COLORS.gray484}
-              className="category"
-              onClick={() => onClickCategory(theme)}
-            >
-              {theme}
-            </Text>
-          ))}
-        </styles.CategorysWrap>
-      </styles.Field>
-      <styles.Field>
-        <Label text="인 지 도" />
-        <styles.PopularityBarsWrap>
-          {popularityDegree.map((d) => (
-            <PopularityBar
-              isFocused={d === popularity}
-              degree={d}
-              onClick={() => onClickPopularityBar(d)}
-            />
-          ))}
-        </styles.PopularityBarsWrap>
-      </styles.Field>
-      <styles.Field>
-        <Label text="예   산" />
-        <CostRangeMenu
-          selectedMenu={costRange}
-          setSelectedMenu={onSelectCostRange}
-        />
-      </styles.Field>
-    </styles.ModalWrapper>
+    <>
+      <styles.ModalWrapper
+        animate={isDetailSearchMode ? 'open' : 'closed'}
+        initial={{ y: -30 }}
+        variants={{
+          open: { y: 0 },
+          closed: { opacity: 0 },
+        }}
+      >
+        <styles.Field>
+          <Label text="카테고리" />
+          <styles.CategorysWrap>
+            {themes.map((theme) => (
+              <Text
+                key={theme}
+                size={14}
+                weight={category.includes(theme) ? '700' : '400'}
+                color={COLORS.gray484}
+                className="category"
+                onClick={() => onClickCategory(theme)}
+              >
+                {theme}
+              </Text>
+            ))}
+          </styles.CategorysWrap>
+        </styles.Field>
+        <styles.Field>
+          <Label text="인 지 도" />
+          <styles.PopularityBarsWrap>
+            {popularityDegree.map((d) => (
+              <PopularityBar
+                isFocused={d === popularity}
+                degree={d}
+                onClick={() => onClickPopularityBar(d)}
+              />
+            ))}
+          </styles.PopularityBarsWrap>
+        </styles.Field>
+        <styles.Field>
+          <Label text="예   산" />
+          <CostRangeMenu
+            selectedMenu={costRange}
+            setSelectedMenu={onSelectCostRange}
+          />
+        </styles.Field>
+      </styles.ModalWrapper>
+      <styles.ModalBackground onClick={() => setDetailSearchMode(false)} />
+    </>
   );
 };
 

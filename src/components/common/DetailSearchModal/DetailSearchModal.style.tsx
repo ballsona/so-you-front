@@ -1,7 +1,8 @@
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled(motion.div)`
   width: 600px;
   height: 330px;
   background-color: ${COLORS.white};
@@ -14,7 +15,19 @@ export const ModalWrapper = styled.div`
   gap: 25px;
 
   position: absolute;
+  top: 60px;
   left: calc(50% - 300px);
+  z-index: 10;
+`;
+
+export const ModalBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 `;
 
 export const CategorysWrap = styled.div`
@@ -33,7 +46,7 @@ export const Field = styled.div`
 
   .label {
     width: 79px;
-    text-align: center;
+    text-align: c;
   }
 `;
 

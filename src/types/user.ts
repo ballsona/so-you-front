@@ -1,4 +1,4 @@
-import { ThemeType } from '@/constants/influencer';
+import { CategoryType } from '@/constants/category';
 
 export type userType = 'influencer' | 'client';
 
@@ -15,16 +15,17 @@ export interface LoginOutputType {
   refreshToken: string;
 }
 
-export interface RegisterInputType {
+export interface RegisterFormType {
   type: userType;
   email: string;
+  emailVerifyCode: string;
   password: string;
   passwordCheck?: string;
   name: string;
   birth_date: string;
   youtube_link?: string;
   cost?: number;
-  category?: ThemeType[];
+  category?: CategoryType[];
 }
 
 export interface RegisterOutputType {

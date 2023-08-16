@@ -2,7 +2,7 @@ import {
   CostRangeType,
   PopularityDegreeType,
   SeasonType,
-  ThemeType,
+  CategoryType,
 } from '@/constants/influencer';
 
 export interface ProjectRequestDataType {
@@ -19,5 +19,5 @@ export interface ProjectRequestDataType {
   /** 예산 (server: project_cost)  */
   costRange: CostRangeType | null;
   /** 카테고리 (server: project_category)  */
-  category: ThemeType[];
+  category: CategoryType[];
 }

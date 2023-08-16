@@ -1,7 +1,7 @@
 import {
   CostRangeType,
   PopularityDegreeType,
-  ThemeType,
+  CategoryType,
 } from '@/constants/influencer';
 
 {
@@ -39,7 +39,7 @@ export interface InfluencerDataType {
   /** 구독자 수 */
   followersCount: number;
   /** 관련 카테고리 배열 */
-  category: Array<ThemeType>;
+  category: Array<CategoryType>;
   /** 예상 비용 */
   cost: number;
   /** 채널 링크 (유투브) */
@@ -68,7 +68,7 @@ export interface InfluencerSearchType {
 
 export interface InfluencerSearchFilterType {
   /** 관련 카테고리 배열 */
-  category: Array<ThemeType>;
+  category: Array<CategoryType>;
   /** 인지도 (1~5) */
   popularity: PopularityDegreeType;
   /** 예산 범위 */

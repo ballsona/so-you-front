@@ -8,11 +8,11 @@ import {
   CostRangeType,
   PopularityDegreeType,
   SeasonType,
-  ThemeType,
+  CategoryType,
   popularityDegree,
   seasons,
 } from '@/constants/influencer';
-import { projectRequestData, projectRequestStep } from '@/stores/projectAtom';
+import { projectRequestData, projectRequestStep } from '@/stores/projectState';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
@@ -25,7 +25,7 @@ const RequestForm = () => {
   const [, setRequestData] = useRecoilState(projectRequestData);
 
   const [isModalOpened, setIsModalOpened] = useState(false);
-  const [category, setCategory] = useState<Array<ThemeType>>([]);
+  const [category, setCategory] = useState<Array<CategoryType>>([]);
   const [popularity, setPopularity] = useState<PopularityDegreeType | null>(
     null,
   );
@@ -34,7 +34,7 @@ const RequestForm = () => {
 
   const handleModal = () => setIsModalOpened((prev) => !prev);
 
-  const onClickCategory = (theme: ThemeType) => {
+  const onClickCategory = (theme: CategoryType) => {
     if (!category.includes(theme) && category.length >= 5) {
       alert('카테고리는 5개 이하로 선택해주세요');
     } else if (!category.includes(theme) && category.length < 5) {

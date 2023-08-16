@@ -1,9 +1,9 @@
-import { ThemeType } from '@/constants/influencer';
+import { CategoryType } from '@/constants/category';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import Text from './Text';
 
-const CategoryTag = ({ theme }: { theme: ThemeType }) => (
+const CategoryTag = ({ theme }: { theme: CategoryType }) => (
   <Tag>
     <Text color={COLORS.primary} size={12}>
       {theme}

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 import { useRecoilValue } from 'recoil';
-import { focusedInfluencerData } from '../../stores/influencerAtom';
+import { focusedInfluencerData } from '@/stores/influencerState';
 
 import Text from './Text';
 import CloseIcon from '@/assets/icon/close.svg';

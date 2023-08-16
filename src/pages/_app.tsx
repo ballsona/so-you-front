@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { globalStyles } from '@/styles/global';
 import { Global } from '@emotion/react';
 import { AnimatePresence } from 'framer-motion';
+import ModalProvider from '@/components/common/Modal/ModalProvider';
 
 interface ServiceAppProps {}
 
@@ -19,6 +20,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps<ServiceAppProps>) => {
       <Global styles={globalStyles}></Global>
       <RecoilRoot>
         <AnimatePresence mode="wait">
+          <ModalProvider />
           <Component {...pageProps} key={router.route} />
         </AnimatePresence>
       </RecoilRoot>

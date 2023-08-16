@@ -3,9 +3,9 @@ import InfluencerList from '../common/InfluencerList';
 import { useEffect, useState } from 'react';
 import { getMatchingInfluencerListAsync } from '@/apis/project';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { tokenAtom } from '@/stores/userAtom';
-import { projectRequestData } from '@/stores/projectAtom';
-import { focusedInfluencerData } from '@/stores/influencerAtom';
+import { tokenAtom } from '@/stores/userState';
+import { projectRequestData } from '@/stores/projectState';
+import { focusedInfluencerData } from '@/stores/influencerState';
 import InfluencerInfoModal from '../common/InfluencerInfoModal';
 
 interface InfluencerSelectFormProps {}

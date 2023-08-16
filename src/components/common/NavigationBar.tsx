@@ -11,11 +11,11 @@ import {
   detailSearchMode,
   influencerSearchFilter,
   searchKeyWord,
-} from '@/stores/influencerAtom';
+} from '@/stores/influencerState';
 import DetailSearchModal from './DetailSearchModal/DetailSearchModal';
 import ArrowButton from './ArrowButton';
 import React, { useCallback } from 'react';
-import { tokenAtom } from '@/stores/userAtom';
+import { tokenAtom } from '@/stores/userState';
 import { searchInfluencerAsync } from '@/apis/search';
 
 const navmenu = ['project', 'influencer', 'report', 'mypage'] as const;

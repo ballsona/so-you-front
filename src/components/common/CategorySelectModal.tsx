@@ -1,55 +1,104 @@
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import Text from './Text';
 
 import CloseIcon from '@/assets/icon/close.svg';
 
-import { ThemeType, themes } from '@/constants/influencer';
 import { COLORS } from '@/styles/theme';
+import { CategoryType, categories } from '@/constants/category';
+import { useRecoilState } from 'recoil';
+import { categoryListAtom } from '@/stores/categoryState';
+import { useModal } from '@/hooks/useModal';
 
-interface CategorySelectModalProps {
-  category: ThemeType[];
-  handleModal: () => void;
-  onClickCategory: (theme: ThemeType) => void;
-}
-
-const CategorySelectModal = ({
-  category,
-  handleModal,
-  onClickCategory,
-}: CategorySelectModalProps) => (
-  <ModalWrapper>
-    <CloseIcon className="close-icon" onClick={handleModal} />
-    <Text size={20} weight="700" color={COLORS.gray484} className="modal-title">
-      카테고리 추가
-    </Text>
-    <Text size={12} color={COLORS.grayB5B} className="modal-title">
-      내게 맞는 테마를 1개 이상 선택해주세요.
-    </Text>
-    <Hr />
-    <CategorysWrap>
-      {themes.map((theme) => (
-        <Text
-          key={theme}
-          size={12}
-          weight="700"
-          color={category.includes(theme) ? COLORS.primary : COLORS.gray484}
-          className="category"
-          onClick={() => onClickCategory(theme)}
-        >
-          {theme}
-        </Text>
-      ))}
-    </CategorysWrap>
-    <ModalButtonsWrap>
-      <Button className="cancel-btn" onClick={handleModal}>
-        취소
-      </Button>
-      <Button className="add-btn" onClick={handleModal}>
-        추가
-      </Button>
-    </ModalButtonsWrap>
-  </ModalWrapper>
+const CategoryItem = React.memo(
+  ({
+    label,
+    isSelected,
+    onClickItem,
+  }: {
+    label: CategoryType;
+    isSelected: boolean;
+    onClickItem: (c: CategoryType) => void;
+  }) => {
+    return (
+      <Text
+        size={12}
+        weight="700"
+        color={isSelected ? COLORS.primary : COLORS.gray484}
+        className="category"
+        onClick={() => onClickItem(label)}
+      >
+        {label}
+      </Text>
+    );
+  },
 );
+
+const CategorySelectModal = () => {
+  const { closeModal } = useModal();
+
+  // 최종적으로 선택된 카테고리 목록
+  const [selectedCategories, setSelectedCategories] =
+    useRecoilState(categoryListAtom);
+
+  // 현재 모달창에서 선택한 카테고리 목록
+  const [tempSelectedList, setTempSelectedList] =
+    useState<CategoryType[]>(selectedCategories);
+
+  const onClickCategory = useCallback(
+    (c: CategoryType) => {
+      if (!tempSelectedList.includes(c) && tempSelectedList.length >= 5) {
+        alert('카테고리는 5개 이하로 선택해주세요');
+      } else if (!tempSelectedList.includes(c) && tempSelectedList.length < 5) {
+        setTempSelectedList((prev) => [...prev, c]);
+      } else {
+        setTempSelectedList((prev) => prev.filter((t) => t !== c));
+      }
+    },
+    [selectedCategories],
+  );
+
+  const onSubmitModal = () => {
+    setSelectedCategories(tempSelectedList);
+    closeModal();
+  };
+
+  return (
+    <ModalWrapper>
+      <CloseIcon className="close-icon" onClick={closeModal} />
+      <Text
+        size={20}
+        weight="700"
+        color={COLORS.gray484}
+        className="modal-title"
+      >
+        카테고리 추가
+      </Text>
+      <Text size={12} color={COLORS.grayB5B} className="modal-title">
+        내게 맞는 테마를 1개 이상 선택해주세요.
+      </Text>
+      <Hr />
+      <CategorysWrap>
+        {categories.map((category) => (
+          <CategoryItem
+            key={category}
+            label={category}
+            isSelected={tempSelectedList.includes(category)}
+            onClickItem={onClickCategory}
+          />
+        ))}
+      </CategorysWrap>
+      <ModalButtonsWrap>
+        <Button className="cancel-btn" onClick={closeModal}>
+          취소
+        </Button>
+        <Button className="add-btn" onClick={onSubmitModal}>
+          추가
+        </Button>
+      </ModalButtonsWrap>
+    </ModalWrapper>
+  );
+};
 
 export default CategorySelectModal;
 

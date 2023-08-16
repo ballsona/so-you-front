@@ -3,7 +3,7 @@ import Text from '../common/Text';
 import ProgressBar from './ProgressBar';
 
 import { useRecoilState } from 'recoil';
-import { projectRequestStep } from '@/stores/projectAtom';
+import { projectRequestStep } from '@/stores/projectState';
 
 import * as styles from './ProjectRequestTemplate.style';
 import { PROCESS_INFO } from './RequestProcessInfo';

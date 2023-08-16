@@ -1,13 +1,13 @@
 import {
   LoginInputType,
   LoginOutputType,
-  RegisterInputType,
+  RegisterFormType,
   RegisterOutputType,
 } from '@/types/user';
-import { postAsync } from '.';
+import { getAsync, postAsync } from '.';
 import { ApiResponse } from '@/types/api';
 import { userType } from '@/types/user';
-import { ThemeType } from '@/constants/influencer';
+import { CategoryType } from '@/constants/category';
 
 /** 로그인 요청 함수 */
 export async function loginAsync(
@@ -30,7 +30,7 @@ export async function registerAsync(
   birth_date: string,
   youtube_link?: string,
   cost?: number,
-  category?: Array<ThemeType>,
+  category?: Array<CategoryType>,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
   const influencer_data = {
@@ -39,7 +39,10 @@ export async function registerAsync(
     category: JSON.stringify(category),
   };
 
-  const response = await postAsync<RegisterOutputType, RegisterInputType>(
+  const response = await postAsync<
+    RegisterOutputType,
+    Omit<RegisterFormType, 'emailVerifyCode'>
+  >(
     '/register',
     type === 'client' ? default_data : { ...default_data, ...influencer_data },
   );
@@ -66,5 +69,16 @@ export async function verifyEmailCodeAsync(
       code,
     },
   );
+  return response;
+}
+
+// TODO type
+/** 유저 정보 요청하는 함수 */
+export async function getUserInfoAsync(token: string): ApiResponse<any> {
+  const response = await getAsync<any>('/api/user/mypage', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response;
 }

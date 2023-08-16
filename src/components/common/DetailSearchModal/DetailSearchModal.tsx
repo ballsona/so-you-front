@@ -4,7 +4,7 @@ import PopularityBar from './PopularityBar';
 import {
   CostRangeType,
   PopularityDegreeType,
-  ThemeType,
+  CategoryType,
   popularityDegree,
   themes,
 } from '@/constants/influencer';
@@ -12,7 +12,7 @@ import { useRecoilState } from 'recoil';
 import {
   detailSearchMode,
   influencerSearchFilter,
-} from '@/stores/influencerAtom';
+} from '@/stores/influencerState';
 
 import * as styles from './DetailSearchModal.style';
 import CostRangeMenu from '../CostRangeMenu';
@@ -31,7 +31,7 @@ const DetailSearchModal = () => {
   const [isDetailSearchMode, setDetailSearchMode] =
     useRecoilState(detailSearchMode);
 
-  const onClickCategory = (theme: ThemeType) => {
+  const onClickCategory = (theme: CategoryType) => {
     if (!category.includes(theme)) {
       setFilter((prev) => ({ ...prev, category: [...category, theme] }));
     } else {

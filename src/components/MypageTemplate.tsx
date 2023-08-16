@@ -1,0 +1,3 @@
+const MyPageTemplate = () => {
+  return <>mypage</>;
+};

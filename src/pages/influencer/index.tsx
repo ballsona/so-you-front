@@ -8,8 +8,8 @@ import InfluencerInfoModal from '@/components/common/InfluencerInfoModal';
 import styled from '@emotion/styled';
 import { GetServerSideProps } from 'next';
 import { getInfluencerListAsync } from '@/apis/influencer';
-import { tokenAtom } from '@/stores/userAtom';
-import { focusedInfluencerData } from '@/stores/influencerAtom';
+import { tokenAtom } from '@/stores/userState';
+import { focusedInfluencerData } from '@/stores/influencerState';
 import { InfluencerListData } from '../../dummyData';
 
 //export const getServerSideProps: GetServerSideProps<{

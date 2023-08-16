@@ -6,7 +6,7 @@ import { LoginInputType } from '@/types/user';
 import { MutableRefObject, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { tokenAtom, userDataAtom } from '@/stores/userAtom';
+import { tokenAtom, userDataAtom } from '@/stores/userState';
 
 const Login = () => {
   const router = useRouter();

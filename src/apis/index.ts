@@ -1,7 +1,12 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { ApiError, ApiResponse } from '@/types/api';
 
-const API_URL = 'https://www.soyoubackend.com'; // TODO 백엔드에서 URL 받을 것!
+const API_URL = 'https://www.soyoubackend.com';
 
 const API: AxiosInstance = axios.create({
   baseURL: API_URL,
@@ -79,3 +84,54 @@ export async function postAsync<T, D>(
     };
   }
 }
+
+API.interceptors.request.use(async (req: InternalAxiosRequestConfig) => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  if (accessToken && req.headers) {
+    req.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return req;
+});
+
+API.interceptors.response.use(
+  // 응답 정상
+  (res: AxiosResponse) => res,
+  // 응답 실패
+  async (error) => {
+    // 액세스 토큰이 유효하지 않을 경우
+    if (error.response.status === 401) {
+      try {
+        const accessToken = window.localStorage.getItem('accessToken');
+        const refreshToken = window.localStorage.getItem('refreshToken');
+
+        const res = await getAsync<any>('/api/user/refresh', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'x-refresh-token': refreshToken,
+          },
+        });
+
+        if (res.isSuccess) {
+          const { accessToken, refreshToken } = res.result.response;
+
+          // 갱신된 토큰을 localStorage에 저장
+          window.localStorage.setItem('accessToken', accessToken);
+          window.localStorage.setItem('refreshToken', refreshToken);
+
+          // 갱신된 토큰을 가지고 api 재요청
+          return axios.request({
+            ...error.config,
+            headers: {
+              ...error.config?.headers,
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        window.location.href = '/user/login';
+      }
+    }
+    return Promise.reject(error);
+  },
+);

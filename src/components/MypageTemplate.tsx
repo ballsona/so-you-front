@@ -1,3 +1,0 @@
-const MyPageTemplate = () => {
-  return <>mypage</>;
-};

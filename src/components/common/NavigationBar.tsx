@@ -1,22 +1,19 @@
+import React from 'react';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
-import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
+import styled from '@emotion/styled';
 
 import Text from './Text';
 import SearchIcon from '@/assets/icon/search.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  detailSearchMode,
-  influencerSearchFilter,
-  searchKeyWord,
-} from '@/stores/influencerState';
-import DetailSearchModal from './DetailSearchModal/DetailSearchModal';
+import { searchFilter, searchKeyWord } from '@/stores/influencerState';
+import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
 import ArrowButton from './ArrowButton';
-import React, { useCallback } from 'react';
-import { tokenAtom } from '@/stores/userState';
+
 import { searchInfluencerAsync } from '@/apis/search';
+import { useModal } from '@/hooks/useModal';
 
 const navmenu = ['project', 'influencer', 'report', 'mypage'] as const;
 
@@ -24,36 +21,37 @@ interface NavigationBarProps {
   activeTab?: (typeof navmenu)[number];
 }
 
-// TODO 렌더링 관리가 상당히 필요해보이죠..
 const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   const router = useRouter();
+  const { modalState, openModal, closeModal } = useModal();
+
   // 검색 키워드
   const [keyword, setKeyword] = useRecoilState(searchKeyWord);
-  const filter = useRecoilValue(influencerSearchFilter);
+  // 상세 검색 필터
+  const filter = useRecoilValue(searchFilter);
   const { category, popularity, costRange } = filter;
-
-  // 상세 검색 여부
-  const [isDetailSearchMode, setDetailSearchMode] =
-    useRecoilState(detailSearchMode);
-  const { token } = useRecoilValue(tokenAtom);
-
-  const handleDetailSearchModal = () => setDetailSearchMode((prev) => !prev);
 
   const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
+  const handleModal = () => {
+    modalState.visible ? closeModal() : openModal(<DetailSearchModal />);
+  };
+
   const onSearchButtonClick = async () => {
     if (keyword === '') {
-      alert('검색어를 입력해주세요.');
+      alert('검색어를 입력해주세요!');
+      return;
     }
+
     const res = await searchInfluencerAsync(
       keyword,
       category,
       popularity,
       costRange,
-      token,
     );
+
     if (!res.isSuccess) {
       alert(res.result.errorMessage);
     }
@@ -73,9 +71,9 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
         </Text>
         <SearchBar>
           <DetailSearchButton
-            onClick={handleDetailSearchModal}
+            onClick={handleModal}
             initial={false}
-            animate={isDetailSearchMode ? 'open' : 'closed'}
+            animate={modalState.visible ? 'open' : 'closed'}
           >
             <ArrowButton color={COLORS.white} />
             <Text size={14} weight="400" color={COLORS.white}>
@@ -100,17 +98,6 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
           ))}
         </NavListContainer>
       </Wrapper>
-
-      {isDetailSearchMode && <DetailSearchModal />}
-
-      {/*<ModalContainer>
-        <>
-          <DetailSearchModal />
-        </>
-      </ModalContainer>
-      {isDetailSearchMode && (
-        <ModalBackground onClick={handleDetailSearchModal} />
-      )}*/}
     </>
   );
 };
@@ -123,7 +110,9 @@ const Wrapper = styled.div`
   width: 100%;
   height: 60px;
   background-color: ${COLORS.primary};
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1000;
 
   .logo-text {

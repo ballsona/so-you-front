@@ -69,4 +69,8 @@ const StyledInput = styled.input`
     font-weight: 300;
     color: ${COLORS.grayA3A};
   }
+
+  :focus {
+    outline: none;
+  }
 `;

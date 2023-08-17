@@ -14,7 +14,7 @@ const PopularityBar = ({ isFocused, degree, onClick }: PopularityBarProps) => {
   return (
     <Wrapper color={Color} onClick={onClick}>
       {popularityDegree.map((d) => (
-        <Bar color={d <= degree ? Color : '#EEE'} />
+        <Bar key={d} color={d <= degree ? Color : '#EEE'} />
       ))}
     </Wrapper>
   );

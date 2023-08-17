@@ -15,7 +15,7 @@ const menuVariants: Variants = {
 };
 
 interface CostRangeMenuProps {
-  selectedMenu: CostRangeType;
+  selectedMenu?: CostRangeType;
   setSelectedMenu: (menu: CostRangeType) => void;
 }
 
@@ -28,7 +28,7 @@ const CostRangeMenu = ({
   return (
     <MenuWrapper initial={false} animate={isOpen ? 'open' : 'closed'}>
       <SelectedMenu onClick={() => setIsOpen(!isOpen)}>
-        {selectedMenu}
+        {selectedMenu ?? '예산 선택'}
         <ArrowButton color={COLORS.gray484} />
       </SelectedMenu>
       <MenuListWrap
@@ -39,6 +39,7 @@ const CostRangeMenu = ({
           .filter((r) => r !== selectedMenu)
           .map((range) => (
             <Menu
+              key={range}
               variants={menuVariants}
               onClick={() => {
                 setSelectedMenu(range);
@@ -78,13 +79,14 @@ const SelectedMenu = styled(motion.div)`
 
 const MenuListWrap = styled(motion.ul)`
   pointer-events: ${(props: { pointerEvents: string }) => props.pointerEvents};
+  position: relative;
   margin-top: 7px;
 
   width: 334px;
   background-color: ${COLORS.white};
   border: 1px solid ${COLORS.grayA3A};
   border-radius: 3px;
-  z-index: 10;
+  z-index: 100;
 
   clip-path: none !important;
   list-style: none;

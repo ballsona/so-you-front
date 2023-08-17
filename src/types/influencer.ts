@@ -1,11 +1,6 @@
-import {
-  CostRangeType,
-  PopularityDegreeType,
-  ThemeType,
-} from '@/constants/influencer';
+import { CategoryType } from '@/constants/category';
+import { CostRangeType, PopularityDegreeType } from '@/constants/influencer';
 
-{
-}
 export interface uInfluencerDataType {
   /** idx */
   index: number;
@@ -39,7 +34,7 @@ export interface InfluencerDataType {
   /** 구독자 수 */
   followersCount: number;
   /** 관련 카테고리 배열 */
-  category: Array<ThemeType>;
+  category: CategoryType[];
   /** 예상 비용 */
   cost: number;
   /** 채널 링크 (유투브) */
@@ -58,17 +53,9 @@ export interface InfluencerDetailDataType extends InfluencerDataType {
   /** 동영상 개수 */
   video_count: number;
 }
-
-export interface InfluencerSearchType {
-  /** 상세 검색 여부 */
-  isDetailMode: boolean;
-  /** 검색 키워드 */
-  keyword: string;
-}
-
 export interface InfluencerSearchFilterType {
   /** 관련 카테고리 배열 */
-  category: Array<ThemeType>;
+  category: Array<CategoryType>;
   /** 인지도 (1~5) */
   popularity: PopularityDegreeType;
   /** 예산 범위 */

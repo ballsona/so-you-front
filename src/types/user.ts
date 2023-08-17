@@ -1,8 +1,8 @@
-import { ThemeType } from '@/constants/influencer';
+import { CategoryType } from '@/constants/category';
 
 export type userType = 'influencer' | 'client';
 
-export interface LoginInputType {
+export interface LoginFormType {
   email: string;
   password: string;
 }
@@ -15,16 +15,17 @@ export interface LoginOutputType {
   refreshToken: string;
 }
 
-export interface RegisterInputType {
+export interface RegisterFormType {
   type: userType;
   email: string;
+  emailVerifyCode: string;
   password: string;
   passwordCheck?: string;
   name: string;
   birth_date: string;
   youtube_link?: string;
   cost?: number;
-  category?: ThemeType[];
+  category?: CategoryType[];
 }
 
 export interface RegisterOutputType {
@@ -37,3 +38,14 @@ export interface RegisterOutputType {
  *  3: 코드 확인 후 검증 완료
  * */
 export type EmailVerifyStatusType = 1 | 2 | 3;
+
+export interface MyPageFormType {
+  email: string;
+  password: string;
+  name: string;
+  birth_date: string;
+  youtube_link?: string;
+  channel_id?: string;
+  cost?: number;
+  category?: CategoryType[];
+}

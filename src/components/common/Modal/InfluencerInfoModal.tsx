@@ -1,59 +1,59 @@
 import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
-import { useRecoilValue } from 'recoil';
-import { focusedInfluencerData } from '../../stores/influencerAtom';
-
-import Text from './Text';
+import Text from '@/components/common/Text';
 import CloseIcon from '@/assets/icon/close.svg';
 import { useRouter } from 'next/router';
+import { useModal } from '@/hooks/useModal';
+import Image from 'next/image';
 
-interface InfluencerInfoModalProps {
-  handleModal: () => void;
-}
-
-const InfluencerInfoModal = ({ handleModal }: InfluencerInfoModalProps) => {
+const InfluencerInfoModal = ({ info }: { info: any }) => {
   const router = useRouter();
-  const info = useRecoilValue(focusedInfluencerData);
+  const { closeModal } = useModal();
+
+  const onClickDetailButton = () => {
+    closeModal();
+    router.push(`/influencer/${info?.influencer_id}`);
+  };
 
   return (
     <ModalWrapper>
-      <CloseIcon className="close-icon" onClick={handleModal} />
-
+      <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
-        <ProfileImg />
+        <Image
+          src={info?.channel_Image}
+          alt="channel-img"
+          className="channel-img"
+          width="80"
+          height="80"
+        />
         <Text size={18} weight="700" color={COLORS.gray484}>
-          {info?.name}
+          {info?.channel_Title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
           {info?.followersCount}명 구독
         </Text>
       </ProfileWrap>
-
       <DetailInfoWrap>
         <Field>소요기간</Field>
         <Data>{info?.working_time}일</Data>
         <Field>금액</Field>
         <Data>{info?.cost}원</Data>
         <Field>카테고리</Field>
-        <Data>{info?.category.join(', ')}</Data>
+        <Data>{JSON.parse(info?.category).join(', ')}</Data>
         <Field>사용채널</Field>
-        <Data>인스타그램, 유투브</Data>
+        <Data>인스타그램, 유튜브</Data>
       </DetailInfoWrap>
-
-      <ModalButtonsWrap>
+      <ButtonsWrap>
         <Button
           className="match-btn"
           onClick={() => alert('매칭 기능은 준비중이에요☺️')}
         >
           매칭
         </Button>
-        <Button
-          className="details-btn"
-          onClick={() => router.push(`/influencer/${info?.influencer_id}`)}
-        >
+        <Button className="detail-btn" onClick={onClickDetailButton}>
           상세보기
         </Button>
-      </ModalButtonsWrap>
+      </ButtonsWrap>
     </ModalWrapper>
   );
 };
@@ -83,7 +83,7 @@ const ModalWrapper = styled.div`
   }
 `;
 
-const ModalButtonsWrap = styled.div`
+const ButtonsWrap = styled.div`
   width: 100%;
   display: flex;
   position: absolute;
@@ -95,7 +95,7 @@ const ModalButtonsWrap = styled.div`
     background-color: ${COLORS.gray484};
   }
 
-  .details-btn {
+  .detail-btn {
     width: 140px;
     background-color: ${COLORS.primary};
   }
@@ -113,15 +113,13 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
 
-const ProfileImg = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  background-color: #f6f6f6;
-  border: 1px solid #cdcdcd;
-  margin-bottom: 18px;
+  .channel-img {
+    border-radius: 40px;
+    background-color: #f6f6f6;
+    border: 1px solid #cdcdcd;
+    margin-bottom: 18px;
+  }
 `;
 
 const DetailInfoWrap = styled.div`

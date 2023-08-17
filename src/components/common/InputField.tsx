@@ -26,6 +26,7 @@ const InputWrapper = styled.div`
   .email-input {
     width: 250px;
   }
+
   .code-input {
     width: 80px;
     margin-left: 4px;

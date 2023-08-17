@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import InfluencerList from '../common/InfluencerList';
+import InfluencerList from '../../influencer/InfluencerList';
 import { useEffect, useState } from 'react';
 import { getMatchingInfluencerListAsync } from '@/apis/project';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { tokenAtom } from '@/stores/userState';
 import { projectRequestData } from '@/stores/projectState';
 import { focusedInfluencerData } from '@/stores/influencerState';
-import InfluencerInfoModal from '../common/InfluencerInfoModal';
+import InfluencerInfoModal from '../../common/Modal/InfluencerInfoModal';
 
 interface InfluencerSelectFormProps {}
 

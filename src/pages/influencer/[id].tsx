@@ -1,7 +1,7 @@
 import NavigationBar from '@/components/common/NavigationBar';
 import { useRouter } from 'next/router';
 import { InfluencerDetailInfoData } from '../../dummyData';
-import InfluencerDetailTemplate from '@/components/InfluencerDetailTemplate';
+import InfluencerDetailTemplate from '@/components/influencer/InfluencerDetailTemplate';
 
 const InfluencerDetail = () => {
   const router = useRouter();
@@ -16,5 +16,3 @@ const InfluencerDetail = () => {
 };
 
 export default InfluencerDetail;
-
-/** InfluencerDetail Style */

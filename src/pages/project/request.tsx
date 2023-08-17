@@ -1,4 +1,4 @@
-import ProjectRequestTemplate from '@/components/ProjectRequestTemplate';
+import ProjectRequestTemplate from '@/components/project/ProjectRequestTemplate';
 import NavigationBar from '@/components/common/NavigationBar';
 
 const ProjectRequestPage = () => {

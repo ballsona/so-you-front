@@ -4,7 +4,7 @@ import {
 } from '@/types/influencer';
 import { atom } from 'recoil';
 
-/** 모달로 띄울 인플루언서 데이터 */
+/** 모달에서 보여지는 인플루언서 상세 데이터 */
 export const focusedInfluencerData = atom<InfluencerDataType | null>({
   key: 'influencerData',
   default: null,
@@ -16,15 +16,9 @@ export const searchKeyWord = atom<string>({
   default: '',
 });
 
-/** 상세 검색 여부 */
-export const detailSearchMode = atom<boolean>({
-  key: 'deatailSearchMode',
-  default: false,
-});
-
 /** 상세 검색에 사용되는 필터 */
-export const influencerSearchFilter = atom<InfluencerSearchFilterType>({
-  key: 'influencerSearchFilter',
+export const searchFilter = atom<InfluencerSearchFilterType>({
+  key: 'searchFilter',
   default: {
     category: [],
     popularity: 5,

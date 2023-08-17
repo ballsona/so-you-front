@@ -2,7 +2,7 @@
 export const NAV_INFO: Record<string, any> = {
   project: {
     label: '프로젝트',
-    url: '/project',
+    url: '/project/request',
   },
   influencer: {
     label: '인플루언서',

@@ -1,20 +1,30 @@
-import { ProjectRequestDataType } from '@/types/project';
-import { atom } from 'recoil';
+import { getUserInfoAsync } from '@/apis/user';
+import { RequestFormType } from '@/types/project';
+import { atom, selector } from 'recoil';
 
-export const projectRequestStep = atom({
-  key: 'projectRequestStep',
-  default: 0,
+export const projectRequestForm = atom<RequestFormType>({
+  key: 'projectRequestForm',
+  default: {
+    season: undefined,
+    popularity: undefined,
+    costRange: undefined,
+    category: undefined,
+  },
 });
 
-export const projectRequestData = atom<ProjectRequestDataType>({
+export const projectRequestData = selector({
   key: 'projectRequestData',
-  default: {
-    clientName: '',
-    clientEmail: '',
-    influencerId: null,
-    season: null,
-    popularity: null,
-    costRange: null,
-    category: [],
+  get: async ({ get }) => {
+    const formFields = get(projectRequestForm);
+    const res = await getUserInfoAsync();
+    if (res.isSuccess) {
+      const { name, email } = res.result.user;
+
+      return {
+        ...formFields,
+        name,
+        email,
+      };
+    }
   },
 });

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { userType } from '@/types/user';
-import RegisterTemplate from '@/components/RegisterTemplate';
+import RegisterTemplate from '@/components/user/RegisterTemplate';
 
 const Register = () => {
   const router = useRouter();

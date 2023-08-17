@@ -1,15 +1,16 @@
 import { ApiResponse } from '@/types/api';
 import { getAsync } from '.';
-import { uInfluencerDataType } from '@/types/influencer';
-
-// TODO 타입
 
 /** 인플루언서 목록 불러오기 */
-export async function getInfluencerListAsync(token: string): ApiResponse<any> {
-  const response = await getAsync<any>('/api/influencer/list', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export async function getInfluencerListAsync(): ApiResponse<any> {
+  const response = await getAsync<any>('/api/influencer/list');
+  return response;
+}
+
+/** 인플루언서 상세 데이터 불러오기 */
+export async function getInfluencerDetailInfoAsync(
+  index: number,
+): ApiResponse<any> {
+  const response = await getAsync<any>(`/api/influencer/list/${index}`);
   return response;
 }

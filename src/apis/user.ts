@@ -1,5 +1,5 @@
 import {
-  LoginInputType,
+  LoginFormType,
   LoginOutputType,
   RegisterFormType,
   RegisterOutputType,
@@ -9,12 +9,16 @@ import { ApiResponse } from '@/types/api';
 import { userType } from '@/types/user';
 import { CategoryType } from '@/constants/category';
 
+export function setAccessToken(token: string) {
+  window.localStorage.setItem('accessToken', token);
+}
+
 /** 로그인 요청 함수 */
 export async function loginAsync(
   email: string,
   password: string,
 ): ApiResponse<LoginOutputType> {
-  const response = await postAsync<LoginOutputType, LoginInputType>('/login', {
+  const response = await postAsync<LoginOutputType, LoginFormType>('/login', {
     email,
     password,
   });
@@ -72,13 +76,8 @@ export async function verifyEmailCodeAsync(
   return response;
 }
 
-// TODO type
 /** 유저 정보 요청하는 함수 */
-export async function getUserInfoAsync(token: string): ApiResponse<any> {
-  const response = await getAsync<any>('/api/user/mypage', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export async function getUserInfoAsync(): ApiResponse<any> {
+  const response = await getAsync<any>('/api/user/mypage');
   return response;
 }

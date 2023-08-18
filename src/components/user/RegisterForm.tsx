@@ -20,6 +20,7 @@ import CategoryTag from '../common/CategoryTag';
 import CategorySelectModal from '../common/Modal/CategorySelectModal';
 import { validateDate, validatePw } from '@/utils/validation';
 import { NAV_INFO } from '@/constants/navigation';
+import ChannelInfoIcon from '@/assets/icon/channel-icon.svg';
 
 type PE = HTMLParagraphElement;
 
@@ -82,6 +83,8 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
     }
   };
 
+  const [showInfo, setShowInfo] = useState(true);
+
   const register = async (data: RegisterFormType) => {
     const {
       email,
@@ -90,6 +93,7 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       name,
       birth_date,
       youtube_link,
+      channel_id,
       cost,
     } = data;
 
@@ -123,6 +127,7 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       youtube_link,
       cost,
       selectedCategories,
+      channel_id,
     );
     // 회원가입 성공
     if (response.isSuccess) {
@@ -222,6 +227,21 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
                 placeholder="연결할 유튜브 링크를 등록해주세요"
               />
             </InputWrap>
+            <InputWrap>
+              {showInfo && (
+                <img src="/channel-info-img.jpg" className="channel-info-img" />
+              )}
+              <ChannelInfoIcon
+                className="channel-info-icon"
+                onMouseOver={() => setShowInfo(true)}
+                onMouseOut={() => setShowInfo(false)}
+              />
+              <Label>채널 아이디</Label>
+              <TextInput
+                name="channel_id"
+                placeholder="채널 아이디를 입력해주세요"
+              />
+            </InputWrap>
           </>
         )}
         <ButtonsWrap>
@@ -265,6 +285,7 @@ const InputWrap = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 16px;
+  position: relative;
 
   .input-with-btn {
     width: 250px;
@@ -276,6 +297,22 @@ const InputWrap = styled.div`
 
   .verified-btn {
     background-color: ${COLORS.grayA3A};
+  }
+
+  .channel-info-icon {
+    position: absolute;
+    top: 5px;
+    left: -30px;
+  }
+
+  .channel-info-img {
+    position: absolute;
+    top: -285px;
+    left: -25px;
+    width: 500px;
+    height: 280px;
+    border: 1px solid ${COLORS.primary};
+    border-radius: 5px;
   }
 `;
 

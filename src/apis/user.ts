@@ -35,12 +35,14 @@ export async function registerAsync(
   youtube_link?: string,
   cost?: number,
   category?: Array<CategoryType>,
+  channel_id?: string,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
   const influencer_data = {
     youtube_link,
     cost,
     category: JSON.stringify(category),
+    channel_id,
   };
 
   const response = await postAsync<
@@ -94,5 +96,20 @@ export async function updateUserInfoAsync(
   fields: UpdateForm,
 ): ApiResponse<any> {
   const response = await putAsync('/api/influencer/mypage', fields);
+  return response;
+}
+
+
+/** 유저 비밀번호 업데이트하는 함수 */
+export async function updatePasswordAsync(
+  name: string,
+  birth_date: string,
+  password: string,
+): ApiResponse<any> {
+  const response = await putAsync('/api/user/mypage/pw', {
+    name,
+    birth_date,
+    password,
+  });
   return response;
 }

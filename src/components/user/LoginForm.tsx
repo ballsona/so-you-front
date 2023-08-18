@@ -61,7 +61,12 @@ const LoginForm = () => {
       <Wrapper>
         <MessageBox ref={messageRef} />
         <TextInput name="email" placeholder="EMAIL" className="login-input" />
-        <TextInput name="password" placeholder="PW" className="login-input" />
+        <TextInput
+          type="password"
+          name="password"
+          placeholder="PW"
+          className="login-input"
+        />
         <SubMenuContainer>
           {SUB_MENU.map((menu, idx) => (
             <Fragment key={menu}>

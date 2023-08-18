@@ -56,7 +56,9 @@ const InfluencerList = ({ data, onClickItem }: InfluencerListTemplateProps) => (
         </Data>
         <Data>
           <Text size={14} color={COLORS.gray484}>
-            {inf.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+            {inf.cost &&
+              inf.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            원
           </Text>
         </Data>
       </TableBody>

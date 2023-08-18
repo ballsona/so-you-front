@@ -10,6 +10,7 @@ import { useMessageRefs } from '@/hooks/useMessageRefs';
 import { useModal } from '@/hooks/useModal';
 import {
   registerAsync,
+  verifyChannelIdAsync,
   verifyEmailAsync,
   verifyEmailCodeAsync,
 } from '@/apis/user';
@@ -43,9 +44,9 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
   const formMethods = useForm<RegisterFormType>();
   const { control, handleSubmit } = formMethods;
 
-  const [email, verifyCode] = useWatch({
+  const [email, verifyCode, channelId] = useWatch({
     control,
-    name: ['email', 'emailVerifyCode'],
+    name: ['email', 'emailVerifyCode', 'channel_id'],
   });
 
   const user = type === 'influencer' ? '인플루언서' : '광고주';
@@ -83,7 +84,20 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
     }
   };
 
-  const [showInfo, setShowInfo] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
+  const [isIdValid, setIsIdValid] = useState(false);
+
+  const verifyChannelId = async () => {
+    if (!channelId) {
+      alert('채널 아이디를 입력해주세요');
+      return;
+    }
+
+    const res = await verifyChannelIdAsync(channelId);
+    if (res.isSuccess) {
+      setIsIdValid(true);
+    }
+  };
 
   const register = async (data: RegisterFormType) => {
     const {
@@ -109,12 +123,18 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       setMessage(2, '비밀번호를 다시 확인해주세요');
       return;
     }
-    if (!validateDate(birth_date)) {
+    if (!validateDate(String(birth_date))) {
+      console.log(birth_date);
       setMessage(3, '생년월일 형식이 유효하지 않습니다');
       return;
     }
     if (cost && cost < 0) {
       setMessage(4, '예상 광고비가 올바르지 않습니다');
+      return;
+    }
+
+    if (!isIdValid) {
+      alert('채널 아이디를 인증해주세요');
       return;
     }
 
@@ -196,7 +216,7 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
         <InputWrap>
           <Label>생년월일</Label>
           <TextInput
-            type="number"
+            type="string"
             name="birth_date"
             placeholder={`${user}님의 생년월일을 입력해주세요 (YYYY-MM-DD)`}
           />
@@ -240,7 +260,15 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
               <TextInput
                 name="channel_id"
                 placeholder="채널 아이디를 입력해주세요"
+                className="input-with-btn"
+                disabled={isIdValid}
               />
+              <MiniButton
+                onClick={verifyChannelId}
+                className={isIdValid ? 'verified-btn' : ''}
+              >
+                {isIdValid ? '적용 완료' : '인증'}
+              </MiniButton>
             </InputWrap>
           </>
         )}

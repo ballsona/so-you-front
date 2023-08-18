@@ -21,7 +21,5 @@ export const searchFilter = atom<InfluencerSearchFilterType>({
   key: 'searchFilter',
   default: {
     category: [],
-    popularity: 5,
-    costRange: '5,000,000원 ~ 10,000,000원',
   },
 });

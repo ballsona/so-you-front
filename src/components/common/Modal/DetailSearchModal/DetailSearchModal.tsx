@@ -21,23 +21,26 @@ const Label = ({ text }: { text: string }) => (
 );
 
 const DetailSearchModal = () => {
-  const { modalState, closeModal } = useModal();
+  const { modalState } = useModal();
 
   const [filter, setFilter] = useRecoilState(searchFilter);
   const { category: selectedCategory, popularity, costRange } = filter;
 
   const onClickCategory = (c: CategoryType) => {
     if (!selectedCategory.includes(c)) {
-      setFilter((prev) => ({ ...prev, category: [...selectedCategory, c] }));
+      setFilter((prev: any) => ({
+        ...prev,
+        category: [...selectedCategory, c],
+      }));
     } else {
-      setFilter((prev) => ({
+      setFilter((prev: any) => ({
         ...prev,
         category: selectedCategory.filter((s) => s !== c),
       }));
     }
   };
 
-  const onClickPopularityBar = (degree: PopularityDegreeType) => {
+  const onSelectPopularity = (degree: PopularityDegreeType) => {
     setFilter((prev) => ({ ...prev, popularity: degree }));
   };
 
@@ -57,7 +60,7 @@ const DetailSearchModal = () => {
       <styles.Field>
         <Label text="카테고리" />
         <styles.CategorysWrap>
-          {categories.map((category) => (
+          {categories.map((category: any) => (
             <Text
               key={category}
               size={14}
@@ -78,7 +81,7 @@ const DetailSearchModal = () => {
             <PopularityBar
               isFocused={d === popularity}
               degree={d}
-              onClick={() => onClickPopularityBar(d)}
+              onClick={() => onSelectPopularity(d)}
             />
           ))}
         </styles.PopularityBarsWrap>

@@ -9,13 +9,13 @@ import { CategoryType } from '@/constants/category';
 export async function searchInfluencerAsync /** 관련 카테고리 배열 */(
   keyword: string,
   category: CategoryType[],
-  popularity: PopularityDegreeType,
-  costRange: CostRangeType,
+  popularity?: PopularityDegreeType,
+  costRange?: CostRangeType,
 ): ApiResponse<uInfluencerDataType> {
   const response = await postAsync<uInfluencerDataType, any>(
     '/api/search/influencer',
     {
-      categoryInput: JSON.stringify(category),
+      categoryInput: category.length > 0 ? JSON.stringify(category) : undefined,
       costRangeInput: costRange,
       popularityInput: popularity,
       searchKeyword: keyword,

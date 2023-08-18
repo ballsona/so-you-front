@@ -78,6 +78,13 @@ export async function verifyEmailCodeAsync(
   return response;
 }
 
+export async function verifyChannelIdAsync(id: string): ApiResponse<unknown> {
+  const response = await postAsync('/api/getChannelId', {
+    channelId: id,
+  });
+  return response;
+}
+
 /** 유저 정보 요청하는 함수 */
 export async function getUserInfoAsync(): ApiResponse<any> {
   const response = await getAsync<any>('/api/user/mypage');
@@ -98,7 +105,6 @@ export async function updateUserInfoAsync(
   const response = await putAsync('/api/influencer/mypage', fields);
   return response;
 }
-
 
 /** 유저 비밀번호 업데이트하는 함수 */
 export async function updatePasswordAsync(

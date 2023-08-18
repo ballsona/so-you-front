@@ -34,7 +34,7 @@ const MyPageTemplate = ({}: MyPageTemplateProps) => {
     }
   }, [userType]);
 
-  if (!data) return;
+  if (!data) return <></>;
 
   return (
     userType && (

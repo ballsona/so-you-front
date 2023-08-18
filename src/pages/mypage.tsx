@@ -1,9 +1,3 @@
-import { getUserInfoAsync } from '@/apis/user';
-import { Suspense, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import MyPageTemplate from '@/components/user/MypageTemplate';
-import { useRecoilValue } from 'recoil';
-import { userTypeAtom } from '@/stores/userState';
 import NavigationBar from '@/components/common/NavigationBar';
 import dynamic from 'next/dynamic';
 
@@ -16,7 +10,7 @@ import dynamic from 'next/dynamic';
 //};
 
 const DynamicMyPage = dynamic(
-  () => import('@/components/user/MypageTemplate'),
+  () => import('../components/user/MypageTemplate'),
   {
     loading: () => <div>loading..</div>,
     ssr: false,

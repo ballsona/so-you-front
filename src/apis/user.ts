@@ -99,6 +99,7 @@ export async function updateUserInfoAsync(
   return response;
 }
 
+
 /** 유저 비밀번호 업데이트하는 함수 */
 export async function updatePasswordAsync(
   name: string,

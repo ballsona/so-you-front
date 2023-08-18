@@ -9,14 +9,6 @@ const DynamicMyPage = dynamic(
   },
 );
 
-const DynamicMyPage = dynamic(
-  () => import('../components/user/MypageTemplate'),
-  {
-    loading: () => <div>loading..</div>,
-    ssr: false,
-  },
-);
-
 const MyPage = () => {
   return (
     <>

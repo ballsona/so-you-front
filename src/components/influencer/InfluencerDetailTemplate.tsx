@@ -5,12 +5,25 @@ import { InfluencerDetailDataType } from '@/types/influencer';
 
 import ArrowDownIcon from '@/assets/icon/arrow-down.svg';
 import ArrowUpIcon from '@/assets/icon/arrow-up.svg';
+import Image from 'next/image';
 
 interface InfluencerDetailTemplateProps {
-  info: InfluencerDetailDataType;
+  data: any;
 }
 
-const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
+const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
+  const {
+    channel_Image: image,
+    channelTitle,
+    followersCount,
+    category,
+    cost,
+    subscriberCountIncrease,
+    averageViews,
+    averageViewsIncrease,
+    videoCount,
+    viewCount,
+  } = data;
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
@@ -19,25 +32,37 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
       <DashBoard>
         <DataBoxWrap className="profile-wrap">
           <ProfileWrap>
-            <ProfileImg />
+            {image && (
+              <Image
+                src={image}
+                width="60"
+                height="60"
+                className="channel-img"
+              />
+            )}
             <div>
-              <Text size={16} weight="700" color={COLORS.gray484}>
-                {info.name}
+              <Text
+                size={16}
+                weight="700"
+                color={COLORS.gray484}
+                className="channel-title"
+              >
+                {channelTitle}
               </Text>
               <Text size={14} color={COLORS.gray818}>
-                {info.followersCount}명 구독
+                {followersCount}명 구독
               </Text>
             </div>
           </ProfileWrap>
           <Text size={16} weight="700" color="#547AC3" className="categorys">
-            {info.category.join(', ')}
+            {JSON.parse(category).join(', ')}
           </Text>
           <CostWrap>
             <Text size={16} weight="700" color={COLORS.gray484}>
               예상 단가
             </Text>
             <Text size={16} color={COLORS.gray484}>
-              {info.cost}원
+              {cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
             </Text>
           </CostWrap>
         </DataBoxWrap>
@@ -57,7 +82,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
                 팔로워
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {info.followersCount}
+                {followersCount}
               </Text>
             </div>
             <div>
@@ -65,7 +90,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
                 <ArrowUpIcon />
                 <div>
                   <Text size={14} weight="700" color="#59CE4F">
-                    +{info.followers_change_pct}%
+                    +{subscriberCountIncrease}%
                   </Text>
                   <Text size={10} color={COLORS.gray484}>
                     30일 기준
@@ -81,7 +106,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
                 평균 조회수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {info.average_views}
+                {averageViews}
               </Text>
             </div>
             <div>
@@ -89,7 +114,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
                 <ArrowDownIcon />
                 <div>
                   <Text size={14} weight="700" color="#FE2222">
-                    {info.average_views_change_pct}%
+                    {averageViewsIncrease}%
                   </Text>
                   <Text size={10} color={COLORS.gray484}>
                     30일 기준
@@ -105,7 +130,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
                 동영상 개수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {info.video_count}개
+                {videoCount}개
               </Text>
             </div>
           </DataBoxWrap>
@@ -125,7 +150,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
               팔로워
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {info.followersCount}
+              {followersCount}
             </Text>
           </DataBoxWrap>
           <DataBoxWrap className="data-box">
@@ -133,7 +158,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
               조회수
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {info.total_views}
+              {viewCount}
             </Text>
           </DataBoxWrap>
           <DataBoxWrap className="data-box">
@@ -141,7 +166,7 @@ const InfluencerDetailTemplate = ({ info }: InfluencerDetailTemplateProps) => {
               동영상 수
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {info.video_count}
+              {videoCount}
             </Text>
           </DataBoxWrap>
         </DataStatisticsWrap>
@@ -156,8 +181,9 @@ export default InfluencerDetailTemplate;
 
 const TemplateWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
   background-color: #fbfcff;
+  padding-top: 108px;
 
   .title {
     width: fit-content;
@@ -189,10 +215,17 @@ const DataBoxWrap = styled.div`
   background: ${COLORS.white};
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.07);
   border-radius: 20px;
-  padding: 25px 40px;
+  padding: 25px 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .channel-title {
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
   .categorys {
     width: 250px;
@@ -236,15 +269,13 @@ const ProfileWrap = styled.div`
   display: flex;
   align-items: center;
   width: 200px;
-`;
+  gap: 10px;
 
-const ProfileImg = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  background-color: #f6f6f6;
-  border: 1px solid #cdcdcd;
-  margin-right: 10px;
+  .channel-img {
+    border-radius: 30px;
+    background-color: #f6f6f6;
+    border: 1px solid #cdcdcd;
+  }
 `;
 
 const CostWrap = styled.div`

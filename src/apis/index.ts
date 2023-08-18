@@ -84,6 +84,26 @@ export async function postAsync<T, D>(
     };
   }
 }
+export async function putAsync<T, D>(
+  url: string,
+  data: D,
+  config?: AxiosRequestConfig<D>,
+): ApiResponse<T> {
+  try {
+    const response = await API.put<T, AxiosResponse<T, D>, D>(url, data, {
+      ...config,
+    });
+    return {
+      isSuccess: true,
+      result: response.data,
+    };
+  } catch (error) {
+    return {
+      isSuccess: false,
+      result: handleError(error),
+    };
+  }
+}
 
 API.interceptors.request.use(async (req: InternalAxiosRequestConfig) => {
   const accessToken = window.localStorage.getItem('accessToken');

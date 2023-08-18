@@ -16,29 +16,37 @@ const InfluencerSelectModal = ({
 }: InfluencerSelectModalProps) => {
   const { closeModal } = useModal();
 
+  const {
+    channel_image: image,
+    channel_title: title,
+    followersCount,
+    cost,
+    category,
+  } = info;
+
   return (
     <ModalWrapper>
       <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
         <Image
-          src={info?.channel_Image}
+          src={image ?? ''}
           alt="channel-img"
           className="channel-img"
           width="80"
           height="80"
         />
         <Text size={18} weight="700" color={COLORS.gray484}>
-          {info?.channel_Title}
+          {title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {info?.followersCount}명 구독
+          {followersCount}명 구독
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
         <Field>금액</Field>
-        <Data>{info?.cost}원</Data>
+        <Data>{cost}원</Data>
         <Field>카테고리</Field>
-        <Data>{JSON.parse(info?.category).join(', ')}</Data>
+        <Data>{JSON.parse(category).join(', ')}</Data>
         <Field>사용채널</Field>
         <Data>인스타그램, 유튜브</Data>
       </DetailInfoWrap>
@@ -123,7 +131,7 @@ const DetailInfoWrap = styled.div`
   justify-content: center;
   grid-template-columns: 96px 134px;
   gap: 2px;
-  margin-top: 33px;
+  margin-top: 40px;
 `;
 
 const Field = styled.div`

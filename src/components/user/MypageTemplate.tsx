@@ -3,28 +3,48 @@ import MyPageForm from './MyPageForm';
 import styled from '@emotion/styled';
 import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
+import { useEffect, useState } from 'react';
+import { getUserInfoAsync } from '@/apis/user';
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { userTypeAtom } from '@/stores/userState';
 
-interface MyPageTemplateProps {
-  type: userType;
-  data: any;
-}
+interface MyPageTemplateProps {}
 
-const MyPageTemplate = ({ type, data }: MyPageTemplateProps) => {
-  const { email, name, birth_date, category, cost, youtube_link, channel_id } =
-    data;
-  const basicData = { email, name, birth_date };
-  const influencerData = { category, cost, youtube_link, channel_id };
+const MyPageTemplate = ({}: MyPageTemplateProps) => {
+  const router = useRouter();
+  const [data, setData] = useState<object>();
 
-  const defaultData =
-    type === 'client' ? basicData : { ...basicData, ...influencerData };
+  const userType = useRecoilValue(userTypeAtom);
+
+  // 유저 정보 데이터 불러오기
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const res = await getUserInfoAsync();
+      if (res.isSuccess) {
+        setData(res.result.user);
+      }
+    };
+
+    if (userType) {
+      getUserInfo();
+    } else {
+      router.push('/user/login');
+      alert('로그인 해주세요!');
+    }
+  }, [userType]);
+
+  if (!data) return <></>;
 
   return (
-    <TemplateWrapper>
-      <Text size={24} weight="700" color={COLORS.gray484} className="title">
-        마이페이지
-      </Text>
-      <MyPageForm type={type} defaultData={defaultData} />
-    </TemplateWrapper>
+    userType && (
+      <TemplateWrapper>
+        <Text size={24} weight="700" color={COLORS.gray484} className="title">
+          마이페이지
+        </Text>
+        <MyPageForm type={userType} defaultData={data} />
+      </TemplateWrapper>
+    )
   );
 };
 

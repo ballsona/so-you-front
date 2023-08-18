@@ -6,9 +6,9 @@ const { persistAtom } = recoilPersist({
   key: 'user-data',
 });
 
-export const userTypeAtom = atom<userType>({
+export const userTypeAtom = atom<userType | null>({
   key: 'userTypeAtom',
-  //default: null,
+  default: null,
   effects_UNSTABLE: [persistAtom],
 });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
 import { motion } from 'framer-motion';
@@ -14,16 +14,30 @@ import ArrowButton from './ArrowButton';
 
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
+import { userTypeAtom } from '@/stores/userState';
 
-const navmenu = ['project', 'influencer', 'report', 'mypage'] as const;
-
+// TODO
 interface NavigationBarProps {
-  activeTab?: (typeof navmenu)[number];
+  activeTab?: string;
 }
 
 const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   const router = useRouter();
   const { modalState, openModal, closeModal } = useModal();
+
+  const userType = useRecoilValue(userTypeAtom);
+  const [navMenu, setNavMenu] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!userType) return;
+
+    setNavMenu([
+      'project',
+      'influencer',
+      'report',
+      userType === 'manager' ? 'admin' : 'mypage',
+    ]);
+  }, [userType]);
 
   // 검색 키워드
   const [keyword, setKeyword] = useRecoilState(searchKeyWord);
@@ -84,7 +98,7 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
           <SearchBarInput value={keyword} onChange={handleKeyword} />
         </SearchBar>
         <NavListContainer>
-          {navmenu.map((menu) => (
+          {navMenu.map((menu) => (
             <Text
               key={menu}
               size={15}

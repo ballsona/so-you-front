@@ -10,36 +10,52 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
   const router = useRouter();
   const { closeModal } = useModal();
 
+  const {
+    index: id,
+    channel_Image: image,
+    channel_Title: title,
+    followersCount,
+    cost,
+    category,
+  } = info;
+
   const onClickDetailButton = () => {
     closeModal();
-    router.push(`/influencer/${info?.influencer_id}`);
+    router.push(`/influencer/${id}`);
   };
 
   return (
     <ModalWrapper>
       <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
-        <Image
-          src={info?.channel_Image}
-          alt="channel-img"
-          className="channel-img"
-          width="80"
-          height="80"
-        />
-        <Text size={18} weight="700" color={COLORS.gray484}>
-          {info?.channel_Title}
+        {image && (
+          <Image
+            src={image}
+            alt="channel-img"
+            className="channel-img"
+            width="80"
+            height="80"
+          />
+        )}
+        <Text
+          size={18}
+          weight="700"
+          color={COLORS.gray484}
+          className="channel-title"
+        >
+          {title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {info?.followersCount}명 구독
+          {followersCount}명 구독
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
-        <Field>소요기간</Field>
-        <Data>{info?.working_time}일</Data>
+        {/*<Field>소요기간</Field>
+        <Data>{working_time}일</Data>*/}
         <Field>금액</Field>
-        <Data>{info?.cost}원</Data>
+        <Data>{cost}원</Data>
         <Field>카테고리</Field>
-        <Data>{JSON.parse(info?.category).join(', ')}</Data>
+        <Data>{JSON.parse(category).join(', ')}</Data>
         <Field>사용채널</Field>
         <Data>인스타그램, 유튜브</Data>
       </DetailInfoWrap>
@@ -119,6 +135,12 @@ const ProfileWrap = styled.div`
     background-color: #f6f6f6;
     border: 1px solid #cdcdcd;
     margin-bottom: 18px;
+  }
+
+  .channel-title {
+    width: 300px;
+    text-align: center;
+    margin-top: 10px;
   }
 `;
 

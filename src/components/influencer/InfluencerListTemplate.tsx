@@ -14,7 +14,7 @@ interface InfluencerListTemplateProps {
 const InfluencerListTemplate = ({ data }: InfluencerListTemplateProps) => {
   const { openModal } = useModal();
 
-  const onClickItem = useCallback(async (id: number) => {
+  const onClickItem = async (id: number) => {
     const res = await getInfluencerDetailInfoAsync(id);
 
     if (res.isSuccess) {
@@ -24,7 +24,7 @@ const InfluencerListTemplate = ({ data }: InfluencerListTemplateProps) => {
       };
       openModal(<InfluencerInfoModal info={modalInfo} />);
     }
-  }, []);
+  };
 
   return (
     <TemplateWrapper>
@@ -45,9 +45,10 @@ const TemplateWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 108px;
   margin-bottom: 80px;
 
   .title {
-    margin: 48px 0px 29px;
+    margin-bottom: 29px;
   }
 `;

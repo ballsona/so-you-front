@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
 import { MyPageFormType, userType } from '@/types/user';
 import { COLORS } from '@/styles/theme';
@@ -23,22 +23,26 @@ interface MyPageFormProps {
 
 const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
   const router = useRouter();
-  console.log(defaultData);
-
   const { openModal } = useModal();
-
   const { messageRefs, setMessage } = useMessageRefs();
 
   const selectedCategories = useRecoilValue(categoryListAtom);
 
+  const { birth_date } = defaultData;
+
   const formMethods = useForm<MyPageFormType>({
-    defaultValues: {},
+    defaultValues: {
+      birth_date: birth_date,
+    },
   });
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, control } = formMethods;
+  const fields = useWatch({ control });
 
   const updateInfo = async () => {};
 
   const user = type === 'influencer' ? '인플루언서' : '광고주';
+
+  console.log(type, defaultData, birth_date, fields);
 
   return (
     <FormProvider {...formMethods}>
@@ -60,8 +64,9 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
           <TextInput
             type="password"
             name="password"
-            placeholder="숫자, 영문 포함 8글자 이상"
+            placeholder="********"
             className="input-with-btn"
+            disabled
           />
           <MiniButton onClick={() => {}}>변경</MiniButton>
         </InputWrap>

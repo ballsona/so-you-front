@@ -57,7 +57,7 @@ export interface InfluencerSearchFilterType {
   /** 관련 카테고리 배열 */
   category: Array<CategoryType>;
   /** 인지도 (1~5) */
-  popularity: PopularityDegreeType;
+  popularity?: PopularityDegreeType;
   /** 예산 범위 */
-  costRange: CostRangeType;
+  costRange?: CostRangeType;
 }

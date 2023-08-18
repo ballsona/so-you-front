@@ -35,12 +35,14 @@ export async function registerAsync(
   youtube_link?: string,
   cost?: number,
   category?: Array<CategoryType>,
+  channel_id?: string,
 ): ApiResponse<RegisterOutputType> {
   const default_data = { type, email, password, name, birth_date };
   const influencer_data = {
     youtube_link,
     cost,
     category: JSON.stringify(category),
+    channel_id,
   };
 
   const response = await postAsync<

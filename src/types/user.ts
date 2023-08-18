@@ -24,6 +24,7 @@ export interface RegisterFormType {
   name: string;
   birth_date: string;
   youtube_link?: string;
+  channel_id?: string;
   cost?: number;
   category?: CategoryType[];
 }

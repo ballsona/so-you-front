@@ -20,7 +20,6 @@ const MyPage = () => {
   const [data, setData] = useState({});
 
   const userType = useRecoilValue(userTypeAtom);
-  console.log(data, '?');
 
   // 유저 정보 데이터 불러오기
   useEffect(() => {
@@ -31,13 +30,15 @@ const MyPage = () => {
       }
     };
 
-    getUserInfo();
+    if (userType) getUserInfo();
   }, [userType]);
 
   if (!userType) {
-    //router.push('/user/login');
-    return null;
+    alert('로그인을 진행해주세요');
+    router.push('/user/login');
+    return;
   }
+  if (!data) return;
 
   return (
     <>

@@ -27,12 +27,12 @@ export async function requestProjectAsync(
 
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,
-    date: season,
+    date: season ?? '',
     popularity,
     project_cost: costRange,
     influencer: influencerId,
     email: clientEmail,
-    project_category: category,
+    project_category: JSON.stringify(category),
   });
   return response;
 }

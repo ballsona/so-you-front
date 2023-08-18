@@ -5,8 +5,9 @@ export const TemplateWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 108px;
+  margin-bottom: 70px;
 
   .title {
-    margin: 48px 0px 26px;
+    margin-bottom: 26px;
   }
 `;

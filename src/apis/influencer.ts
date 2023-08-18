@@ -14,3 +14,9 @@ export async function getInfluencerDetailInfoAsync(
   const response = await getAsync<any>(`/api/influencer/list/${index}`);
   return response;
 }
+
+/** 인플루언서 통계 데이터 불러오기 */
+export async function getStatisticsInfoAsync(index: number): ApiResponse<any> {
+  const response = await getAsync<any>(`/api/getInfluencer/info/${index}`);
+  return response;
+}

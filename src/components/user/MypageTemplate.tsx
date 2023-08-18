@@ -10,8 +10,10 @@ interface MyPageTemplateProps {
 }
 
 const MyPageTemplate = ({ type, data }: MyPageTemplateProps) => {
+  console.log(data);
   const { email, name, birth_date, category, cost, youtube_link, channel_id } =
     data;
+
   const basicData = { email, name, birth_date };
   const influencerData = { category, cost, youtube_link, channel_id };
 

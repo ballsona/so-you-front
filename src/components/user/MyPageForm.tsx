@@ -23,6 +23,7 @@ interface MyPageFormProps {
 
 const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
   const router = useRouter();
+  console.log(defaultData);
 
   const { openModal } = useModal();
 
@@ -31,7 +32,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
   const selectedCategories = useRecoilValue(categoryListAtom);
 
   const formMethods = useForm<MyPageFormType>({
-    defaultValues: defaultData,
+    defaultValues: {},
   });
   const { handleSubmit } = formMethods;
 
@@ -49,6 +50,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
             type="email"
             name="email"
             placeholder="이메일을 입력해주세요"
+            defaultValue={defaultData.email}
             disabled
           />
         </InputWrap>
@@ -68,6 +70,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
           <TextInput
             name="name"
             placeholder={`${user}님의 이름을 입력해주세요`}
+            defaultValue={defaultData.name}
           />
         </InputWrap>
         <MessageBox ref={(node: PE) => (messageRefs.current[3] = node)} />

@@ -16,6 +16,10 @@ export const NAV_INFO: Record<string, any> = {
     label: '마이페이지',
     url: '/mypage',
   },
+  admin: {
+    label: '관리자',
+    url: '/admin',
+  },
   login: {
     text: '로그인',
     url: '/user/login',

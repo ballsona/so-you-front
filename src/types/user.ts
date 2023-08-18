@@ -1,6 +1,6 @@
 import { CategoryType } from '@/constants/category';
 
-export type userType = 'influencer' | 'client';
+export type userType = 'influencer' | 'client' | 'manager';
 
 export interface LoginFormType {
   email: string;

@@ -15,6 +15,7 @@ import CategoryTag from '../common/CategoryTag';
 import CategorySelectModal from '../common/Modal/CategorySelectModal';
 import { useEffect } from 'react';
 import { updateUserInfoAsync } from '@/apis/user';
+import UpdatePasswordModal from '../common/Modal/UpdatePasswordModal';
 
 type PE = HTMLParagraphElement;
 
@@ -49,7 +50,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
 
   // 카테고리 세팅
   useEffect(() => {
-    setSelectedCategories(JSON.parse(category));
+    setSelectedCategories(category ? JSON.parse(category) : []);
   }, []);
 
   // 정보 변경
@@ -68,6 +69,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
 
     if (!res.isSuccess) {
       alert('정보를 변경할 수 없습니다.');
+      return;
     }
 
     alert('정보를 업데이트하였습니다.');
@@ -100,7 +102,19 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
             className="input-with-btn"
             disabled
           />
-          <MiniButton onClick={() => {}}>변경</MiniButton>
+          <MiniButton
+            onClick={() =>
+              openModal(
+                <UpdatePasswordModal
+                  name={defaultData.name}
+                  birth_date={defaultData.birth_date}
+                />,
+                true,
+              )
+            }
+          >
+            변경
+          </MiniButton>
         </InputWrap>
         <InputWrap>
           <Label>이름</Label>
@@ -135,7 +149,11 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
             <MessageBox ref={(node: PE) => (messageRefs.current[4] = node)} />
             <InputWrap>
               <Label>예상 광고비</Label>
-              <TextInput name="cost" placeholder="예상 광고비를 입력해주세요" />
+              <TextInput
+                type="number"
+                name="cost"
+                placeholder="예상 광고비를 입력해주세요"
+              />
             </InputWrap>
             <InputWrap>
               <Label>채널 링크</Label>
@@ -149,6 +167,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
               <TextInput
                 name="channel_id"
                 placeholder="채널 아이디를 입력해주세요"
+                disabled
               />
             </InputWrap>
           </>
@@ -229,6 +248,7 @@ const MiniButton = styled.button`
 
 const ButtonsWrap = styled.div`
   margin: 50px auto 0px;
+
   display: flex;
 
   .cancel-btn {
@@ -244,7 +264,7 @@ const ButtonsWrap = styled.div`
 `;
 
 const Button = styled.button`
-  height: 36px;
+  height: 42px;
   color: ${COLORS.white};
   border-radius: 4px;
   font-size: 16px;

@@ -96,3 +96,17 @@ export async function updateUserInfoAsync(
   const response = await putAsync('/api/influencer/mypage', fields);
   return response;
 }
+
+/** 유저 비밀번호 업데이트하는 함수 */
+export async function updatePasswordAsync(
+  name: string,
+  birth_date: string,
+  password: string,
+): ApiResponse<any> {
+  const response = await putAsync('/api/user/mypage/pw', {
+    name,
+    birth_date,
+    password,
+  });
+  return response;
+}

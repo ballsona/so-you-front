@@ -4,7 +4,7 @@ import {
   RegisterFormType,
   RegisterOutputType,
 } from '@/types/user';
-import { getAsync, postAsync } from '.';
+import { getAsync, postAsync, putAsync } from '.';
 import { ApiResponse } from '@/types/api';
 import { userType } from '@/types/user';
 import { CategoryType } from '@/constants/category';
@@ -79,5 +79,20 @@ export async function verifyEmailCodeAsync(
 /** 유저 정보 요청하는 함수 */
 export async function getUserInfoAsync(): ApiResponse<any> {
   const response = await getAsync<any>('/api/user/mypage');
+  return response;
+}
+
+interface UpdateForm {
+  category: string;
+  birth_date: string;
+  cost: string;
+  youtube_link: string;
+}
+
+/** 유저 정보 업데이트하는 함수 */
+export async function updateUserInfoAsync(
+  fields: UpdateForm,
+): ApiResponse<any> {
+  const response = await putAsync('/api/influencer/mypage', fields);
   return response;
 }

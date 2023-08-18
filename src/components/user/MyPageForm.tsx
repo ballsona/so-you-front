@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
@@ -13,6 +13,8 @@ import { categoryListAtom } from '@/stores/categoryState';
 import TextInput from '../common/TextInput';
 import CategoryTag from '../common/CategoryTag';
 import CategorySelectModal from '../common/Modal/CategorySelectModal';
+import { useEffect } from 'react';
+import { updateUserInfoAsync } from '@/apis/user';
 
 type PE = HTMLParagraphElement;
 
@@ -26,23 +28,53 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
   const { openModal } = useModal();
   const { messageRefs, setMessage } = useMessageRefs();
 
-  const selectedCategories = useRecoilValue(categoryListAtom);
+  const [selectedCategories, setSelectedCategories] =
+    useRecoilState(categoryListAtom);
 
-  const { birth_date } = defaultData;
+  const { birth_date, category, cost, channel_id, youtube_link, name } =
+    defaultData;
 
   const formMethods = useForm<MyPageFormType>({
     defaultValues: {
-      birth_date: birth_date,
+      birth_date,
+      cost,
+      name,
+      channel_id,
+      youtube_link,
     },
   });
   const { handleSubmit, control } = formMethods;
+
   const fields = useWatch({ control });
 
-  const updateInfo = async () => {};
+  // 카테고리 세팅
+  useEffect(() => {
+    setSelectedCategories(JSON.parse(category));
+  }, []);
+
+  // 정보 변경
+  const updateInfo = async () => {
+    const {
+      birth_date: newBirth,
+      cost: newCost,
+      youtube_link: newLink,
+    } = fields;
+    const res = await updateUserInfoAsync({
+      category: JSON.stringify(selectedCategories),
+      birth_date: newBirth ?? birth_date,
+      cost: newCost ?? cost,
+      youtube_link: newLink ?? youtube_link,
+    });
+
+    if (!res.isSuccess) {
+      alert('정보를 변경할 수 없습니다.');
+    }
+
+    alert('정보를 업데이트하였습니다.');
+    router.reload();
+  };
 
   const user = type === 'influencer' ? '인플루언서' : '광고주';
-
-  console.log(type, defaultData, birth_date, fields);
 
   return (
     <FormProvider {...formMethods}>
@@ -75,14 +107,13 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
           <TextInput
             name="name"
             placeholder={`${user}님의 이름을 입력해주세요`}
-            defaultValue={defaultData.name}
+            disabled
           />
         </InputWrap>
         <MessageBox ref={(node: PE) => (messageRefs.current[3] = node)} />
         <InputWrap>
           <Label>생년월일</Label>
           <TextInput
-            type="number"
             name="birth_date"
             placeholder={`${user}님의 생년월일을 입력해주세요 (YYYY-MM-DD)`}
           />
@@ -117,7 +148,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
               <Label>채널 아이디</Label>
               <TextInput
                 name="channel_id"
-                placeholder="연결할 유튜브 링크를 등록해주세요"
+                placeholder="채널 아이디를 입력해주세요"
               />
             </InputWrap>
           </>
@@ -127,7 +158,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
             뒤로
           </Button>
           <Button onClick={handleSubmit(updateInfo)} className="submit-btn">
-            등록하기
+            변경하기
           </Button>
         </ButtonsWrap>
       </Wrapper>

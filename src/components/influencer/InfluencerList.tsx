@@ -51,7 +51,7 @@ const InfluencerList = ({ data, onClickItem }: InfluencerListTemplateProps) => (
         </Data>
         <Data>
           <Text size={14} weight="700" color="#547AC3">
-            {JSON.parse(inf.category).join(', ')}
+            {inf.category ? JSON.parse(inf.category).join(', ') : ''}
           </Text>
         </Data>
         <Data>

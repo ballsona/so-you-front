@@ -55,7 +55,7 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
         <Field>금액</Field>
         <Data>{cost}원</Data>
         <Field>카테고리</Field>
-        <Data>{JSON.parse(category).join(', ')}</Data>
+        <Data>{category ? JSON.parse(category).join(', ') : ''}</Data>
         <Field>사용채널</Field>
         <Data>인스타그램, 유튜브</Data>
       </DetailInfoWrap>

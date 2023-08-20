@@ -9,10 +9,6 @@ import { ApiResponse } from '@/types/api';
 import { userType } from '@/types/user';
 import { CategoryType } from '@/constants/category';
 
-export function setAccessToken(token: string) {
-  window.localStorage.setItem('accessToken', token);
-}
-
 /** 로그인 요청 함수 */
 export async function loginAsync(
   email: string,

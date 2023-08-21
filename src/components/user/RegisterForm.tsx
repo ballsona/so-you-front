@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
@@ -345,9 +345,8 @@ const InputWrap = styled.div`
 `;
 
 const Label = styled.div`
-  width: 100px;
+  width: 90px;
   height: 32px;
-  border-right: 3px solid ${COLORS.primary};
   font-size: 15px;
   font-weight: 600;
   line-height: 32px;
@@ -364,8 +363,8 @@ const MiniButton = styled.button`
 `;
 
 const ButtonsWrap = styled.div`
-  margin: 50px auto 0px;
   display: flex;
+  margin-top: 50px;
 
   .cancel-btn {
     background-color: ${COLORS.grayC4C};

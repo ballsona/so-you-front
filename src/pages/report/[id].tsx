@@ -1,6 +1,7 @@
 import { getReportDataAsync } from '@/apis/admin';
 import ReportTemplate from '@/components/admin/ReportTemplate';
-import NavigationBar from '@/components/common/NavigationBar';
+import Layout from '@/components/common/Layout';
+
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
@@ -22,16 +23,15 @@ const Report = () => {
   }, [id]);
 
   return (
-    <>
-      <NavigationBar activeTab="report" />
+    <Layout activeTab="report">
       {data ? (
         <ReportTemplate data={data} />
       ) : (
-        <div style={{ position: 'fixed', top: 100, left: 30 }}>
+        <div style={{ height: '100vh', position: 'fixed', top: 100, left: 30 }}>
           리포트 데이터가 없습니다
         </div>
       )}
-    </>
+    </Layout>
   );
 };
 

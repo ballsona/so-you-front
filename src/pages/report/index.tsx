@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import NavigationBar from '@/components/common/NavigationBar';
 import ReportListTemplate from '@/components/admin/ReportListTemplate';
+import Layout from '@/components/common/Layout';
 
 const Report = () => {
   // 인플루언서 리스트 데이터
@@ -19,10 +19,9 @@ const Report = () => {
   }, []);
 
   return (
-    <>
-      <NavigationBar activeTab="report" />
+    <Layout activeTab="report">
       <ReportListTemplate data={data} />
-    </>
+    </Layout>
   );
 };
 

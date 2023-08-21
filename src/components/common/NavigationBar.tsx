@@ -4,26 +4,32 @@ import { NAV_INFO } from '@/constants/navigation';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
-
 import Text from './Text';
-import SearchIcon from '@/assets/icon/search.svg';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { searchFilter, searchKeyWord } from '@/stores/influencerState';
 import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
 import ArrowButton from './ArrowButton';
-
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
 import { userTypeAtom } from '@/stores/userState';
 
+import SearchIcon from '@/assets/icon/search.svg';
+import ProfileIcon from '@/assets/icon/default-profile-icon.svg';
+
+const navMenu = ['project', 'influencer', 'report'];
+
 // TODO
 interface NavigationBarProps {
-  activeTab?: string;
+  activeTab?: string | (typeof NAV_INFO)[number];
 }
 
 const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   const router = useRouter();
-  const { modalState, openModal, closeModal } = useModal();
+  const {
+    modalState: { visible, name },
+    openModal,
+    closeModal,
+  } = useModal();
 
   const userType = useRecoilValue(userTypeAtom);
   const [navMenu, setNavMenu] = useState<any[]>([]);
@@ -42,15 +48,16 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   // 검색 키워드
   const [keyword, setKeyword] = useRecoilState(searchKeyWord);
   // 상세 검색 필터
-  const filter = useRecoilValue(searchFilter);
-  const { category, popularity, costRange } = filter;
+  const { category, popularity, costRange } = useRecoilValue(searchFilter);
 
   const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
   const handleModal = () => {
-    modalState.visible ? closeModal() : openModal(<DetailSearchModal />);
+    visible
+      ? closeModal()
+      : openModal(<DetailSearchModal />, false, 'search-filter');
   };
 
   const onSearchButtonClick = async () => {
@@ -87,29 +94,36 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
           <DetailSearchButton
             onClick={handleModal}
             initial={false}
-            animate={modalState.visible ? 'open' : 'closed'}
+            animate={visible && name === 'search-filter' ? 'open' : 'closed'}
           >
             <ArrowButton color={COLORS.white} />
             <Text size={14} weight="400" color={COLORS.white}>
               상세 검색
             </Text>
           </DetailSearchButton>
-          <SearchIcon onClick={onSearchButtonClick} />
+          <SearchIcon onClick={onSearchButtonClick} className="search-icon" />
           <SearchBarInput value={keyword} onChange={handleKeyword} />
         </SearchBar>
         <NavListContainer>
-          {navMenu.map((menu) => (
-            <Text
-              key={menu}
-              size={15}
-              weight={activeTab === menu ? '700' : '400'}
-              color={COLORS.white}
-              className="nav-item"
-              onClick={() => router.push(NAV_INFO[menu].url)}
-            >
-              {NAV_INFO[menu].label}
-            </Text>
-          ))}
+          {navMenu.map((menu) =>
+            menu === 'mypage' ? (
+              <ProfileIcon
+                key={menu}
+                onClick={() => router.push(NAV_INFO[menu].url)}
+              />
+            ) : (
+              <Text
+                key={menu}
+                size={15}
+                weight={activeTab === menu ? '700' : '400'}
+                color={COLORS.white}
+                className="nav-item"
+                onClick={() => router.push(NAV_INFO[menu].url)}
+              >
+                {NAV_INFO[menu].label}
+              </Text>
+            ),
+          )}
         </NavListContainer>
       </Wrapper>
     </>
@@ -142,7 +156,7 @@ const SearchBar = styled.div`
   top: calc(50% - 17px);
   left: calc(50% - 150px);
 
-  > svg {
+  .search-icon {
     position: absolute;
     top: calc(50% - 9px);
     right: 15px;
@@ -175,7 +189,7 @@ export const NavListContainer = styled.div`
   gap: 30px;
 
   position: absolute;
-  top: calc(50% - 11.25px);
+  top: calc(50% - 15px);
   right: 50px;
 
   .nav-item {

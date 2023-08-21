@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 
 interface ModalState {
   visible: boolean;
+  name?: string;
   content?: ReactNode;
   overlay?: boolean;
 }

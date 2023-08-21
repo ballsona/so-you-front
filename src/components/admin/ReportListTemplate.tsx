@@ -29,7 +29,7 @@ const ReportListTemplate = ({ data }: { data?: any }) => {
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
-        리포트
+        리포트 관리
       </Text>
       <ReportList data={sData} onClickItem={onClickItem} />
     </TemplateWrapper>
@@ -39,12 +39,14 @@ const ReportListTemplate = ({ data }: { data?: any }) => {
 export default ReportListTemplate;
 
 const TemplateWrapper = styled.div`
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 108px;
-  margin-bottom: 80px;
+
+  padding-top: 108px;
+  padding-bottom: 80px;
 
   .title {
     margin-bottom: 29px;

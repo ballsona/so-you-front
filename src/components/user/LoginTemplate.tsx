@@ -70,11 +70,13 @@ const TemplateWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #e9edf5;
 `;
 
 const FormWrapper = styled.div`
   width: 420px;
   height: 500px;
+  background-color: #fff;
   border: 1px solid rgba(98, 144, 233, 0.5);
   border-radius: 8px;
 

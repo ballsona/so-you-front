@@ -1,5 +1,6 @@
 import { getMatchingDataAsync } from '@/apis/admin';
 import AdminTemplate from '@/components/admin/AdminTemplate';
+import Layout from '@/components/common/Layout';
 import NavigationBar from '@/components/common/NavigationBar';
 import { useEffect, useState } from 'react';
 
@@ -25,10 +26,9 @@ const Admin = () => {
   }, []);
 
   return (
-    <>
-      <NavigationBar activeTab="admin" />
+    <Layout activeTab="admin" pageType="admin">
       <AdminTemplate matchingData={matchingData} />
-    </>
+    </Layout>
   );
 };
 

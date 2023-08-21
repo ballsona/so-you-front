@@ -9,17 +9,17 @@ interface ReportListTemplateProps {
 }
 
 const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
-  <>
-    <TableHeader>
+  <Wrapper>
+    <Header>
       <Field>순위</Field>
       <Field>리포트 정보</Field>
       <Field>일정</Field>
       <Field>예산</Field>
-    </TableHeader>
+    </Header>
     {data.map((d, idx) => (
-      <TableBody key={d.index} onClick={() => onClickItem(d.index)}>
+      <Body key={d.index} onClick={() => onClickItem(d.index)}>
         <Data>
-          <Text size={14} color={COLORS.gray484}>
+          <Text size={14} weight="700" color={COLORS.gray484}>
             {idx + 1}
           </Text>
         </Data>
@@ -43,27 +43,28 @@ const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
             {d.cost}원
           </Text>
         </Data>
-      </TableBody>
+      </Body>
     ))}
-  </>
+  </Wrapper>
 );
 
 export default React.memo(ReportList);
 
 /** ReportList Style */
 
-const TableHeader = styled.div`
-  display: grid;
-  grid-template-columns: 150px 240px 240px 170px;
-
-  .profile-data {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+const Wrapper = styled.div`
+  width: 800px;
+  background-color: ${COLORS.white};
+  box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, 0.1);
 `;
 
-const TableBody = styled.div`
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 150px 240px 240px 170px;
+  border-bottom: 1px solid #e3ebfa;
+`;
+
+const Body = styled.div`
   display: grid;
   grid-template-columns: 150px 240px 240px 170px;
   cursor: pointer;
@@ -75,8 +76,6 @@ const TableBody = styled.div`
 
 const Field = styled.div`
   height: 40px;
-  border-top: 1px solid ${COLORS.primary};
-  border-bottom: 1px solid ${COLORS.primary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,25 +87,4 @@ const Data = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const ProfileWrap = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: #f6f6f6;
-  border: 1px solid #cdcdcd;
-  margin-right: 16px;
-  position: relative;
-`;
-
-const ProfileTextWrap = styled.div`
-  width: 130px;
-
-  .channel-title {
-    width: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 `;

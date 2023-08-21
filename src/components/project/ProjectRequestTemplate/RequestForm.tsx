@@ -1,10 +1,7 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import {
   CostRangeType,
-  PopularityDegreeType,
-  SeasonType,
   popularityDegree,
   seasons,
 } from '@/constants/influencer';
@@ -53,7 +50,7 @@ const RequestForm = ({
             <CategoryTag key={c} theme={c} />
           ))}
           <CategoryButton
-            onClick={() => openModal(<CategorySelectModal />, true)}
+            onClick={() => openModal(<CategorySelectModal />, true, '')}
           >
             추가
           </CategoryButton>

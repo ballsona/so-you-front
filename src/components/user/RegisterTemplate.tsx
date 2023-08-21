@@ -1,12 +1,12 @@
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { COLORS } from '@/styles/theme';
 import { userType } from '@/types/user';
 import Text from '@/components/common/Text';
-import AppLogo from '@/assets/icon/app-logo.svg';
 import RegisterForm from './RegisterForm';
+import RegisterSide from '@/assets/image/register-side-img.jpg';
 
-type PE = HTMLParagraphElement;
 export interface RegisterTemplateProps {
   type: userType;
 }
@@ -17,11 +17,25 @@ const RegisterTemplate = ({ type }: RegisterTemplateProps) => {
 
   return (
     <TemplateWrapper>
-      <AppLogo className="app-logo" onClick={() => router.push('/')} />
-      <Text size={24} weight="700" color={COLORS.gray484} className="title">
-        {userType} 등록
+      <Text
+        size={25}
+        weight="700"
+        color={COLORS.white}
+        className="logo-text"
+        onClick={() => router.push('/')}
+      >
+        SoYOU
       </Text>
-      <RegisterForm type={type} />
+      <SideImageWrap>
+        <Image src={RegisterSide} layout="fill" />
+      </SideImageWrap>
+      <FormWrap>
+        <Text size={24} weight="700" color={COLORS.gray484} className="title">
+          {userType} 등록
+        </Text>
+        <Hr />
+        <RegisterForm type={type} />
+      </FormWrap>
     </TemplateWrapper>
   );
 };
@@ -33,19 +47,35 @@ export default RegisterTemplate;
 const TemplateWrapper = styled.div`
   height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  gap: 90px;
 
-  .app-logo {
+  .logo-text {
     position: absolute;
     top: 25px;
     left: 21px;
+    z-index: 10;
     cursor: pointer;
   }
+`;
 
-  .title {
-    margin: 0 auto 44px;
-  }
+const SideImageWrap = styled.div`
+  width: 357px;
+  height: 100vh;
+  position: relative;
+`;
+
+const FormWrap = styled.div`
+  width: 500px;
+  margin-top: 81px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const Hr = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 18px 0px 55px;
 `;

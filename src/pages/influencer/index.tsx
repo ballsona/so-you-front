@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import NavigationBar from '@/components/common/NavigationBar';
 import InfluencerListTemplate from '@/components/influencer/InfluencerListTemplate';
 import { getInfluencerListAsync } from '@/apis/influencer';
+import Layout from '@/components/common/Layout';
 
 const Influencer = () => {
   // 인플루언서 리스트 데이터
@@ -20,10 +20,9 @@ const Influencer = () => {
   }, []);
 
   return (
-    <>
-      <NavigationBar activeTab="influencer" />
+    <Layout activeTab="influencer">
       <InfluencerListTemplate data={data} />
-    </>
+    </Layout>
   );
 };
 

@@ -1,4 +1,3 @@
-import NavigationBar from '@/components/common/NavigationBar';
 import { useRouter } from 'next/router';
 import InfluencerDetailTemplate from '@/components/influencer/InfluencerDetailTemplate';
 import { useEffect, useState } from 'react';
@@ -6,6 +5,7 @@ import {
   getInfluencerDetailInfoAsync,
   getStatisticsInfoAsync,
 } from '@/apis/influencer';
+import Layout from '@/components/common/Layout';
 
 const InfluencerDetail = () => {
   const router = useRouter();
@@ -15,8 +15,10 @@ const InfluencerDetail = () => {
 
   useEffect(() => {
     const getDetailData = async () => {
-      const res1 = await getInfluencerDetailInfoAsync(id);
-      const res2 = await getStatisticsInfoAsync(id);
+      const [res1, res2] = await Promise.all([
+        await getInfluencerDetailInfoAsync(id),
+        await getStatisticsInfoAsync(id),
+      ]);
       if (res1.isSuccess && res2.isSuccess) {
         setData({ ...res1.result.response, ...res2.result.response.userData });
       }
@@ -28,10 +30,9 @@ const InfluencerDetail = () => {
   if (!data) return;
 
   return (
-    <>
-      <NavigationBar activeTab="influencer" />
+    <Layout activeTab="influencer">
       <InfluencerDetailTemplate data={data} />
-    </>
+    </Layout>
   );
 };
 

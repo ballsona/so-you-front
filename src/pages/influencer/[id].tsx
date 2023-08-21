@@ -1,4 +1,3 @@
-import NavigationBar from '@/components/common/NavigationBar';
 import { useRouter } from 'next/router';
 import InfluencerDetailTemplate from '@/components/influencer/InfluencerDetailTemplate';
 import { useEffect, useState } from 'react';
@@ -16,8 +15,10 @@ const InfluencerDetail = () => {
 
   useEffect(() => {
     const getDetailData = async () => {
-      const res1 = await getInfluencerDetailInfoAsync(id);
-      const res2 = await getStatisticsInfoAsync(id);
+      const [res1, res2] = await Promise.all([
+        await getInfluencerDetailInfoAsync(id),
+        await getStatisticsInfoAsync(id),
+      ]);
       if (res1.isSuccess && res2.isSuccess) {
         setData({ ...res1.result.response, ...res2.result.response.userData });
       }

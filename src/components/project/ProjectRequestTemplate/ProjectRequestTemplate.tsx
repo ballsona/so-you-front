@@ -10,13 +10,13 @@ import Text from '@/components/common/Text';
 import ProgressBar from './ProgressBar';
 import RequestForm from './RequestForm';
 
-import * as styles from './ProjectRequestTemplate.style';
 import { useModal } from '@/hooks/useModal';
 import InfluencerSelectModal from '@/components/common/Modal/InfluenceSelectModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { projectRequestData, projectRequestForm } from '@/stores/projectState';
 import { getUserInfoAsync } from '@/apis/user';
 import RegisterManager from '../RegisterManager';
+import styled from '@emotion/styled';
 
 export const TITLE = [
   '프로젝트 의뢰',
@@ -106,14 +106,28 @@ const ProjectRequestTemplate = () => {
   };
 
   return (
-    <styles.TemplateWrapper>
+    <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
         {TITLE[activeStep - 1]}
       </Text>
       <ProgressBar activeStep={activeStep - 1} />
       {renderContent()}
-    </styles.TemplateWrapper>
+    </TemplateWrapper>
   );
 };
 
 export default ProjectRequestTemplate;
+
+const TemplateWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 108px;
+  padding-bottom: 70px;
+
+  .title {
+    margin-bottom: 26px;
+  }
+`;

@@ -31,7 +31,9 @@ const InfluencerListTemplate = ({ data }: InfluencerListTemplateProps) => {
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
         인플루언서
       </Text>
-      <InfluencerList data={data} onClickItem={onClickItem} />
+      <ListWrapper>
+        <InfluencerList data={data} onClickItem={onClickItem} />
+      </ListWrapper>
     </TemplateWrapper>
   );
 };
@@ -44,11 +46,16 @@ const TemplateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin: 0 auto;
+
   margin-top: 108px;
   margin-bottom: 80px;
 
   .title {
     margin-bottom: 29px;
   }
+`;
+
+const ListWrapper = styled.div`
+  box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, 0.1);
 `;

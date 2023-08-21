@@ -11,17 +11,17 @@ interface InfluencerListTemplateProps {
 }
 
 const InfluencerList = ({ data, onClickItem }: InfluencerListTemplateProps) => (
-  <>
-    <TableHeader>
+  <Wrapper>
+    <Header>
       <Field>순위</Field>
       <Field>프로필 정보</Field>
       <Field>카테고리</Field>
       <Field>예산</Field>
-    </TableHeader>
+    </Header>
     {data.map((inf, idx) => (
-      <TableBody key={inf.index} onClick={() => onClickItem(inf.index)}>
+      <Body key={inf.index} onClick={() => onClickItem(inf.index)}>
         <Data>
-          <Text size={14} color={COLORS.gray484}>
+          <Text size={14} weight="700" color={COLORS.gray484}>
             {idx + 1}
           </Text>
         </Data>
@@ -61,18 +61,25 @@ const InfluencerList = ({ data, onClickItem }: InfluencerListTemplateProps) => (
             원
           </Text>
         </Data>
-      </TableBody>
+      </Body>
     ))}
-  </>
+  </Wrapper>
 );
 
 export default React.memo(InfluencerList);
 
 /** InfluencerList Style */
 
-const TableHeader = styled.div`
+const Wrapper = styled.div`
+  width: 800px;
+  background-color: ${COLORS.white};
+`;
+
+const Header = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: 150px 240px 240px 170px;
+  border-bottom: 1px solid #e3ebfa;
 
   .profile-data {
     display: flex;
@@ -81,9 +88,10 @@ const TableHeader = styled.div`
   }
 `;
 
-const TableBody = styled.div`
+const Body = styled.div`
   display: grid;
   grid-template-columns: 150px 240px 240px 170px;
+  border-bottom: 1px solid #f5f5f5;
   cursor: pointer;
 
   :hover {
@@ -93,8 +101,6 @@ const TableBody = styled.div`
 
 const Field = styled.div`
   height: 40px;
-  border-top: 1px solid ${COLORS.primary};
-  border-bottom: 1px solid ${COLORS.primary};
   display: flex;
   align-items: center;
   justify-content: center;

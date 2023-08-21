@@ -89,7 +89,7 @@ const ModalWrapper = styled.div`
 
   position: relative;
   top: calc(50% - 160px);
-  left: 70%;
+  left: calc(50% - 200px);
 
   .close-icon {
     position: absolute;

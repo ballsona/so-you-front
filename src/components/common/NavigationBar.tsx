@@ -55,7 +55,9 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   };
 
   const handleModal = () => {
-    visible ? closeModal() : openModal(<DetailSearchModal />, 'search-filter');
+    visible
+      ? closeModal()
+      : openModal(<DetailSearchModal />, false, 'search-filter');
   };
 
   const onSearchButtonClick = async () => {

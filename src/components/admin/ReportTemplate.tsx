@@ -12,7 +12,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
-        리포트
+        리포트 관리
       </Text>
       <DashBoard>
         <BasicDataWrap>
@@ -64,7 +64,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
         >
           · 영상 조회수
         </Text>
-        <DataBoxWrap>영상 조회수 데이터는 준비중입니다</DataBoxWrap>
+        <DataBoxWrap></DataBoxWrap>
       </DashBoard>
     </TemplateWrapper>
   );
@@ -80,21 +80,22 @@ const TemplateWrapper = styled.div`
   background-color: #fbfcff;
   padding-top: 108px;
 
-  .title {
-    width: fit-content;
-    margin: 0px auto 29px;
-    padding-top: 48px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 33px;
 `;
 
 const DashBoard = styled.div`
   width: 100%;
-  max-width: 1000px;
   margin: 0 auto;
+  padding: 0px 150px;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  z-index: 10;
 
   .view-title {
     margin: 32px 0px 12px;

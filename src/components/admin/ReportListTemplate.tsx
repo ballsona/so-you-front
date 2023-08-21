@@ -29,7 +29,7 @@ const ReportListTemplate = ({ data }: { data?: any }) => {
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
-        리포트
+        리포트 관리
       </Text>
       <ReportList data={sData} onClickItem={onClickItem} />
     </TemplateWrapper>

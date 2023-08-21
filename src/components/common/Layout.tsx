@@ -62,6 +62,12 @@ const Wrapper = styled.div`
     bottom: -63px;
     right: -90px;
   }
+
+  .wave {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
 `;
 
 const Element = styled.div`

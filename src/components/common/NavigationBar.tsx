@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
 import { motion } from 'framer-motion';
@@ -32,9 +32,17 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   } = useModal();
 
   const userType = useRecoilValue(userTypeAtom);
+  const [navMenu, setNavMenu] = useState<any[]>([]);
 
   useEffect(() => {
     if (!userType) return;
+
+    setNavMenu([
+      'project',
+      'influencer',
+      'report',
+      userType === 'manager' ? 'admin' : 'mypage',
+    ]);
   }, [userType]);
 
   // 검색 키워드
@@ -95,30 +103,24 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
           <SearchBarInput value={keyword} onChange={handleKeyword} />
         </SearchBar>
         <NavListContainer>
-          {navMenu.map((menu) => (
-            <Text
-              key={menu}
-              size={15}
-              weight={activeTab === menu ? '700' : '400'}
-              color={COLORS.white}
-              className="nav-item"
-              onClick={() => router.push(NAV_INFO[menu].url)}
-            >
-              {NAV_INFO[menu].label}
-            </Text>
-          ))}
-          {userType && userType === 'manager' ? (
-            <Text
-              size={15}
-              weight={activeTab === 'admin' ? '700' : '400'}
-              color={COLORS.white}
-              className="nav-item"
-              onClick={() => router.push('/admin')}
-            >
-              관리자
-            </Text>
-          ) : (
-            <ProfileIcon onClick={() => router.push('/mypage')} />
+          {navMenu.map((menu) =>
+            menu === 'mypage' ? (
+              <ProfileIcon
+                key={menu}
+                onClick={() => router.push(NAV_INFO[menu].url)}
+              />
+            ) : (
+              <Text
+                key={menu}
+                size={15}
+                weight={activeTab === menu ? '700' : '400'}
+                color={COLORS.white}
+                className="nav-item"
+                onClick={() => router.push(NAV_INFO[menu].url)}
+              >
+                {NAV_INFO[menu].label}
+              </Text>
+            ),
           )}
         </NavListContainer>
       </Wrapper>

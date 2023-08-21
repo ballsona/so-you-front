@@ -20,22 +20,22 @@ const Layout = ({
     <>
       <NavigationBar activeTab={activeTab} />
       <Wrapper>
-        {children}
         {pageType === 'user' ? (
           <>
-            <Element className="circle1">
+            <Element className="bubble1">
               <Image src={UserElement} width={361} height={361} />
             </Element>
-            <Element className="circle2">
+            <Element className="bubble2">
               <Image src={UserElement} width={244} height={244} />
             </Element>
-            <Element className="circle3">
+            <Element className="bubble3">
               <Image src={UserElement} width={361} height={361} />
             </Element>
           </>
         ) : (
           <AdminElement className="wave" />
         )}
+        {children}
       </Wrapper>
     </>
   );
@@ -48,17 +48,17 @@ const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
 
-  .circle1 {
+  .bubble1 {
     top: 164px;
     left: -200px;
   }
 
-  .circle2 {
+  .bubble2 {
     bottom: -100px;
     left: 45px;
   }
 
-  .circle3 {
+  .bubble3 {
     bottom: -63px;
     right: -90px;
   }
@@ -66,5 +66,4 @@ const Wrapper = styled.div`
 
 const Element = styled.div`
   position: absolute;
-  z-index: -10;
 `;

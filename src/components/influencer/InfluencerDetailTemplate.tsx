@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
-import { InfluencerDetailDataType } from '@/types/influencer';
 
 import ArrowDownIcon from '@/assets/icon/arrow-down.svg';
 import ArrowUpIcon from '@/assets/icon/arrow-up.svg';
@@ -26,11 +25,11 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
   } = data;
   return (
     <TemplateWrapper>
-      <Text size={24} weight="700" color={COLORS.gray484} className="title">
+      <Text size={24} weight="700" color={COLORS.gray484}>
         인플루언서
       </Text>
       <DashBoard>
-        <DataBoxWrap className="profile-wrap">
+        <DataBoxWrap className="profile-data">
           <ProfileWrap>
             {image && (
               <Image
@@ -54,7 +53,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               </Text>
             </div>
           </ProfileWrap>
-          <Text size={16} weight="700" color="#547AC3" className="categorys">
+          <Text size={16} weight="700" color="#547AC3" className="category">
             {JSON.parse(category).join(', ')}
           </Text>
           <CostWrap>
@@ -78,7 +77,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
         <BasicDataWrap>
           <DataBoxWrap className="data-box">
             <div>
-              <Text size={16} color={COLORS.gray484}>
+              <Text size={16} color={COLORS.gray484} className="label">
                 팔로워
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
@@ -102,7 +101,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
 
           <DataBoxWrap className="data-box">
             <div>
-              <Text size={16} color={COLORS.gray484}>
+              <Text size={16} color={COLORS.gray484} className="label">
                 평균 조회수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
@@ -125,8 +124,8 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
           </DataBoxWrap>
 
           <DataBoxWrap className="data-box">
-            <div>
-              <Text size={16} color={COLORS.gray484}>
+            <div className="video-count">
+              <Text size={16} color={COLORS.gray484} className="label">
                 동영상 개수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
@@ -180,30 +179,30 @@ export default InfluencerDetailTemplate;
 /** InfluencerDetailTemplate Style */
 
 const TemplateWrapper = styled.div`
-  width: 100%;
   height: 100vh;
   background-color: #fbfcff;
   padding-top: 108px;
 
-  .title {
-    width: fit-content;
-    margin: 0px auto 29px;
-    padding-top: 48px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const DashBoard = styled.div`
-  width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 30px auto 0px;
+  padding: 0 100px;
+  z-index: 10; // for bubble
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 
-  .profile-wrap {
-    width: 800px;
+  .profile-data {
+    width: 100%;
     height: 110px;
-    padding: 0px 40px 0px 60px;
   }
 
   .dashboard-title {
@@ -215,10 +214,11 @@ const DataBoxWrap = styled.div`
   background: ${COLORS.white};
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.07);
   border-radius: 20px;
-  padding: 25px 35px;
+  padding: 25px 31px;
   display: flex;
+  gap: 40px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   .channel-title {
     width: 150px;
@@ -226,15 +226,33 @@ const DataBoxWrap = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .category {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #e5e5e5;
+    padding-left: 3%;
 
-  .categorys {
-    width: 250px;
+    min-width: 300px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .label {
+    margin-bottom: 3px;
   }
 
   .pct-wrap {
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  .video-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -245,7 +263,7 @@ const BasicDataWrap = styled.div`
   justify-content: space-between;
 
   .data-box {
-    width: 250px;
+    width: 32%;
     height: 150px;
   }
 `;
@@ -256,20 +274,22 @@ const DataStatisticsWrap = styled.div`
   justify-content: space-between;
 
   .data-box {
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 16px;
-    width: 250px;
+    width: 32%;
     height: 60px;
     padding: 9px 28px;
+
+    justify-content: space-between;
+    border-radius: 16px;
   }
 `;
 
 const ProfileWrap = styled.div`
   display: flex;
   align-items: center;
-  width: 200px;
   gap: 10px;
+
+  width: 33%;
+  border-right: 1px solid #e5e5e5;
 
   .channel-img {
     border-radius: 30px;
@@ -279,5 +299,6 @@ const ProfileWrap = styled.div`
 `;
 
 const CostWrap = styled.div`
-  width: 150px;
+  width: 33%;
+  padding-left: 5%;
 `;

@@ -6,6 +6,7 @@ import {
   getInfluencerDetailInfoAsync,
   getStatisticsInfoAsync,
 } from '@/apis/influencer';
+import Layout from '@/components/common/Layout';
 
 const InfluencerDetail = () => {
   const router = useRouter();
@@ -28,10 +29,9 @@ const InfluencerDetail = () => {
   if (!data) return;
 
   return (
-    <>
-      <NavigationBar activeTab="influencer" />
+    <Layout activeTab="influencer">
       <InfluencerDetailTemplate data={data} />
-    </>
+    </Layout>
   );
 };
 

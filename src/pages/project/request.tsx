@@ -1,12 +1,11 @@
 import ProjectRequestTemplate from '@/components/project/ProjectRequestTemplate';
-import NavigationBar from '@/components/common/NavigationBar';
+import Layout from '@/components/common/Layout';
 
 const ProjectRequestPage = () => {
   return (
-    <>
-      <NavigationBar activeTab="project" />
+    <Layout activeTab="project">
       <ProjectRequestTemplate />
-    </>
+    </Layout>
   );
 };
 

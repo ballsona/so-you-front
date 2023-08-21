@@ -1,3 +1,4 @@
+import Layout from '@/components/common/Layout';
 import NavigationBar from '@/components/common/NavigationBar';
 import dynamic from 'next/dynamic';
 
@@ -11,10 +12,9 @@ const DynamicMyPage = dynamic(
 
 const MyPage = () => {
   return (
-    <>
-      <NavigationBar activeTab="mypage" />
+    <Layout activeTab="mypage">
       <DynamicMyPage />
-    </>
+    </Layout>
   );
 };
 

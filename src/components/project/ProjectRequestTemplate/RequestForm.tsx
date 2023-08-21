@@ -50,7 +50,7 @@ const RequestForm = ({
             <CategoryTag key={c} theme={c} />
           ))}
           <CategoryButton
-            onClick={() => openModal(<CategorySelectModal />, '', true)}
+            onClick={() => openModal(<CategorySelectModal />, true, '')}
           >
             추가
           </CategoryButton>

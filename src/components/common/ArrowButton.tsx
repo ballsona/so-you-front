@@ -1,4 +1,3 @@
-import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 

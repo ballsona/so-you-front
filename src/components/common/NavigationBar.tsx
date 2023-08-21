@@ -23,7 +23,11 @@ interface NavigationBarProps {
 
 const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   const router = useRouter();
-  const { modalState, openModal, closeModal } = useModal();
+  const {
+    modalState: { visible, name },
+    openModal,
+    closeModal,
+  } = useModal();
 
   const userType = useRecoilValue(userTypeAtom);
   const [navMenu, setNavMenu] = useState<any[]>([]);
@@ -50,7 +54,7 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
   };
 
   const handleModal = () => {
-    modalState.visible ? closeModal() : openModal(<DetailSearchModal />);
+    visible ? closeModal() : openModal(<DetailSearchModal />, 'search-filter');
   };
 
   const onSearchButtonClick = async () => {
@@ -87,7 +91,7 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
           <DetailSearchButton
             onClick={handleModal}
             initial={false}
-            animate={modalState.visible ? 'open' : 'closed'}
+            animate={visible && name === 'search-filter' ? 'open' : 'closed'}
           >
             <ArrowButton color={COLORS.white} />
             <Text size={14} weight="400" color={COLORS.white}>

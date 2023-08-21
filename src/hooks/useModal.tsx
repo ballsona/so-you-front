@@ -5,10 +5,11 @@ import { useRecoilState } from 'recoil';
 export function useModal() {
   const [modalState, setModalState] = useRecoilState(modalStateAtom);
 
-  const openModal = (content: ReactNode, overlay?: boolean) => {
+  const openModal = (content: ReactNode, name?: string, overlay?: boolean) => {
     setModalState({
       visible: true,
       content,
+      name,
       overlay: overlay ?? false,
     });
   };
@@ -17,6 +18,7 @@ export function useModal() {
     setModalState({
       visible: false,
       content: null,
+      name: '',
     });
   };
 

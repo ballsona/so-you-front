@@ -111,7 +111,7 @@ const ProjectRequestTemplate = () => {
         {TITLE[activeStep - 1]}
       </Text>
       <ProgressBar activeStep={activeStep - 1} />
-      {renderContent()}
+      <ContentWrap>{renderContent()}</ContentWrap>
     </TemplateWrapper>
   );
 };
@@ -119,7 +119,6 @@ const ProjectRequestTemplate = () => {
 export default ProjectRequestTemplate;
 
 const TemplateWrapper = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,4 +129,9 @@ const TemplateWrapper = styled.div`
   .title {
     margin-bottom: 26px;
   }
+`;
+
+const ContentWrap = styled.div`
+  z-index: 10;
+  min-height: calc(100vh - 321px);
 `;

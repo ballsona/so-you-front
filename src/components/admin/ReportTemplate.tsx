@@ -168,10 +168,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
                 color={COLORS.gray484}
                 className="content-txt"
               >
-                부천 피자 음식점 “Y”와 유튜버 히밥 마케팅 매칭 리포트 입니다.
-                예산 : 50,00,000원 매칭 및 미팅 일정 조율 : 2023.06.19. ~
-                2023.06.23. 마케팅 금액 조율 완료 송출 일정 : 2023.07.28. ~
-                2023.08.04. 예상 조회수 200,000
+                {report_content}
               </Text>
             </TextWrap>
           </DataBoxWrap>

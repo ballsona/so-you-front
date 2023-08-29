@@ -5,17 +5,14 @@ import { COLORS } from '@/styles/theme';
 import SyScoreStars from '@/assets/icon/sy-stars.svg';
 import VideoPlayIcon from '@/assets/icon/video-play.svg';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import dynamic from 'next/dynamic';
+
+const DynamicChart = dynamic(() => import('./Chart'), {
+  ssr: false,
+});
+
+//import Chart from './Chart';
+
 interface ReportTemplateProps {
   data: any;
 }
@@ -46,6 +43,7 @@ export const sData: any = [
       { date: '08.03', count: '260000' },
       { date: '08.04', count: '290000' },
     ],
+    domain: [30000, 290000],
   },
   {
     id: 2,
@@ -70,6 +68,7 @@ export const sData: any = [
       { date: '08.18', count: '190000' },
       { date: '08.19', count: '230000' },
     ],
+    domain: [5000, 230000],
   },
   {
     id: 3,
@@ -94,6 +93,7 @@ export const sData: any = [
       { date: '08.16', count: '300000' },
       { date: '08.17', count: '350000' },
     ],
+    domain: [60000, 350000],
   },
 ];
 
@@ -114,9 +114,8 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
     sy_score,
     sy_text,
     graph_data,
+    domain,
   } = data;
-
-  console.log(graph_data);
 
   //const youtubeId = link.split('?')[1]?.split('&')[0]?.split('=')[1];
   return (
@@ -303,32 +302,8 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
         >
           · 영상 조회수
         </Text>
-        <DataBoxWrap>
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              width={1000}
-              height={270}
-              data={graph_data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="count"
-                stroke="#484848"
-                activeDot={{ r: 8 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <DataBoxWrap className="chart">
+          <DynamicChart data={graph_data} domain={domain} />
         </DataBoxWrap>
       </DashBoard>
     </TemplateWrapper>
@@ -344,6 +319,7 @@ const TemplateWrapper = styled.div`
   height: 100vh;
   background-color: #fbfcff;
   padding-top: 108px;
+  padding-bottom: 60px;
 
   display: flex;
   flex-direction: column;
@@ -374,6 +350,12 @@ const DashBoard = styled.div`
     width: 350px;
     height: 200px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chart {
+    height: 450px;
     align-items: center;
     justify-content: center;
   }

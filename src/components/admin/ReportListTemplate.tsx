@@ -2,30 +2,12 @@ import styled from '@emotion/styled';
 import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
 import ReportList from './ReportList';
-
-const sData = [
-  {
-    id: 1,
-    title: '유튜버 소유 마케팅 리포트',
-    date: '2023.01.01 ~ 2023.01.03',
-    cost: 500000,
-  },
-  {
-    id: 2,
-    title: '유튜버 소유 마케팅 리포트',
-    date: '2023.01.01 ~ 2023.01.03',
-    cost: 500000,
-  },
-  {
-    id: 3,
-    title: '유튜버 소유 마케팅 리포트',
-    date: '2023.01.01 ~ 2023.01.03',
-    cost: 500000,
-  },
-];
+import { useRouter } from 'next/router';
+import { sData } from './ReportTemplate';
 
 const ReportListTemplate = ({ data }: { data?: any }) => {
-  const onClickItem = () => {};
+  const router = useRouter();
+  const onClickItem = (id: number) => router.push(`/report/${id}`);
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">

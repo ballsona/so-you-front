@@ -5,7 +5,7 @@ import React from 'react';
 
 interface ReportListTemplateProps {
   data: any[];
-  onClickItem: (id: number) => void | Promise<void>;
+  onClickItem: (id: number) => void;
 }
 
 const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
@@ -17,7 +17,7 @@ const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
       <Field>예산</Field>
     </Header>
     {data.map((d, idx) => (
-      <Body key={d.index} onClick={() => onClickItem(d.index)}>
+      <Body key={d.id} onClick={() => onClickItem(d.id)}>
         <Data>
           <Text size={14} weight="700" color={COLORS.gray484}>
             {idx + 1}
@@ -30,7 +30,7 @@ const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
             color={COLORS.gray484}
             className="channel-title"
           >
-            {d.title}
+            {d.report_title}
           </Text>
         </Data>
         <Data>

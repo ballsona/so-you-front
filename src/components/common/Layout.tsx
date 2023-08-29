@@ -45,7 +45,7 @@ export default Layout;
 
 const Wrapper = styled.div`
   width: 100vw;
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: relative;
 
   .bubble1 {

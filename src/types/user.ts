@@ -1,6 +1,6 @@
 import { CategoryType } from '@/constants/category';
 
-export type userType = 'influencer' | 'client' | 'manager';
+export type UserType = 'influencer' | 'client' | 'manager';
 
 export interface LoginFormType {
   email: string;
@@ -16,7 +16,7 @@ export interface LoginOutputType {
 }
 
 export interface RegisterFormType {
-  type: userType;
+  type: UserType;
   email: string;
   emailVerifyCode: string;
   password: string;

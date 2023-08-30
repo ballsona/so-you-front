@@ -1,8 +1,12 @@
 import { getMatchingDataAsync } from '@/apis/admin';
 import AdminTemplate from '@/components/admin/AdminTemplate';
 import Layout from '@/components/common/Layout';
-import NavigationBar from '@/components/common/NavigationBar';
 import { useEffect, useState } from 'react';
+import { withAuth } from '@/utils/withAuth';
+
+export const getServerSideProps = withAuth(async (ctx) => {
+  return { props: {} };
+});
 
 const Admin = () => {
   const [matchingData, setMatchingData] = useState<any[]>([]);

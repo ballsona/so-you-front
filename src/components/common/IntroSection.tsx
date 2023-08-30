@@ -16,8 +16,17 @@ const theme_color = {
   influencer: COLORS.primary,
 };
 
-export const IntroSection = ({ introText = true }: { introText?: boolean }) => {
+interface IntroSectionProps {
+  isDetailed?: boolean;
+  isLoggedIn?: boolean;
+}
+
+export const IntroSection = ({
+  isDetailed = true,
+  isLoggedIn,
+}: IntroSectionProps) => {
   const router = useRouter();
+
   return (
     <SectionsWrap>
       <MainSection>
@@ -33,7 +42,7 @@ export const IntroSection = ({ introText = true }: { introText?: boolean }) => {
             <Title color={theme_color.client}>{`'광고주' `}</Title>
             이신가요?
           </Text>
-          {introText && (
+          {isDetailed && (
             <Text
               color={COLORS.white}
               size={20}
@@ -47,9 +56,13 @@ export const IntroSection = ({ introText = true }: { introText?: boolean }) => {
         </motion.div>
         <Button
           color={theme_color.client}
-          onClick={() => router.push('/user/register/client')}
+          onClick={() =>
+            router.push(
+              isLoggedIn ? '/project/request' : '/user/register/client',
+            )
+          }
         >
-          {introText ? '매칭하기' : '다음'}
+          {isDetailed ? '매칭하기' : '다음'}
         </Button>
         <Image
           src={ClientBackground}
@@ -71,7 +84,7 @@ export const IntroSection = ({ introText = true }: { introText?: boolean }) => {
             <Title color={theme_color.influencer}>{`'인플루언서' `}</Title>
             이신가요?
           </Text>
-          {introText && (
+          {isDetailed && (
             <Text
               color={COLORS.white}
               size={20}
@@ -85,9 +98,13 @@ export const IntroSection = ({ introText = true }: { introText?: boolean }) => {
         </motion.div>
         <Button
           color={theme_color.influencer}
-          onClick={() => router.push('/user/register/influencer')}
+          onClick={() =>
+            router.push(
+              isLoggedIn ? '/influencer' : '/user/register/influencer',
+            )
+          }
         >
-          {introText ? '등록하기' : '다음'}
+          {isDetailed ? '등록하기' : '다음'}
         </Button>
         <Image
           src={InfluencerBackground}

@@ -6,6 +6,11 @@ import {
   getStatisticsInfoAsync,
 } from '@/apis/influencer';
 import Layout from '@/components/common/Layout';
+import { withAuth } from '@/utils/withAuth';
+
+export const getServerSideProps = withAuth(async (ctx) => {
+  return { props: {} };
+});
 
 const InfluencerDetail = () => {
   const router = useRouter();

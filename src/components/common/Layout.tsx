@@ -1,10 +1,16 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import NavigationBar from './NavigationBar';
 
 import UserElement from '@/assets/image/user-element.png';
 import AdminElement from '@/assets/image/admin-element.svg';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { UserType } from '@/types/user';
+
+interface UserTypeProps {
+  userType: UserType;
+}
 
 interface LayoutProps {
   pageType?: 'user' | 'admin';

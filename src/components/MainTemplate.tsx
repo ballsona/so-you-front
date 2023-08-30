@@ -4,20 +4,31 @@ import Text from './common/Text';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
+import { removeTokenAsync } from '@/apis/auth';
 
-const MainTemplate = () => {
+const MainTemplate = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const router = useRouter();
+
+  const onClickAuthButton = async () => {
+    if (isLoggedIn) {
+      await removeTokenAsync();
+      router.reload();
+    } else {
+      router.push(NAV_INFO.login.url);
+    }
+  };
+
   return (
     <TemplateWrapper>
       <Text
         size={18}
         color={COLORS.white}
-        className="login-btn"
-        onClick={() => router.push(NAV_INFO.login.url)}
+        className="auth-btn"
+        onClick={onClickAuthButton}
       >
-        Log-in
+        {isLoggedIn ? 'Log-out' : 'Log-in'}
       </Text>
-      <IntroSection introText />
+      <IntroSection isDetailed isLoggedIn={isLoggedIn} />
     </TemplateWrapper>
   );
 };
@@ -27,7 +38,7 @@ export default MainTemplate;
 /** MainTemplate Style */
 
 const TemplateWrapper = styled.div`
-  .login-btn {
+  .auth-btn {
     position: absolute;
     top: 30px;
     right: 45px;

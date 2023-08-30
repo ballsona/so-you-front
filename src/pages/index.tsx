@@ -1,7 +1,19 @@
 import MainTemplate from '@/components/MainTemplate';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 
-const Home = () => {
-  return <MainTemplate />;
+export interface MainPageProps {
+  isLoggedIn: boolean;
+}
+
+export const getServerSideProps: GetServerSideProps<MainPageProps> = async (
+  ctx: GetServerSidePropsContext,
+) => {
+  const { accessToken } = ctx.req.cookies;
+  return { props: { isLoggedIn: !!accessToken } };
 };
 
-export default Home;
+const Main = ({ isLoggedIn }: MainPageProps) => (
+  <MainTemplate isLoggedIn={isLoggedIn} />
+);
+
+export default Main;

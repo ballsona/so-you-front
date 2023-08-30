@@ -1,4 +1,4 @@
-import { userType } from '@/types/user';
+import { UserType } from '@/types/user';
 import MyPageForm from './MyPageForm';
 import styled from '@emotion/styled';
 import Text from '../common/Text';

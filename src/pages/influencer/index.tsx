@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import InfluencerListTemplate from '@/components/influencer/InfluencerListTemplate';
 import { getInfluencerListAsync } from '@/apis/influencer';
 import Layout from '@/components/common/Layout';
+import { withAuth } from '@/utils/withAuth';
+
+export const getServerSideProps = withAuth(async (ctx) => {
+  return { props: {} };
+});
 
 const Influencer = () => {
   // 인플루언서 리스트 데이터

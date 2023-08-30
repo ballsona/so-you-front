@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { ApiError, ApiResponse } from '@/types/api';
+import { getTokenAsync, setTokenInCookieAsync } from './auth';
 
 const API_URL = 'https://www.soyoubackend.com';
 
@@ -16,7 +17,7 @@ const API: AxiosInstance = axios.create({
   },
 });
 
-function handleError(error: unknown): ApiError {
+export function handleError(error: unknown): ApiError {
   // AxiosError로 타입 추론
   if (axios.isAxiosError(error)) {
     // 요청 성공, 응답 성공
@@ -105,14 +106,18 @@ export async function putAsync<T, D>(
   }
 }
 
+// axios 요청 interceptor
 API.interceptors.request.use(async (req: InternalAxiosRequestConfig) => {
-  const accessToken = window.localStorage.getItem('accessToken');
+  const { accessToken } = await getTokenAsync();
+
   if (accessToken && req.headers) {
     req.headers.Authorization = `Bearer ${accessToken}`;
   }
+
   return req;
 });
 
+// axios 응답 interceptor
 API.interceptors.response.use(
   // 응답 정상
   (res: AxiosResponse) => res,
@@ -121,8 +126,7 @@ API.interceptors.response.use(
     // 액세스 토큰이 유효하지 않을 경우
     if (error.response.status === 401) {
       try {
-        const accessToken = window.localStorage.getItem('accessToken');
-        const refreshToken = window.localStorage.getItem('refreshToken');
+        const { accessToken, refreshToken } = await getTokenAsync();
 
         const res = await getAsync<any>('/api/user/refresh', {
           headers: {
@@ -134,11 +138,10 @@ API.interceptors.response.use(
         if (res.isSuccess) {
           const { accessToken, refreshToken } = res.result.response;
 
-          // 갱신된 토큰을 localStorage에 저장
-          window.localStorage.setItem('accessToken', accessToken);
-          window.localStorage.setItem('refreshToken', refreshToken);
+          // 갱신된 토큰을 쿠키에 저장
+          setTokenInCookieAsync(accessToken, refreshToken);
 
-          // 갱신된 토큰을 가지고 api 재요청
+          // 갱신된 토큰을 가지고 api 요청 재시도
           return axios.request({
             ...error.config,
             headers: {

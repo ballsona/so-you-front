@@ -8,9 +8,10 @@ import TextInput from '@/components/common/TextInput';
 
 import { NAV_INFO } from '@/constants/navigation';
 import { COLORS } from '@/styles/theme';
-import { LoginFormType, userType } from '@/types/user';
+import { LoginFormType, UserType } from '@/types/user';
 import { loginAsync } from '@/apis/user';
 import { userTypeAtom } from '@/stores/userState';
+import { setTokenInCookieAsync, setUserTypeAsync } from '@/apis/auth';
 
 const SUB_MENU = ['id_find', 'pw_find', 'register'];
 
@@ -47,11 +48,9 @@ const LoginForm = () => {
       return;
     }
     // 로그인 요청 성공
-    const { token, refreshToken, type, email: rEmail } = res.result;
-    window.localStorage.setItem('accessToken', token);
-    window.localStorage.setItem('refreshToken', refreshToken);
-
-    setUserType(type as userType);
+    const { token, refreshToken, type } = res.result;
+    setTokenInCookieAsync(token, refreshToken);
+    setUserTypeAsync(type as UserType);
 
     router.replace('/influencer');
   };

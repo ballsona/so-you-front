@@ -67,7 +67,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
 
   const soyouScore = calculateScore(averageViews, videoCount, followersCount);
   const [soyouScoreTxt, soyouScoreColor] = renderScoreTxt(soyouScore);
-  const soYouScorePinLoc = (soyouScore / 700) * 95;
+  const soYouScorePinLoc = soyouScore > 700 ? 1 : 100 - (soyouScore / 700) * 95;
 
   return (
     <TemplateWrapper>
@@ -467,7 +467,7 @@ export const SoYouDataBoxWrap = styled.div`
   gap: 0;
 
   .soyou-index-data {
-    width: 780px;
+    width: 95%;
     position: absolute;
     bottom: 10px;
   }

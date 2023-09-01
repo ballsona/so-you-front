@@ -299,9 +299,9 @@ export default InfluencerDetailTemplate;
 /** InfluencerDetailTemplate Style */
 
 const TemplateWrapper = styled.div`
-  height: 100vh;
   background-color: #fbfcff;
   padding-top: 108px;
+  padding-bottom: 80px;
 
   display: flex;
   flex-direction: column;

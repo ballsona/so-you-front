@@ -67,6 +67,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
 
   const soyouScore = calculateScore(averageViews, videoCount, followersCount);
   const [soyouScoreTxt, soyouScoreColor] = renderScoreTxt(soyouScore);
+  const soYouScorePinLoc = (soyouScore / 700) * 110;
 
   return (
     <TemplateWrapper>
@@ -233,7 +234,10 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               </Text>
             </div>
             <div className="soyou-index-data">
-              <IndexPin src={'/IndexPin.png'} />
+              <IndexPin
+                src={'/IndexPin.png'}
+                left={parseInt(soYouScorePinLoc.toString())}
+              />
               <IndexHr />
               <IndexLabelWrap>
                 {IndexLabels.map((idx: any) => (
@@ -502,5 +506,5 @@ export const IndexLabelWrap = styled.div`
 export const IndexPin = styled.img`
   position: absolute;
   bottom: 40px;
-  left: 100px;
+  left: ${(props: { left: number }) => props.left}%;
 `;

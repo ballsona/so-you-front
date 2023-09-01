@@ -5,6 +5,7 @@ import { COLORS } from '@/styles/theme';
 import ArrowDownIcon from '@/assets/icon/arrow-down.svg';
 import ArrowUpIcon from '@/assets/icon/arrow-up.svg';
 import Image from 'next/image';
+import { formatCountVal } from '@/utils/format';
 
 interface InfluencerDetailTemplateProps {
   data: any;
@@ -95,7 +96,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
                 {channelTitle}
               </Text>
               <Text size={14} color={COLORS.gray818}>
-                {followersCount}명 구독
+                {formatCountVal(followersCount)}명 구독
               </Text>
             </div>
           </ProfileWrap>
@@ -107,7 +108,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               예상 단가
             </Text>
             <Text size={16} color={COLORS.gray484}>
-              {cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+              {formatCountVal(cost)}원
             </Text>
           </CostWrap>
         </DataBoxWrap>
@@ -127,7 +128,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
                 팔로워
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {followersCount}
+                {formatCountVal(followersCount)}
               </Text>
             </div>
             <div>
@@ -151,7 +152,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
                 평균 조회수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {averageViews}
+                {formatCountVal(averageViews)}
               </Text>
             </div>
             <div>
@@ -175,7 +176,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
                 동영상 개수
               </Text>
               <Text size={24} weight="700" color={COLORS.gray484}>
-                {videoCount}개
+                {formatCountVal(videoCount)}개
               </Text>
             </div>
           </DataBoxWrap>
@@ -269,7 +270,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               팔로워
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {followersCount}
+              {formatCountVal(followersCount)}
             </Text>
           </DataBoxWrap>
           <DataBoxWrap className="data-box">
@@ -277,7 +278,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               조회수
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {viewCount}
+              {formatCountVal(viewCount)}
             </Text>
           </DataBoxWrap>
           <DataBoxWrap className="data-box">
@@ -285,7 +286,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
               동영상 수
             </Text>
             <Text size={24} weight="700" color={COLORS.gray484}>
-              {videoCount}
+              {formatCountVal(videoCount)}
             </Text>
           </DataBoxWrap>
         </DataStatisticsWrap>

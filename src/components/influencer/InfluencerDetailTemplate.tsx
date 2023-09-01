@@ -14,21 +14,42 @@ const IndexLabels = [
   {
     label: '최우수',
     color: '#6290E9',
+    min: 700,
   },
-  { label: '우수', color: '#40BA16' },
+  { label: '우수', color: '#40BA16', min: 450 },
   {
     label: '양호',
     color: '#F19100',
+    min: 450,
   },
   {
     label: '미흡',
     color: '#FF5520',
+    min: 90,
   },
   {
     label: '저조',
     color: '#D92626',
+    min: 0,
   },
 ];
+
+function calculateScore(
+  averageViews: number,
+  videoCount: number,
+  followersCount: number,
+) {
+  return (averageViews * videoCount) / followersCount;
+}
+
+function renderScoreTxt(score: number) {
+  for (let i = 0; i < IndexLabels.length; i++) {
+    if (score > IndexLabels[i].min) {
+      return [IndexLabels[i].label, IndexLabels[i].color];
+    }
+  }
+  return [IndexLabels[0].label, IndexLabels[0].color];
+}
 
 const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
   const {
@@ -43,6 +64,10 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
     videoCount,
     viewCount,
   } = data;
+
+  const soyouScore = calculateScore(averageViews, videoCount, followersCount);
+  const [soyouScoreTxt, soyouScoreColor] = renderScoreTxt(soyouScore);
+
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484}>
@@ -174,10 +199,15 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
             </Text>
             <div className="soyou-score-txt">
               <Text size={32} weight="700" color={COLORS.gray484}>
-                1,032점
+                {parseInt(soyouScore.toString())}점
               </Text>
-              <Text size={24} weight="700" color={'#000'} className="score-txt">
-                우수
+              <Text
+                size={24}
+                weight="700"
+                color={soyouScoreColor}
+                className="score-txt"
+              >
+                {soyouScoreTxt}
               </Text>
             </div>
             <Hr />

@@ -20,7 +20,7 @@ const IndexLabels = [
   {
     label: '양호',
     color: '#F19100',
-    min: 450,
+    min: 250,
   },
   {
     label: '미흡',
@@ -67,7 +67,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
 
   const soyouScore = calculateScore(averageViews, videoCount, followersCount);
   const [soyouScoreTxt, soyouScoreColor] = renderScoreTxt(soyouScore);
-  const soYouScorePinLoc = (soyouScore / 700) * 110;
+  const soYouScorePinLoc = (soyouScore / 700) * 95;
 
   return (
     <TemplateWrapper>

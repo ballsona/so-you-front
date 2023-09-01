@@ -1,4 +1,3 @@
-import { getReportDataAsync } from '@/apis/admin';
 import ReportTemplate, { sData } from '@/components/admin/ReportTemplate';
 import Layout from '@/components/common/Layout';
 

@@ -128,14 +128,18 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       setMessage(3, '생년월일 형식이 유효하지 않습니다');
       return;
     }
-    if (cost && cost < 0) {
-      setMessage(4, '예상 광고비가 올바르지 않습니다');
-      return;
-    }
 
-    if (!isIdValid) {
-      alert('채널 아이디를 인증해주세요');
-      return;
+    // 인플루언서 가입 유효성 검사
+    if (type === 'influencer') {
+      if (cost && cost < 0) {
+        setMessage(4, '예상 광고비가 올바르지 않습니다');
+        return;
+      }
+
+      if (!isIdValid) {
+        alert('채널 아이디를 인증해주세요');
+        return;
+      }
     }
 
     const response = await registerAsync(

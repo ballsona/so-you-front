@@ -312,15 +312,15 @@ export default ReportTemplate;
 /** ReportTemplate Style */
 
 const TemplateWrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: #fbfcff;
-  padding-top: 108px;
-  padding-bottom: 60px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
+
+  margin-top: 108px;
+  margin-bottom: 80px;
+  background-color: #fbfcff;
+
   gap: 33px;
 `;
 

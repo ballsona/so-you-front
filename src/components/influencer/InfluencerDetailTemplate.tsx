@@ -10,6 +10,47 @@ interface InfluencerDetailTemplateProps {
   data: any;
 }
 
+const IndexLabels = [
+  {
+    label: '최우수',
+    color: '#6290E9',
+    min: 700,
+  },
+  { label: '우수', color: '#40BA16', min: 450 },
+  {
+    label: '양호',
+    color: '#F19100',
+    min: 450,
+  },
+  {
+    label: '미흡',
+    color: '#FF5520',
+    min: 90,
+  },
+  {
+    label: '저조',
+    color: '#D92626',
+    min: 0,
+  },
+];
+
+function calculateScore(
+  averageViews: number,
+  videoCount: number,
+  followersCount: number,
+) {
+  return (averageViews * videoCount) / followersCount;
+}
+
+function renderScoreTxt(score: number) {
+  for (let i = 0; i < IndexLabels.length; i++) {
+    if (score > IndexLabels[i].min) {
+      return [IndexLabels[i].label, IndexLabels[i].color];
+    }
+  }
+  return [IndexLabels[0].label, IndexLabels[0].color];
+}
+
 const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
   const {
     channel_Image: image,
@@ -23,6 +64,11 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
     videoCount,
     viewCount,
   } = data;
+
+  const soyouScore = calculateScore(averageViews, videoCount, followersCount);
+  const [soyouScoreTxt, soyouScoreColor] = renderScoreTxt(soyouScore);
+  const soYouScorePinLoc = (soyouScore / 700) * 110;
+
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484}>
@@ -141,6 +187,80 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
           color={COLORS.gray484}
           className="dashboard-title"
         >
+          · 채널 품질
+        </Text>
+        <BasicDataWrap className="soyou-data">
+          <SoYouDataBoxWrap>
+            <Text
+              size={16}
+              color={COLORS.gray484}
+              className="soyou-score-label"
+            >
+              SoYou Score
+            </Text>
+            <div className="soyou-score-txt">
+              <Text size={32} weight="700" color={COLORS.gray484}>
+                {parseInt(soyouScore.toString())}점
+              </Text>
+              <Text
+                size={24}
+                weight="700"
+                color={soyouScoreColor}
+                className="score-txt"
+              >
+                {soyouScoreTxt}
+              </Text>
+            </div>
+            <Hr />
+            <Text
+              size={11}
+              weight="400"
+              color="#8e8e8e"
+              className="data-description"
+            >
+              Soyou Score은 인플루언서가 양질의 콘텐츠를 생산하는 지 채널을
+              판단하는 점수로 AI에 의한 데이터 분석을 통해 총 5가지 등급으로
+              분류 됩니다.
+            </Text>
+          </SoYouDataBoxWrap>
+          <SoYouDataBoxWrap className="soyou-index-box">
+            <div className="soyou-index-label">
+              <Text size={16} color={COLORS.gray484}>
+                SoYou 지표
+              </Text>
+              <Text size={11} weight="400" color="#8e8e8e">
+                Soyou Score 지표에 따라 인플루언서가 어느 등급 쪽에 가까운지
+                표시 됩니다.
+              </Text>
+            </div>
+            <div className="soyou-index-data">
+              <IndexPin
+                src={'/IndexPin.png'}
+                left={parseInt(soYouScorePinLoc.toString())}
+              />
+              <IndexHr />
+              <IndexLabelWrap>
+                {IndexLabels.map((idx: any) => (
+                  <Text
+                    size={20}
+                    weight="300"
+                    color={idx.color}
+                    key={idx.label}
+                  >
+                    {idx.label}
+                  </Text>
+                ))}
+              </IndexLabelWrap>
+            </div>
+          </SoYouDataBoxWrap>
+        </BasicDataWrap>
+
+        <Text
+          size={18}
+          weight="700"
+          color={COLORS.gray484}
+          className="dashboard-title"
+        >
           · 데이터 통계
         </Text>
         <DataStatisticsWrap>
@@ -205,6 +325,10 @@ const DashBoard = styled.div`
     height: 110px;
   }
 
+  .soyou-data {
+    justify-content: flex-start;
+  }
+
   .dashboard-title {
     margin: 32px 0px 12px;
   }
@@ -216,9 +340,10 @@ const DataBoxWrap = styled.div`
   border-radius: 20px;
   padding: 25px 31px;
   display: flex;
-  gap: 40px;
   align-items: center;
   justify-content: center;
+  gap: 40px;
+  position: relative;
 
   .channel-title {
     width: 150px;
@@ -261,10 +386,20 @@ const BasicDataWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 
   .data-box {
     width: 32%;
     height: 150px;
+  }
+
+  .soyou-index-box {
+    width: 100%;
+    height: 180px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0;
   }
 `;
 
@@ -301,4 +436,75 @@ const ProfileWrap = styled.div`
 const CostWrap = styled.div`
   width: 33%;
   padding-left: 5%;
+`;
+
+export const Hr = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 5px 0px;
+`;
+
+export const IndexHr = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+`;
+
+export const SoYouDataBoxWrap = styled.div`
+  background: ${COLORS.white};
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.07);
+  border-radius: 20px;
+  padding: 25px 25px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  width: 540px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+
+  .soyou-index-data {
+    width: 780px;
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .data-description {
+    line-height: 14px;
+  }
+
+  .soyou-score-label {
+    margin-bottom: 30px;
+  }
+
+  .soyou-score-txt {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .soyou-index-label {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+`;
+
+export const IndexLabelWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+`;
+
+export const IndexPin = styled.img`
+  position: absolute;
+  bottom: 40px;
+  left: ${(props: { left: number }) => props.left}%;
 `;

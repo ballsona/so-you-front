@@ -46,9 +46,6 @@ const TemplateWrapper = styled.div`
   align-items: center;
   margin: 0 auto;
 
-  margin-top: 108px;
-  margin-bottom: 80px;
-
   .title {
     margin-bottom: 29px;
   }

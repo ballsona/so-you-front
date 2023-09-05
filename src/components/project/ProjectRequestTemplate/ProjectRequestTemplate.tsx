@@ -119,19 +119,14 @@ const ProjectRequestTemplate = () => {
 export default ProjectRequestTemplate;
 
 const TemplateWrapper = styled.div`
+  height: calc(100vh - 188px); // except padding
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  padding-top: 108px;
-  padding-bottom: 70px;
 
   .title {
     margin-bottom: 26px;
   }
 `;
 
-const ContentWrap = styled.div`
-  z-index: 10;
-  min-height: calc(100vh - 321px);
-`;
+const ContentWrap = styled.div``;

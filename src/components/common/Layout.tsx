@@ -1,32 +1,29 @@
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren } from 'react';
 import NavigationBar from './NavigationBar';
-
+import { UserType } from '@/types/user';
 import UserElement from '@/assets/image/user-element.png';
 import AdminElement from '@/assets/image/admin-element.svg';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { UserType } from '@/types/user';
-
-interface UserTypeProps {
-  userType: UserType;
-}
+import { NavType } from '@/constants/navigation';
 
 interface LayoutProps {
-  pageType?: 'user' | 'admin';
-  activeTab?: string;
+  /** 일반 유저(인플루언서 및 광고주) or 관리자 */
+  userType?: UserType;
+  /** 현재 활성화된 탭 */
+  activeTab?: NavType;
 }
 
 const Layout = ({
-  pageType = 'user',
+  userType,
   activeTab,
   children,
 }: PropsWithChildren<LayoutProps>) => {
   return (
     <>
-      <NavigationBar activeTab={activeTab} />
+      <NavigationBar userType={userType} activeTab={activeTab} />
       <Wrapper>
-        {pageType === 'user' ? (
+        {userType !== 'manager' ? (
           <>
             <Element className="bubble1">
               <Image src={UserElement} width={361} height={361} />
@@ -53,6 +50,7 @@ const Wrapper = styled.div`
   width: 100vw;
   overflow: hidden;
   position: relative;
+  padding: 108px 0px 80px;
 
   .bubble1 {
     top: 164px;
@@ -73,9 +71,11 @@ const Wrapper = styled.div`
     position: absolute;
     left: 0px;
     bottom: 0px;
+    z-index: -10;
   }
 `;
 
 const Element = styled.div`
   position: absolute;
+  z-index: -10;
 `;

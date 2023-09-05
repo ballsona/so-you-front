@@ -28,13 +28,10 @@ const AdminTemplate = ({ matchingData }: any) => {
 };
 
 const TemplateWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  padding-top: 108px;
-  padding-bottom: 80px;
 
   .title,
   .sub-title {

@@ -1,24 +1,20 @@
 import { Fragment, MutableRefObject, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
 import { FormProvider, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import TextInput from '@/components/common/TextInput';
 
-import { NAV_INFO } from '@/constants/navigation';
+import { NAV_INFO, NavType } from '@/constants/navigation';
 import { COLORS } from '@/styles/theme';
 import { LoginFormType, UserType } from '@/types/user';
 import { loginAsync } from '@/apis/user';
-import { userTypeAtom } from '@/stores/userState';
 import { setTokenInCookieAsync, setUserTypeAsync } from '@/apis/auth';
 
-const SUB_MENU = ['id_find', 'pw_find', 'register'];
+const SUB_MENU: NavType[] = ['id_find', 'pw_find', 'register'];
 
 const LoginForm = () => {
   const router = useRouter();
-
-  const [, setUserType] = useRecoilState(userTypeAtom);
 
   const messageRef =
     useRef<HTMLParagraphElement>() as MutableRefObject<HTMLParagraphElement>;
@@ -51,7 +47,6 @@ const LoginForm = () => {
     const { token, refreshToken, type } = res.result;
     setTokenInCookieAsync(token, refreshToken);
     setUserTypeAsync(type as UserType);
-
     router.replace('/influencer');
   };
 
@@ -74,7 +69,7 @@ const LoginForm = () => {
                 color={COLORS.gray484}
                 onClick={() => router.push(NAV_INFO[menu].url)}
               >
-                {NAV_INFO[menu].text}
+                {NAV_INFO[menu].label}
               </Text>
               {idx !== 2 && <Hr />}
             </Fragment>

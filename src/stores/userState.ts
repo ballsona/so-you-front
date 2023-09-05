@@ -1,16 +1,5 @@
-import { EmailVerifyStatusType, userType } from '@/types/user';
+import { EmailVerifyStatusType } from '@/types/user';
 import { atom } from 'recoil';
-import { recoilPersist } from 'recoil-persist';
-
-const { persistAtom } = recoilPersist({
-  key: 'user-data',
-});
-
-export const userTypeAtom = atom<userType | null>({
-  key: 'userTypeAtom',
-  default: null,
-  effects_UNSTABLE: [persistAtom],
-});
 
 export const emailVerifyStatusAtom = atom<EmailVerifyStatusType>({
   key: 'emailVerifyStatusState',

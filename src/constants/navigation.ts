@@ -1,5 +1,15 @@
-// TODO must edit type
-export const NAV_INFO: Record<string, any> = {
+export type NavType =
+  | 'influencer'
+  | 'register'
+  | 'project'
+  | 'report'
+  | 'mypage'
+  | 'id_find'
+  | 'pw_find'
+  | 'login'
+  | 'admin';
+
+export const NAV_INFO: Record<NavType, { label: string; url: string }> = {
   project: {
     label: '프로젝트',
     url: '/project/request',
@@ -21,21 +31,19 @@ export const NAV_INFO: Record<string, any> = {
     url: '/admin',
   },
   login: {
-    text: '로그인',
+    label: '로그인',
     url: '/user/login',
   },
   id_find: {
-    text: '아이디 찾기',
+    label: '아이디 찾기',
     url: '/user/find-account',
   },
   pw_find: {
-    text: '비밀번호 찾기',
+    label: '비밀번호 찾기',
     url: '/user/find-password',
   },
   register: {
-    text: '회원가입',
+    label: '회원가입',
     url: '/user/register',
   },
 };
-
-export type NavInfoKey = keyof typeof NAV_INFO;

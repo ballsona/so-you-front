@@ -30,7 +30,7 @@ const Admin = () => {
   }, []);
 
   return (
-    <Layout userType="manager" activeTab="admin">
+    <Layout activeTab="admin">
       <AdminTemplate matchingData={matchingData} />
     </Layout>
   );

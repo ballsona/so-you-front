@@ -4,6 +4,7 @@ import ManagerModal from './ManagerModal';
 import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 const RegisterManager = ({ goNextStep }: any) => {
   const { openModal, closeModal } = useModal();
@@ -13,7 +14,6 @@ const RegisterManager = ({ goNextStep }: any) => {
     tId = setTimeout(() => {
       openModal(
         <ManagerModal
-          //managerInfo={}
           onClickButton={() => {
             closeModal();
             goNextStep();
@@ -27,6 +27,7 @@ const RegisterManager = ({ goNextStep }: any) => {
 
   return (
     <Wrapper>
+      <Image src="/process-loading.png" width="264" height="264" />
       <Text size={20} weight="600" color={COLORS.primary} className="title">
         담당자 배정이 진행중 입니다...
       </Text>

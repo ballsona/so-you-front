@@ -119,7 +119,8 @@ const ProjectRequestTemplate = () => {
 export default ProjectRequestTemplate;
 
 const TemplateWrapper = styled.div`
-  height: calc(100vh - 188px); // except padding
+  height: 100%;
+  min-height: calc(100vh - 188px); // except padding
   display: flex;
   flex-direction: column;
   align-items: center;

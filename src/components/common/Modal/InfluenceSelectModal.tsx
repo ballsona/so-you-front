@@ -5,6 +5,7 @@ import CloseIcon from '@/assets/icon/close.svg';
 import { useModal } from '@/hooks/useModal';
 import Image from 'next/image';
 import { formatCountVal } from '@/utils/format';
+import ModalElement from '@/assets/image/modal-element.svg';
 
 interface InfluencerSelectModalProps {
   info: any;
@@ -27,6 +28,7 @@ const InfluencerSelectModal = ({
 
   return (
     <ModalWrapper>
+      <ModalElement className="modal-icon" />
       <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
         <Image
@@ -36,7 +38,12 @@ const InfluencerSelectModal = ({
           width="80"
           height="80"
         />
-        <Text size={18} weight="700" color={COLORS.gray484}>
+        <Text
+          size={18}
+          weight="700"
+          color={COLORS.gray484}
+          className="channel-title"
+        >
           {title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
@@ -78,13 +85,19 @@ const ModalWrapper = styled.div`
 
   position: relative;
   top: calc(50% - 160px);
-  left: 70%;
+  left: calc(50% - 200px);
 
   .close-icon {
     position: absolute;
     top: 15px;
     right: 20px;
     cursor: pointer;
+  }
+
+  .modal-icon {
+    position: absolute;
+    top: 16px;
+    left: -16px;
   }
 `;
 
@@ -118,12 +131,20 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 10;
 
   .channel-img {
     border-radius: 40px;
     background-color: #f6f6f6;
     border: 1px solid #cdcdcd;
     margin-bottom: 18px;
+  }
+
+  .channel-title {
+    width: 300px;
+    text-align: center;
+    margin-top: 10px;
   }
 `;
 

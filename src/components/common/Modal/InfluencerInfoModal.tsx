@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 import Text from '@/components/common/Text';
 import CloseIcon from '@/assets/icon/close.svg';
+import ModalElement from '@/assets/image/modal-element.svg';
 import { useRouter } from 'next/router';
 import { useModal } from '@/hooks/useModal';
 import Image from 'next/image';
@@ -27,6 +28,7 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
 
   return (
     <ModalWrapper>
+      <ModalElement className="modal-icon" />
       <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
         {image && (
@@ -98,6 +100,12 @@ const ModalWrapper = styled.div`
     right: 20px;
     cursor: pointer;
   }
+
+  .modal-icon {
+    position: absolute;
+    top: 16px;
+    left: -16px;
+  }
 `;
 
 const ButtonsWrap = styled.div`
@@ -130,6 +138,8 @@ const ProfileWrap = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 10;
 
   .channel-img {
     border-radius: 40px;

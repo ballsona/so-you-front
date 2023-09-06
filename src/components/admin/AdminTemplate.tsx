@@ -29,6 +29,7 @@ const AdminTemplate = ({ matchingData }: any) => {
 
 const TemplateWrapper = styled.div`
   height: 100%;
+  min-height: calc(100vh - 188px);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -180,7 +180,7 @@ export const NavListContainer = styled.div`
   gap: 30px;
 
   position: absolute;
-  top: calc(50% - 15px);
+  top: calc(50% - 12px);
   right: 50px;
 
   .nav-item {

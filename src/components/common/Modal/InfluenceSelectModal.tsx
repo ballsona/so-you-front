@@ -4,6 +4,7 @@ import Text from '@/components/common/Text';
 import CloseIcon from '@/assets/icon/close.svg';
 import { useModal } from '@/hooks/useModal';
 import Image from 'next/image';
+import { formatCountVal } from '@/utils/format';
 
 interface InfluencerSelectModalProps {
   info: any;
@@ -39,12 +40,12 @@ const InfluencerSelectModal = ({
           {title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {followersCount}명 구독
+          {formatCountVal(followersCount)}명 구독
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
         <Field>금액</Field>
-        <Data>{cost}원</Data>
+        <Data>{formatCountVal(cost)}원</Data>
         <Field>카테고리</Field>
         <Data>{category ? JSON.parse(category).join(', ') : ''}</Data>
         <Field>사용채널</Field>

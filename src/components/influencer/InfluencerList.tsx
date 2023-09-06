@@ -3,6 +3,7 @@ import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 import Image from 'next/image';
 import React from 'react';
+import { formatCountVal } from '@/utils/format';
 
 // TODO 데이터 전역 상태로 변경
 interface InfluencerListTemplateProps {
@@ -45,7 +46,7 @@ const InfluencerList = ({ data, onClickItem }: InfluencerListTemplateProps) => (
               {inf.channel_Title ?? inf.channel_title}
             </Text>
             <Text size={12} color={COLORS.gray818}>
-              {inf.followersCount}명 구독
+              {formatCountVal(inf.followersCount)}명 구독
             </Text>
           </ProfileTextWrap>
         </Data>

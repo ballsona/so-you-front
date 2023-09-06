@@ -5,6 +5,7 @@ import CloseIcon from '@/assets/icon/close.svg';
 import { useRouter } from 'next/router';
 import { useModal } from '@/hooks/useModal';
 import Image from 'next/image';
+import { formatCountVal } from '@/utils/format';
 
 const InfluencerInfoModal = ({ info }: { info: any }) => {
   const router = useRouter();
@@ -46,14 +47,14 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
           {title}
         </Text>
         <Text size={14} color={COLORS.gray818}>
-          {followersCount}명 구독
+          {formatCountVal(followersCount)}명 구독
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
         {/*<Field>소요기간</Field>
         <Data>{working_time}일</Data>*/}
         <Field>금액</Field>
-        <Data>{cost}원</Data>
+        <Data>{formatCountVal(cost)}원</Data>
         <Field>카테고리</Field>
         <Data>{category ? JSON.parse(category).join(', ') : ''}</Data>
         <Field>사용채널</Field>

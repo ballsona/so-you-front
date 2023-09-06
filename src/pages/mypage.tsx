@@ -1,19 +1,25 @@
+import { getTokenAsync, getUserTypeAsync } from '@/apis/auth';
+import { getUserInfoAsync } from '@/apis/user';
 import Layout from '@/components/common/Layout';
-import NavigationBar from '@/components/common/NavigationBar';
-import dynamic from 'next/dynamic';
+import MyPageTemplate from '@/components/user/MypageTemplate';
+import { UserType } from '@/types/user';
+import { withAuth } from '@/utils/withAuth';
 
-const DynamicMyPage = dynamic(
-  () => import('../components/user/MypageTemplate'),
-  {
-    loading: () => <div>loading..</div>,
-    ssr: false,
-  },
-);
+interface MyPageProps {
+  userType: UserType;
+}
 
-const MyPage = () => {
+export const getServerSideProps = withAuth(async (ctx) => {
+  const { accessToken } = await getTokenAsync();
+  const res = await getUserInfoAsync();
+  console.log(res, accessToken);
+  return { props: { userType: 'influencer' } };
+});
+
+const MyPage = ({ userType }: MyPageProps) => {
   return (
     <Layout activeTab="mypage">
-      <DynamicMyPage />
+      <MyPageTemplate userType={userType} />
     </Layout>
   );
 };

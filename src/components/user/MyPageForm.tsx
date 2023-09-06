@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
-import { MyPageFormType, userType } from '@/types/user';
+import { MyPageFormType, UserType } from '@/types/user';
 import { COLORS } from '@/styles/theme';
 import { useMessageRefs } from '@/hooks/useMessageRefs';
 import { useModal } from '@/hooks/useModal';
@@ -20,7 +20,7 @@ import UpdatePasswordModal from '../common/Modal/UpdatePasswordModal';
 type PE = HTMLParagraphElement;
 
 interface MyPageFormProps {
-  type: userType;
+  type: UserType;
   defaultData: any;
 }
 

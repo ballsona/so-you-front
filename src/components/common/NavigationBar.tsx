@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { NAV_INFO } from '@/constants/navigation';
+import { NAV_INFO, NavType } from '@/constants/navigation';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
@@ -11,19 +11,17 @@ import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
 import ArrowButton from './ArrowButton';
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
-import { userTypeAtom } from '@/stores/userState';
 
 import SearchIcon from '@/assets/icon/search.svg';
 import ProfileIcon from '@/assets/icon/default-profile-icon.svg';
+import { UserType } from '@/types/user';
 
-const navMenu = ['project', 'influencer', 'report'];
-
-// TODO
 interface NavigationBarProps {
-  activeTab?: string | (typeof NAV_INFO)[number];
+  userType?: UserType;
+  activeTab?: NavType;
 }
 
-const NavigationBar = ({ activeTab }: NavigationBarProps) => {
+const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
   const router = useRouter();
   const {
     modalState: { visible, name },
@@ -31,19 +29,12 @@ const NavigationBar = ({ activeTab }: NavigationBarProps) => {
     closeModal,
   } = useModal();
 
-  const userType = useRecoilValue(userTypeAtom);
-  const [navMenu, setNavMenu] = useState<any[]>([]);
-
-  useEffect(() => {
-    if (!userType) return;
-
-    setNavMenu([
-      'project',
-      'influencer',
-      'report',
-      userType === 'manager' ? 'admin' : 'mypage',
-    ]);
-  }, [userType]);
+  const navMenu: NavType[] = [
+    'project',
+    'influencer',
+    'report',
+    userType === 'manager' ? 'admin' : 'mypage',
+  ];
 
   // 검색 키워드
   const [keyword, setKeyword] = useRecoilState(searchKeyWord);
@@ -189,7 +180,7 @@ export const NavListContainer = styled.div`
   gap: 30px;
 
   position: absolute;
-  top: calc(50% - 15px);
+  top: calc(50% - 12px);
   right: 50px;
 
   .nav-item {

@@ -117,10 +117,12 @@ export default MatchingList;
 const TableBody = styled.div`
   display: grid;
   grid-template-columns: 140px 220px 220px 140px;
+  background-color: #ffff;
+  box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 
   :hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: #f7f7f7;
   }
 `;
 

@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 
-import { RegisterFormType, userType } from '@/types/user';
+import { RegisterFormType, UserType } from '@/types/user';
 import { COLORS } from '@/styles/theme';
 import { useMessageRefs } from '@/hooks/useMessageRefs';
 import { useModal } from '@/hooks/useModal';
@@ -26,7 +26,7 @@ import ChannelInfoIcon from '@/assets/icon/channel-icon.svg';
 type PE = HTMLParagraphElement;
 
 interface RegisterFormProps {
-  type: userType;
+  type: UserType;
 }
 
 const EMAIL_BTN_LABEL = ['인증', '확인', '인증 완료'];

@@ -2,13 +2,13 @@ import Image from 'next/image';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { COLORS } from '@/styles/theme';
-import { userType } from '@/types/user';
+import { UserType } from '@/types/user';
 import Text from '@/components/common/Text';
 import RegisterForm from './RegisterForm';
 import RegisterSide from '@/assets/image/register-side-img.jpg';
 
 export interface RegisterTemplateProps {
-  type: userType;
+  type: UserType;
 }
 
 const RegisterTemplate = ({ type }: RegisterTemplateProps) => {

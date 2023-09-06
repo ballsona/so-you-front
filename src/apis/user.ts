@@ -6,12 +6,8 @@ import {
 } from '@/types/user';
 import { getAsync, postAsync, putAsync } from '.';
 import { ApiResponse } from '@/types/api';
-import { userType } from '@/types/user';
+import { UserType } from '@/types/user';
 import { CategoryType } from '@/constants/category';
-
-export function setAccessToken(token: string) {
-  window.localStorage.setItem('accessToken', token);
-}
 
 /** 로그인 요청 함수 */
 export async function loginAsync(
@@ -27,7 +23,7 @@ export async function loginAsync(
 
 /** 회원가입 요청 함수 (유저 타입에 따라 body가 달라짐을 주의) */
 export async function registerAsync(
-  type: userType,
+  type: UserType,
   email: string,
   password: string,
   name: string,

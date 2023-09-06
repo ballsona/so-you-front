@@ -1,4 +1,4 @@
-import { userType } from '@/types/user';
+import { UserType } from '@/types/user';
 import MyPageForm from './MyPageForm';
 import styled from '@emotion/styled';
 import Text from '../common/Text';
@@ -6,16 +6,14 @@ import { COLORS } from '@/styles/theme';
 import { useEffect, useState } from 'react';
 import { getUserInfoAsync } from '@/apis/user';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
-import { userTypeAtom } from '@/stores/userState';
 
-interface MyPageTemplateProps {}
+interface MyPageTemplateProps {
+  userType: UserType;
+}
 
-const MyPageTemplate = ({}: MyPageTemplateProps) => {
+const MyPageTemplate = ({ userType }: MyPageTemplateProps) => {
   const router = useRouter();
   const [data, setData] = useState<object>();
-
-  const userType = useRecoilValue(userTypeAtom);
 
   // 유저 정보 데이터 불러오기
   useEffect(() => {

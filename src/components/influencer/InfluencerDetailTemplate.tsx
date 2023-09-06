@@ -301,8 +301,6 @@ export default InfluencerDetailTemplate;
 
 const TemplateWrapper = styled.div`
   background-color: #fbfcff;
-  padding-top: 108px;
-  padding-bottom: 80px;
 
   display: flex;
   flex-direction: column;

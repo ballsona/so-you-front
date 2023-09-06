@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import NavigationBar from './NavigationBar';
 import { UserType } from '@/types/user';
 import UserElement from '@/assets/image/user-element.png';
@@ -6,6 +6,7 @@ import AdminElement from '@/assets/image/admin-element.svg';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { NavType } from '@/constants/navigation';
+import { useModal } from '@/hooks/useModal';
 
 interface LayoutProps {
   /** 일반 유저(인플루언서 및 광고주) or 관리자 */
@@ -19,6 +20,12 @@ const Layout = ({
   activeTab,
   children,
 }: PropsWithChildren<LayoutProps>) => {
+  const { closeModal } = useModal();
+
+  useEffect(() => {
+    closeModal();
+  }, []);
+
   return (
     <>
       <NavigationBar userType={userType} activeTab={activeTab} />

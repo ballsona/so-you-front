@@ -2,7 +2,7 @@ import { UserType } from '@/types/user';
 import axios, { AxiosInstance } from 'axios';
 
 const NEXT_API: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://www.soyoueatsyours.com/api',
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',

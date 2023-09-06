@@ -1,4 +1,4 @@
-import ReportTemplate, { sData } from '@/components/admin/ReportTemplate';
+import ReportTemplate, { sData } from '@/components/admin/ReportDetailTemplate';
 import Layout from '@/components/common/Layout';
 
 import { useRouter } from 'next/router';

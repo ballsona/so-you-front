@@ -134,10 +134,12 @@ const Wrapper = styled.div`
   left: 0;
   z-index: 1000;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 50px 0px 25px;
+
   .logo-text {
-    position: absolute;
-    top: calc(50% - 18.75px);
-    left: 25px;
     cursor: pointer;
   }
 `;
@@ -178,10 +180,6 @@ export const NavListContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
-
-  position: absolute;
-  top: calc(50% - 12px);
-  right: 50px;
 
   .nav-item {
     cursor: pointer;

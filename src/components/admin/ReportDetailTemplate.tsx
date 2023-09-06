@@ -316,7 +316,6 @@ const TemplateWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  background-color: #fbfcff;
 
   gap: 33px;
 `;

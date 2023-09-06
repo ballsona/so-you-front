@@ -300,8 +300,6 @@ export default InfluencerDetailTemplate;
 /** InfluencerDetailTemplate Style */
 
 const TemplateWrapper = styled.div`
-  background-color: #fbfcff;
-
   display: flex;
   flex-direction: column;
   align-items: center;

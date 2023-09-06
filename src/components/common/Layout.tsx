@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import NavigationBar from './NavigationBar';
-import UserElement from '@/assets/image/user-element.svg';
+import UserElement from '@/assets/image/user-element.png';
 import AdminElement from '@/assets/image/admin-element.svg';
 import styled from '@emotion/styled';
 import Image from 'next/image';

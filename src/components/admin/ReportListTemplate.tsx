@@ -21,7 +21,8 @@ const ReportListTemplate = ({ data }: { data?: any }) => {
 export default ReportListTemplate;
 
 const TemplateWrapper = styled.div`
-  height: calc(100vh - 188px);
+  height: 100%;
+  min-height: calc(100vh - 188px);
   display: flex;
   flex-direction: column;
   align-items: center;

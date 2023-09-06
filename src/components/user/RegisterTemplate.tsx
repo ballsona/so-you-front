@@ -8,7 +8,7 @@ import RegisterForm from './RegisterForm';
 import RegisterSide from '@/assets/image/register-side-img.jpg';
 
 export interface RegisterTemplateProps {
-  type: userType;
+  type: UserType;
 }
 
 const RegisterTemplate = ({ type }: RegisterTemplateProps) => {

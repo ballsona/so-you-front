@@ -11,7 +11,8 @@ const ButtonTransition = {
 };
 
 const LABELS = ['매칭 신청', '매칭 진행중', '매칭 종료'];
-const LEFTS = [0, 200, 400];
+const LEFTS = [0, 240, 480];
+const SWICH_RADIUS = ['20px 0px 0px 0px', '0px', '0px 20px 0px 0px'];
 
 const ToggleButton = ({ activeItem, setActiveItem }: any) => {
   const handleSwitch = (id: number) => {
@@ -19,7 +20,12 @@ const ToggleButton = ({ activeItem, setActiveItem }: any) => {
   };
   return (
     <ButtonWrapper>
-      <Switch layout transition={ButtonTransition} left={LEFTS[activeItem]} />
+      <Switch
+        layout
+        transition={ButtonTransition}
+        left={LEFTS[activeItem]}
+        borderRadius={SWICH_RADIUS[activeItem]}
+      />
       {LABELS.map((label, idx) => (
         <Text
           key={label}
@@ -39,20 +45,19 @@ const ToggleButton = ({ activeItem, setActiveItem }: any) => {
 export default ToggleButton;
 
 const ButtonWrapper = styled.div`
-  width: 600px;
-  height: 38px;
+  width: 100%;
+  height: 50px;
   border: 1px solid ${COLORS.primary};
-  border-radius: 90px;
+  border-radius: 20px 20px 0px 0px;
 
   display: flex;
   align-items: center;
   position: relative;
   cursor: pointer;
-  margin-bottom: 15px;
 
   .item {
-    width: 200px;
-    height: 36px;
+    width: 240px;
+    height: 100%;
 
     display: flex;
     justify-content: center;
@@ -60,14 +65,19 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+interface SwitchProps {
+  left: number;
+  borderRadius: string;
+}
+
 const Switch = styled(motion.div)`
-  width: 200px;
-  height: 36px;
-  border-radius: 90px;
+  width: 240px;
+  height: 100%;
+  border-radius: ${(props: SwitchProps) => props.borderRadius};
   background-color: ${COLORS.primary};
 
   z-index: -1;
   position: absolute;
   top: 0;
-  left: ${(props: { left: number }) => props.left}px;
+  left: ${(props: SwitchProps) => props.left}px;
 `;

@@ -34,9 +34,14 @@ export async function requestProjectAsync(
     dateRange: { startDate, endDate },
   } = requestForm;
 
+  const renderDate = () => {
+    if (startDate && endDate) {
+      return `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
+    } else return '';
+  };
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,
-    date: `${formatDate(startDate)} ~ ${formatDate(endDate)}` ?? '',
+    date: renderDate(),
     popularity,
     project_cost: costRange,
     influencer: influencerId,

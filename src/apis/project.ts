@@ -16,6 +16,10 @@ export async function getMatchingInfluencerListAsync(
   return response;
 }
 
+const formatDate = (date: Date) => {
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+};
+
 // TODO refactor
 export async function requestProjectAsync(
   requestForm: any,
@@ -23,11 +27,16 @@ export async function requestProjectAsync(
   clientEmail: string,
   influencerId: number,
 ): ApiResponse<any> {
-  const { popularity, costRange, category, season } = requestForm;
+  const {
+    popularity,
+    costRange,
+    category,
+    dateRange: { startDate, endDate },
+  } = requestForm;
 
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,
-    date: season ?? '',
+    date: `${formatDate(startDate)} ~ ${formatDate(endDate)}` ?? '',
     popularity,
     project_cost: costRange,
     influencer: influencerId,

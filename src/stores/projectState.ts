@@ -5,7 +5,7 @@ import { atom, selector } from 'recoil';
 export const projectRequestForm = atom<RequestFormType>({
   key: 'projectRequestForm',
   default: {
-    season: undefined,
+    dateRange: undefined,
     popularity: undefined,
     costRange: undefined,
     category: undefined,

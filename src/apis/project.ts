@@ -16,6 +16,10 @@ export async function getMatchingInfluencerListAsync(
   return response;
 }
 
+const formatDate = (date: Date) => {
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+};
+
 // TODO refactor
 export async function requestProjectAsync(
   requestForm: any,
@@ -32,7 +36,7 @@ export async function requestProjectAsync(
 
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,
-    date: `[${startDate},${endDate}]` ?? '',
+    date: `${formatDate(startDate)} ~ ${formatDate(endDate)}` ?? '',
     popularity,
     project_cost: costRange,
     influencer: influencerId,

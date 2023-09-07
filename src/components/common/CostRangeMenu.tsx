@@ -17,7 +17,7 @@ const menuVariants: Variants = {
 interface CostRangeMenuProps {
   selectedMenu?: CostRangeType;
   setSelectedMenu: (menu: CostRangeType) => void;
-  className: string;
+  className?: string;
 }
 
 const CostRangeMenu = ({

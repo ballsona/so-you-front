@@ -17,16 +17,22 @@ const menuVariants: Variants = {
 interface CostRangeMenuProps {
   selectedMenu?: CostRangeType;
   setSelectedMenu: (menu: CostRangeType) => void;
+  className: string;
 }
 
 const CostRangeMenu = ({
   selectedMenu,
   setSelectedMenu,
+  className,
 }: CostRangeMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <MenuWrapper initial={false} animate={isOpen ? 'open' : 'closed'}>
+    <MenuWrapper
+      initial={false}
+      animate={isOpen ? 'open' : 'closed'}
+      className={className}
+    >
       <SelectedMenu onClick={() => setIsOpen(!isOpen)}>
         {selectedMenu ?? '예산 선택'}
         <ArrowButton color={COLORS.gray484} />

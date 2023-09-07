@@ -23,11 +23,16 @@ export async function requestProjectAsync(
   clientEmail: string,
   influencerId: number,
 ): ApiResponse<any> {
-  const { popularity, costRange, category, season } = requestForm;
+  const {
+    popularity,
+    costRange,
+    category,
+    dateRange: { startDate, endDate },
+  } = requestForm;
 
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,
-    date: season ?? '',
+    date: `[${startDate},${endDate}]` ?? '',
     popularity,
     project_cost: costRange,
     influencer: influencerId,

@@ -7,7 +7,10 @@ import {
 
 export interface RequestFormType {
   /** 기간 (server: date)  */
-  season?: SeasonType;
+  dateRange?: {
+    startDate?: Date;
+    endDate?: Date;
+  };
   /** 인지도 */
   popularity?: PopularityDegreeType;
   /** 예산 (server: project_cost)  */

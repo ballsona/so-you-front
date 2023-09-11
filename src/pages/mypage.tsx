@@ -1,5 +1,3 @@
-import { getTokenAsync, getUserTypeAsync } from '@/apis/auth';
-import { getUserInfoAsync } from '@/apis/user';
 import Layout from '@/components/common/Layout';
 import MyPageTemplate from '@/components/user/MypageTemplate';
 import { UserType } from '@/types/user';
@@ -10,10 +8,10 @@ interface MyPageProps {
 }
 
 export const getServerSideProps = withAuth(async (ctx) => {
-  const { accessToken } = await getTokenAsync();
-  const res = await getUserInfoAsync();
-  console.log(res, accessToken);
-  return { props: { userType: 'influencer' } };
+  const { cookies } = ctx.req;
+  const { userType } = cookies;
+
+  return { props: { userType } };
 });
 
 const MyPage = ({ userType }: MyPageProps) => {

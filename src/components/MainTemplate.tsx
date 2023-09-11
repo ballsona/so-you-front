@@ -4,14 +4,16 @@ import Text from './common/Text';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
-import { removeTokenAsync } from '@/apis/auth';
+import { removeTokenAsync, removeUserTypeAsync } from '@/apis/auth';
 
 const MainTemplate = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const router = useRouter();
 
   const onClickAuthButton = async () => {
     if (isLoggedIn) {
+      // 로그아웃
       await removeTokenAsync();
+      await removeUserTypeAsync();
       router.reload();
     } else {
       router.push(NAV_INFO.login.url);

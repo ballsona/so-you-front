@@ -23,14 +23,8 @@ const MyPageTemplate = ({ userType }: MyPageTemplateProps) => {
         setData(res.result.user);
       }
     };
-
-    if (userType) {
-      getUserInfo();
-    } else {
-      router.push('/user/login');
-      alert('로그인 해주세요!');
-    }
-  }, [userType]);
+    getUserInfo();
+  }, []);
 
   if (!data) return <></>;
 
@@ -49,7 +43,8 @@ const MyPageTemplate = ({ userType }: MyPageTemplateProps) => {
 export default MyPageTemplate;
 
 const TemplateWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
+  min-height: calc(100vh - 188px);
   display: flex;
   flex-direction: column;
   align-items: center;

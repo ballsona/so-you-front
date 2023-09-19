@@ -1,13 +1,15 @@
 import { ApiResponse } from '@/types/api';
 import { CostRangeType, PopularityDegreeType } from '@/constants/influencer';
 import { CategoryType } from '@/constants/category';
+import { formatDate } from '@/utils/format';
 import { postAsync } from '.';
 
-export async function getMatchingInfluencerListAsync(
-  popularity?: PopularityDegreeType,
-  costRange?: CostRangeType,
-  category?: CategoryType[],
-): ApiResponse<any> {
+export async function getMatchingInfluencerListAsync(requestForm: {
+  popularity?: PopularityDegreeType;
+  costRange?: CostRangeType;
+  category?: CategoryType[];
+}): ApiResponse<any> {
+  const { popularity, costRange, category } = requestForm;
   const response = await postAsync('/api/matching/influencer', {
     categoryInput: category && category.length > 0 && JSON.stringify(category),
     costRangeInput: costRange,
@@ -16,9 +18,6 @@ export async function getMatchingInfluencerListAsync(
   return response;
 }
 
-const formatDate = (date: Date) =>
-  `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
-
 // TODO refactor
 export async function requestProjectAsync(
   requestForm: any,
@@ -26,16 +25,11 @@ export async function requestProjectAsync(
   clientEmail: string,
   influencerId: number,
 ): ApiResponse<any> {
-  const {
-    popularity,
-    costRange,
-    category,
-    dateRange: { startDate, endDate },
-  } = requestForm;
+  const { popularity, costRange, category, dateRange } = requestForm;
 
   const renderDate = () => {
-    if (startDate && endDate) {
-      return `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
+    if (dateRange.length > 0) {
+      return `${formatDate(dateRange[0])} ~ ${formatDate(dateRange[1])}`;
     }
     return '';
   };

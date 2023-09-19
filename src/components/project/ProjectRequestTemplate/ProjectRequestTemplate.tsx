@@ -1,22 +1,25 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { COLORS } from '@/styles/theme';
 import { RequestFormType } from '@/types/project';
 import {
   getMatchingInfluencerListAsync,
   requestProjectAsync,
 } from '@/apis/project';
-import InfluencerList from '@/components/influencer/InfluencerList';
-import Text from '@/components/common/Text';
-
+import { projectRequestForm } from '@/stores/projectState';
+import styled from '@emotion/styled';
 import { useModal } from '@/hooks/useModal';
 import InfluencerSelectModal from '@/components/common/Modal/InfluenceSelectModal';
-import { useRecoilState } from 'recoil';
-import { projectRequestForm } from '@/stores/projectState';
+import InfluencerList from '@/components/influencer/InfluencerList';
+import Text from '@/components/common/Text';
 import { getUserInfoAsync } from '@/apis/user';
-import styled from '@emotion/styled';
-import RegisterManager from '../RegisterManager';
-import RequestForm from './RequestForm';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import MatchingStep from './MatchingStep';
+import ManagerStep from './ManagerStep';
 import ProgressBar from './ProgressBar';
+import PaymentStep from './PaymentStep';
+import InfluencerSelectStep from './InfluencerSelectStep';
 
 export const TITLE = [
   '프로젝트 의뢰',
@@ -27,32 +30,44 @@ export const TITLE = [
 ];
 
 const ProjectRequestTemplate = () => {
+  const router = useRouter();
   const { openModal, closeModal } = useModal();
 
+  // 현재 의뢰 프로세스 단계
   const [activeStep, setActiveStep] = useState(1);
-  const [influencerList, setInfluencerList] = useState([]);
+  // 매칭 조건 폼
   const [requestForm, setRequestForm] = useRecoilState(projectRequestForm);
+  // 매칭 가능한 인플루언서 리스트
+  const [influencerList, setInfluencerList] = useState([]);
 
+  const goNextStep = () => setActiveStep((prev) => prev + 1);
+  const goBeforeStep = () => setActiveStep((prev) => prev - 1);
+
+  // [MatchingStep] 프로젝트 의뢰 함수
   const onSubmitRequestForm = async (formFields: RequestFormType) => {
-    const { popularity, costRange, category, dateRange } = formFields;
-
-    const res = await getMatchingInfluencerListAsync(
-      popularity,
-      costRange,
-      category,
-    );
+    const res = await getMatchingInfluencerListAsync(formFields);
     if (!res.isSuccess) {
       alert('매칭할 수 있는 인플루언서가 없습니다.');
       return;
     }
 
-    console.log(formFields);
-
     setRequestForm(formFields);
     setInfluencerList(res.result.response);
-    setActiveStep((prev: number) => prev + 1);
+    goNextStep();
   };
 
+  // [InfluencerList] 인플루언서 클릭시 실행되는 함수
+  const onClickInfluencer = (id: number) => {
+    const focusedInfo = influencerList.filter((i: any) => i.index === id)[0];
+    openModal(
+      <InfluencerSelectModal
+        info={focusedInfo}
+        onSelectItem={() => onSelectInfluencer(id)}
+      />,
+    );
+  };
+
+  // [InfluencerList] 인플루언서 선택 후 프로젝트 의뢰하는 함수
   const onSelectInfluencer = async (id: number) => {
     const userRes = await getUserInfoAsync();
     if (!userRes.isSuccess) {
@@ -66,43 +81,54 @@ const ProjectRequestTemplate = () => {
       alert('해당 인플루언서를 선택할 수 없습니다.');
       return;
     }
-
     closeModal();
-    setActiveStep((prev: number) => prev + 1);
+    goNextStep();
   };
 
-  const onClickInfluencer = (id: number) => {
-    const focusedInfo = influencerList.filter((i: any) => i.index === id)[0];
-    openModal(
-      <InfluencerSelectModal
-        info={focusedInfo}
-        onSelectItem={() => onSelectInfluencer(id)}
-      />,
-    );
-  };
-
+  // Render Step Content
   const renderContent = () => {
     switch (activeStep) {
       case 1: {
-        return <RequestForm onSubmit={onSubmitRequestForm} />;
+        return <MatchingStep onSubmit={onSubmitRequestForm} />;
       }
       case 2: {
         return (
-          <InfluencerList
-            data={influencerList}
-            onClickItem={onClickInfluencer}
+          <InfluencerSelectStep
+            influencerList={influencerList}
+            onClickInfluencer={onClickInfluencer}
+            goBeforeStep={goBeforeStep}
           />
         );
       }
       case 3: {
         return (
-          <RegisterManager
-            goNextStep={() => setActiveStep((prev: number) => prev + 1)}
-          />
+          <ManagerStep goBeforeStep={goBeforeStep} goNextStep={goNextStep} />
         );
       }
       case 4: {
-        return <>결제 단계는 준비중입니다</>;
+        return (
+          <PaymentStep goBeforeStep={goBeforeStep} goNextStep={goNextStep} />
+        );
+      }
+      case 5: {
+        return (
+          <FinalStep>
+            <Image src="/process-finish.svg" width="363" height="300" />
+            <Text
+              size={20}
+              weight="700"
+              color={COLORS.primary}
+              className="title"
+            >
+              프로젝트가 성사되었습니다.
+            </Text>
+            <Text size={16} weight="400" color="#a0a0a0">
+              이후부터는 <span>리포트 탭</span>을 통해서 확인 해보실 수
+              있습니다.
+            </Text>
+            <Button onClick={() => router.push('/report')}>확인</Button>
+          </FinalStep>
+        );
       }
       default: {
         return <>잘못된 경로입니다.</>;
@@ -116,7 +142,7 @@ const ProjectRequestTemplate = () => {
         {TITLE[activeStep - 1]}
       </Text>
       <ProgressBar activeStep={activeStep - 1} />
-      <ContentWrap>{renderContent()}</ContentWrap>
+      <div>{renderContent()}</div>
     </TemplateWrapper>
   );
 };
@@ -135,4 +161,27 @@ const TemplateWrapper = styled.div`
   }
 `;
 
-const ContentWrap = styled.div``;
+const FinalStep = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .title {
+    margin-bottom: 11px;
+  }
+
+  span {
+    font-weight: 700;
+    color: ${COLORS.primary};
+  }
+`;
+
+const Button = styled.button`
+  width: 129px;
+  height: 42px;
+  color: ${COLORS.white};
+  background-color: ${COLORS.primary};
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+`;

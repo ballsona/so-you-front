@@ -100,7 +100,7 @@ export const IntroSection = ({
           color={theme_color.influencer}
           onClick={() =>
             router.push(
-              isLoggedIn ? '/influencer' : '/user/register/influencer',
+              isLoggedIn ? '/project/request' : '/user/register/influencer',
             )
           }
         >

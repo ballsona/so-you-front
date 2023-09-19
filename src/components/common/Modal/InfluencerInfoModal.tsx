@@ -36,8 +36,8 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
             src={image}
             alt="channel-img"
             className="channel-img"
-            width="80"
-            height="80"
+            width="120"
+            height="120"
           />
         )}
         <Text
@@ -53,8 +53,6 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
-        {/* <Field>소요기간</Field>
-        <Data>{working_time}일</Data> */}
         <Field>금액</Field>
         <Data>{formatCountVal(cost)}원</Data>
         <Field>카테고리</Field>
@@ -116,18 +114,18 @@ const ButtonsWrap = styled.div`
   bottom: 0;
 
   .match-btn {
-    width: 220px;
+    width: 180px;
     background-color: ${COLORS.gray484};
   }
 
   .detail-btn {
-    width: 140px;
+    width: 180px;
     background-color: ${COLORS.primary};
   }
 `;
 
 const Button = styled.button`
-  height: 50px;
+  height: 60px;
   font-size: 16px;
   font-weight: 700;
   color: ${COLORS.white};
@@ -142,7 +140,7 @@ const ProfileWrap = styled.div`
   z-index: 10;
 
   .channel-img {
-    border-radius: 40px;
+    border-radius: 60px;
     background-color: #f6f6f6;
     border: 1px solid #cdcdcd;
     margin-bottom: 18px;
@@ -160,7 +158,7 @@ const DetailInfoWrap = styled.div`
   justify-content: center;
   grid-template-columns: 96px 134px;
   gap: 2px;
-  margin-top: 33px;
+  margin-top: 25px;
 `;
 
 const Field = styled.div`

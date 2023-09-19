@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { CostRangeType, popularityDegree } from '@/constants/influencer';
 import { COLORS } from '@/styles/theme';
-import styled from '@emotion/styled';
 import { categoryListAtom } from '@/stores/categoryState';
 import { useModal } from '@/hooks/useModal';
 import CategorySelectModal from '@/components/common/Modal/CategorySelectModal';
@@ -11,71 +9,51 @@ import CategoryTag from '@/components/common/CategoryTag';
 import CostRangeMenu from '@/components/common/CostRangeMenu';
 import PopularityBar from '@/components/common/PopularityBar';
 import Text from '@/components/common/Text';
+import styled from '@emotion/styled';
 import { CategoryType } from '@/constants/category';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { RequestFormType } from '@/types/project';
+import DateRangeModal from '@/components/common/Modal/DateRangeModal';
+import { formatDate } from '@/utils/format';
 
-import 'react-calendar/dist/Calendar.css';
-
-import Calendar from 'react-calendar';
-
-const formatDate = (date: Date) =>
-  `${date.getFullYear()}월 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-
-const RequestForm = ({
+const MatchingStep = ({
   onSubmit,
 }: {
-  onSubmit: (formFields: RequestFormType) => Promise<void>;
+  onSubmit: (fields: RequestFormType) => Promise<void>;
 }) => {
   const router = useRouter();
   const { openModal } = useModal();
 
-  const [calendarState, setCalendarState] = useState<'start' | 'end'>();
-
-  const handleCalendarState = (newState: 'start' | 'end') => {
-    if (!calendarState) {
-      setCalendarState(newState);
-    } else {
-      setCalendarState(undefined);
-    }
-  };
-
   const category = useRecoilValue<CategoryType[]>(categoryListAtom);
+
   const formMethods = useForm<Omit<RequestFormType, 'category'>>({
     defaultValues: {
-      dateRange: { startDate: undefined, endDate: undefined },
+      dateRange: [],
     },
   });
-
   const { setValue, control, handleSubmit } = formMethods;
-  const { popularity, dateRange, costRange } = useWatch({ control });
+  const { popularity, costRange, dateRange } = useWatch({ control });
 
   const onSelectCostRange = (range: CostRangeType) => {
     setValue('costRange', range);
   };
 
-  const onSelectStartDate = (value: any, e: any) => {
-    if (dateRange?.endDate && value.getTime() >= dateRange?.endDate.getTime()) {
-      alert('시작 날짜는 종료일 이전의 날짜를 선택해주세요!');
-      return;
-    }
-    setValue('dateRange.startDate', value ?? undefined);
-    setCalendarState(undefined);
-  };
-
-  const onSelectEndDate = (value: any, e: any) => {
-    if (
-      dateRange?.startDate &&
-      value.getTime() <= dateRange?.startDate.getTime()
-    ) {
-      alert('종료 날짜는 시작일 이후의 날짜를 선택해주세요!');
-      return;
-    }
-    setValue('dateRange.endDate', value ?? undefined);
-    setCalendarState(undefined);
+  const onSelectDateRange = (range: [Date, Date]) => {
+    setValue('dateRange', range);
   };
 
   const requestProject = () => {
+    // if (
+    //  !popularity ||
+    //  !dateRange ||
+    //  dateRange.length < 0 ||
+    //  !costRange ||
+    //  category.length < 0
+    // ) {
+    //  alert('값을 모두 선택해주세요!');
+    //  return;
+    // }
+
     onSubmit({ popularity, dateRange, costRange, category });
   };
 
@@ -117,32 +95,31 @@ const RequestForm = ({
             <Text size={16} weight="700" color="#262627">
               기 간
             </Text>
-            <DateInputWrapper>
+            <OpenCalendarButton
+              onClick={() =>
+                openModal(<DateRangeModal setDateRange={onSelectDateRange} />)
+              }
+            >
+              날짜 선택
+            </OpenCalendarButton>
+            <div>
               <Text size={13} weight="500" color="#262627">
-                시작 일자
+                시작일
               </Text>
-              <DateInput onClick={() => handleCalendarState('start')}>
-                {dateRange?.startDate
-                  ? formatDate(dateRange.startDate)
-                  : '날짜 선택'}
+              <DateInput>
+                {dateRange?.[0]
+                  ? formatDate(dateRange?.[0])
+                  : '날짜를 선택해주세요'}
               </DateInput>
-              {calendarState === 'start' && (
-                <Calendar onChange={onSelectStartDate} className="calendar" />
-              )}
-            </DateInputWrapper>
-            <DateInputWrapper>
               <Text size={13} weight="500" color="#262627">
-                종료 일자
+                종료일
               </Text>
-              <DateInput onClick={() => handleCalendarState('end')}>
-                {dateRange?.endDate
-                  ? formatDate(dateRange.endDate)
-                  : '날짜 선택'}
+              <DateInput>
+                {dateRange?.[1]
+                  ? formatDate(dateRange?.[1])
+                  : '날짜를 선택해주세요'}
               </DateInput>
-              {calendarState === 'end' && (
-                <Calendar onChange={onSelectEndDate} className="calendar" />
-              )}
-            </DateInputWrapper>
+            </div>
           </InputBox>
           <InputBox>
             <Text size={16} weight="700" color="#262627">
@@ -168,7 +145,7 @@ const RequestForm = ({
   );
 };
 
-export default RequestForm;
+export default MatchingStep;
 
 const Wrapper = styled.div`
   display: flex;
@@ -193,6 +170,15 @@ const CategoryButton = styled.button`
   color: ${COLORS.white};
 `;
 
+const OpenCalendarButton = styled.button`
+  width: 80px;
+  height: 32px;
+  border-radius: 40px;
+  background-color: ${COLORS.primary};
+  color: ${COLORS.white};
+  margin-bottom: -5px;
+`;
+
 const PopularityBarsWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -205,20 +191,20 @@ const ButtonsWrap = styled.div`
 
   .cancel-btn {
     background-color: ${COLORS.grayC4C};
-    width: 100px;
+    width: 90px;
     margin-right: 5px;
   }
 
   .update-btn {
     background-color: ${COLORS.primary};
-    width: 160px;
+    width: 135px;
   }
 `;
 
 const Button = styled.button`
-  height: 36px;
+  height: 42px;
   color: ${COLORS.white};
-  border-radius: 4px;
+  border-radius: 100px;
   font-size: 16px;
   font-weight: 600;
 `;
@@ -234,6 +220,7 @@ const InputBox = styled.div`
   align-items: center;
   gap: 24px;
   padding-top: 25px;
+  position: relative;
 
   .cost-menu {
     width: 170px;
@@ -245,14 +232,6 @@ const CategoryTagsWrap = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
-`;
-
-const DateInputWrapper = styled.div`
-  .calendar {
-    position: absolute;
-    z-index: 10;
-    width: 300px;
-  }
 `;
 
 const DateInput = styled.div`

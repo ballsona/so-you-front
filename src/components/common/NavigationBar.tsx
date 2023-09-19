@@ -9,7 +9,6 @@ import { searchFilter, searchKeyWord } from '@/stores/influencerState';
 import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
-
 import SearchIcon from '@/assets/icon/search.svg';
 import ProfileIcon from '@/assets/icon/default-profile-icon.svg';
 import { UserType } from '@/types/user';
@@ -31,7 +30,6 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
 
   const navMenu: NavType[] = [
     'project',
-    'influencer',
     'report',
     userType === 'manager' ? 'admin' : 'mypage',
   ];

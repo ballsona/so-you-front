@@ -6,6 +6,7 @@ import { useModal } from '@/hooks/useModal';
 import Image from 'next/image';
 import { formatCountVal } from '@/utils/format';
 import ModalElement from '@/assets/image/modal-element.svg';
+import { useRouter } from 'next/router';
 
 interface InfluencerSelectModalProps {
   info: any;
@@ -16,9 +17,10 @@ const InfluencerSelectModal = ({
   info,
   onSelectItem,
 }: InfluencerSelectModalProps) => {
-  const { closeModal } = useModal();
+  const router = useRouter();
 
   const {
+    index: id,
     channel_image: image,
     channel_title: title,
     followersCount,
@@ -26,17 +28,23 @@ const InfluencerSelectModal = ({
     category,
   } = info;
 
+  const { closeModal } = useModal();
+  const onShowDetail = () => {
+    closeModal();
+    router.push(`/influencer/${id}`);
+  };
+
   return (
     <ModalWrapper>
       <ModalElement className="modal-icon" />
       <CloseIcon className="close-icon" onClick={closeModal} />
       <ProfileWrap>
         <Image
-          src={image ?? ''}
+          src={image ?? '/user-profile.svg'}
           alt="channel-img"
           className="channel-img"
-          width="80"
-          height="80"
+          width="120"
+          height="120"
         />
         <Text
           size={18}
@@ -59,8 +67,8 @@ const InfluencerSelectModal = ({
         <Data>인스타그램, 유튜브</Data>
       </DetailInfoWrap>
       <ButtonsWrap>
-        <Button className="cancel-btn" onClick={closeModal}>
-          취소
+        <Button className="cancel-btn" onClick={onShowDetail}>
+          상세보기
         </Button>
         <Button className="select-btn" onClick={onSelectItem}>
           선택하기
@@ -109,18 +117,18 @@ const ButtonsWrap = styled.div`
   bottom: 0;
 
   .cancel-btn {
-    width: 140px;
+    width: 180px;
     background-color: ${COLORS.gray484};
   }
 
   .select-btn {
-    width: 220px;
+    width: 180px;
     background-color: ${COLORS.primary};
   }
 `;
 
 const Button = styled.button`
-  height: 50px;
+  height: 60px;
   font-size: 16px;
   font-weight: 700;
   color: ${COLORS.white};
@@ -135,8 +143,7 @@ const ProfileWrap = styled.div`
   z-index: 10;
 
   .channel-img {
-    border-radius: 40px;
-    background-color: #f6f6f6;
+    border-radius: 60px;
     border: 1px solid #cdcdcd;
     margin-bottom: 18px;
   }
@@ -153,7 +160,7 @@ const DetailInfoWrap = styled.div`
   justify-content: center;
   grid-template-columns: 96px 134px;
   gap: 2px;
-  margin-top: 40px;
+  margin-top: 25px;
 `;
 
 const Field = styled.div`

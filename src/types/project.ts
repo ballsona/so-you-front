@@ -1,16 +1,9 @@
 import { CategoryType } from '@/constants/category';
-import {
-  CostRangeType,
-  PopularityDegreeType,
-  SeasonType,
-} from '@/constants/influencer';
+import { CostRangeType, PopularityDegreeType } from '@/constants/influencer';
 
 export interface RequestFormType {
   /** 기간 (server: date)  */
-  dateRange?: {
-    startDate?: Date;
-    endDate?: Date;
-  };
+  dateRange?: [Date, Date];
   /** 인지도 */
   popularity?: PopularityDegreeType;
   /** 예산 (server: project_cost)  */

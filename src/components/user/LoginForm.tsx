@@ -47,7 +47,7 @@ const LoginForm = () => {
     const { token, refreshToken, type } = res.result;
     setTokenInCookieAsync(token, refreshToken);
     setUserTypeAsync(type as UserType);
-    router.replace('/influencer');
+    router.replace('/project/request');
   };
 
   return (

@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
-import ToggleButton from './ToggleButton';
-import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
 import Image from 'next/image';
 import { useModal } from '@/hooks/useModal';
-import MatchingSideModal from './MatchingSideModal';
-import CreateReportModal from './CreateReportModal';
 import { useRouter } from 'next/router';
 import { getUserInfoAsync } from '@/apis/user';
 import { updateMatchingAsync } from '@/apis/admin';
+import CreateReportModal from './CreateReportModal';
+import MatchingSideModal from './MatchingSideModal';
+import Text from '../common/Text';
 
 const MatchingList = ({ activeStatus, data }: any) => {
   const router = useRouter();
@@ -49,10 +48,9 @@ const MatchingList = ({ activeStatus, data }: any) => {
       // 리포트 보기
       case 3: {
         router.push(`/report/${matchingId}`);
-        return;
+        break;
       }
       default:
-        return;
     }
   };
 
@@ -66,6 +64,7 @@ const MatchingList = ({ activeStatus, data }: any) => {
     );
   };
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {data?.map((d: any) => (
         <TableBody key={d.index} onClick={() => onClickItem(d)}>

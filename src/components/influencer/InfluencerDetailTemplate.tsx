@@ -44,6 +44,7 @@ function calculateScore(
 }
 
 function renderScoreTxt(score: number) {
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < IndexLabels.length; i++) {
     if (score > IndexLabels[i].min) {
       return [IndexLabels[i].label, IndexLabels[i].color];
@@ -201,7 +202,7 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
             </Text>
             <div className="soyou-score-txt">
               <Text size={32} weight="700" color={COLORS.gray484}>
-                {parseInt(soyouScore.toString())}점
+                {parseInt(soyouScore.toString(), 10)}점
               </Text>
               <Text
                 size={24}
@@ -236,8 +237,8 @@ const InfluencerDetailTemplate = ({ data }: InfluencerDetailTemplateProps) => {
             </div>
             <div className="soyou-index-data">
               <IndexPin
-                src={'/IndexPin.png'}
-                left={parseInt(soYouScorePinLoc.toString())}
+                src="/IndexPin.png"
+                left={parseInt(soYouScorePinLoc.toString(), 10)}
               />
               <IndexHr />
               <IndexLabelWrap>

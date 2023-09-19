@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 
-import SyScoreStars from '@/assets/icon/sy-stars.svg';
 import VideoPlayIcon from '@/assets/icon/video-play.svg';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -10,8 +9,6 @@ import dynamic from 'next/dynamic';
 const DynamicChart = dynamic(() => import('./Chart'), {
   ssr: false,
 });
-
-//import Chart from './Chart';
 
 interface ReportTemplateProps {
   data: any;
@@ -117,7 +114,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
     domain,
   } = data;
 
-  //const youtubeId = link.split('?')[1]?.split('&')[0]?.split('=')[1];
+  // const youtubeId = link.split('?')[1]?.split('&')[0]?.split('=')[1];
   return (
     <TemplateWrapper>
       <Text size={24} weight="700" color={COLORS.gray484} className="title">
@@ -125,7 +122,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
       </Text>
       <DashBoard>
         <BasicDataWrap>
-          {/*{youtubeId ? (
+          {/* {youtubeId ? (
             <Youtube
               videoId={youtubeId}
               opts={{
@@ -135,10 +132,10 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             />
           ) : (
             <DataBoxWrap className="empty-video">영상이 없습니다</DataBoxWrap>
-          )}*/}
+          )} */}
 
           <VideoBox onClick={() => router.push(link)}>
-            <img src={`/VideoImage${id}.jpg`} />
+            <img src={`/VideoImage${id}.jpg`} alt="video-img" />
             <VideoPlayIcon className="icon" />
           </VideoBox>
           <DataBoxWrap className="content-box">
@@ -196,7 +193,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             <Text
               size={12}
               weight="400"
-              color={'#8e8e8e'}
+              color="#8e8e8e"
               className="data-description"
             >
               마케팅 종료 시점의 조회수 입니다.
@@ -224,17 +221,12 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             <Text
               size={12}
               weight="400"
-              color={'#8e8e8e'}
+              color="#8e8e8e"
               className="data-description"
             >
               유튜버의 구독자 수 등급 분류 입니다.
             </Text>
-            <Text
-              size={20}
-              weight="400"
-              color={'#6290E9'}
-              className="score-txt"
-            >
+            <Text size={20} weight="400" color="#6290E9" className="score-txt">
               최우수
             </Text>
           </DataBoxWrap>
@@ -252,7 +244,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             <Text
               size={12}
               weight="400"
-              color={'#8e8e8e'}
+              color="#8e8e8e"
               className="data-description"
             >
               조회수 대비 구독자 비율로서, 해당 인플루언서를 통해 마케팅이
@@ -282,7 +274,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             <Text size={25} weight="400" color={COLORS.gray484}>
               <span className="sy-score">{sy_score}</span> / 5.0
             </Text>
-            <img src={`/Stars${id}.png`} />
+            <img src={`/Stars${id}.png`} alt="star-img" />
           </DataBoxWrap>
           <DataBoxWrap className="sy-text-box">
             <Text size={16} weight="400" color={COLORS.gray484}>

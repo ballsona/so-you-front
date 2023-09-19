@@ -3,9 +3,7 @@ import ReportListTemplate from '@/components/admin/ReportListTemplate';
 import Layout from '@/components/common/Layout';
 import { withAuth } from '@/utils/withAuth';
 
-export const getServerSideProps = withAuth(async (ctx) => {
-  return { props: {} };
-});
+export const getServerSideProps = withAuth(async (ctx) => ({ props: {} }));
 
 const Report = () => {
   // 인플루언서 리스트 데이터

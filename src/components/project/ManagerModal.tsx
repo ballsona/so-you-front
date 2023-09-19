@@ -1,40 +1,35 @@
-import { useModal } from '@/hooks/useModal';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import Text from '../common/Text';
 import Image from 'next/image';
+import Text from '../common/Text';
 
-const ManagerModal = ({ onClickButton, managerInfo }: any) => {
-  //const { image, name, category } = managerInfo;
+const ManagerModal = ({ onClickButton, managerInfo }: any) => (
+  // const { image, name, category } = managerInfo;
 
-  return (
-    <ModalWrapper>
-      <ProfileWrap>
-        <Image
-          src={''}
-          alt="profile-img"
-          className="profile-img"
-          width="80"
-          height="80"
-        />
-        <Text size={18} weight="700" color={COLORS.gray484}>
-          담당자
-        </Text>
-        <Text size={14} color={COLORS.gray818}>
-          {'홍길동'}
-        </Text>
-      </ProfileWrap>
-      <DetailInfoWrap>
-        <Field>카테고리</Field>
-        {/*<Data>{JSON.parse(category ?? '').join(', ') }</Data>*/}
-        <Data>식품</Data>
-      </DetailInfoWrap>
-      <Button onClick={onClickButton}>확인</Button>
-    </ModalWrapper>
-  );
-};
-
+  <ModalWrapper>
+    <ProfileWrap>
+      <Image
+        src=""
+        alt="profile-img"
+        className="profile-img"
+        width="80"
+        height="80"
+      />
+      <Text size={18} weight="700" color={COLORS.gray484}>
+        담당자
+      </Text>
+      <Text size={14} color={COLORS.gray818}>
+        홍길동
+      </Text>
+    </ProfileWrap>
+    <DetailInfoWrap>
+      <Field>카테고리</Field>
+      {/* <Data>{JSON.parse(category ?? '').join(', ') }</Data> */}
+      <Data>식품</Data>
+    </DetailInfoWrap>
+    <Button onClick={onClickButton}>확인</Button>
+  </ModalWrapper>
+);
 export default ManagerModal;
 
 const ModalWrapper = styled.div`

@@ -1,11 +1,11 @@
 import { UserType } from '@/types/user';
-import MyPageForm from './MyPageForm';
 import styled from '@emotion/styled';
-import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
 import { useEffect, useState } from 'react';
 import { getUserInfoAsync } from '@/apis/user';
 import { useRouter } from 'next/router';
+import Text from '../common/Text';
+import MyPageForm from './MyPageForm';
 
 interface MyPageTemplateProps {
   userType: UserType;
@@ -26,7 +26,7 @@ const MyPageTemplate = ({ userType }: MyPageTemplateProps) => {
     getUserInfo();
   }, []);
 
-  if (!data) return <></>;
+  if (!data) return <>데이터가 존재하지 않습니다.</>;
 
   return (
     userType && (

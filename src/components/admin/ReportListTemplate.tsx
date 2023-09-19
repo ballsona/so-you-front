@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
-import ReportList from './ReportList';
 import { useRouter } from 'next/router';
+import Text from '../common/Text';
+import ReportList from './ReportList';
 import { sData } from './ReportDetailTemplate';
 
 const ReportListTemplate = ({ data }: { data?: any }) => {

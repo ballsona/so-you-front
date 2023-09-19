@@ -3,9 +3,8 @@ import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 import InfluencerList from '@/components/influencer/InfluencerList';
 import { useModal } from '@/hooks/useModal';
-import InfluencerInfoModal from '../common/Modal/InfluencerInfoModal';
 import { getInfluencerDetailInfoAsync } from '@/apis/influencer';
-import { useCallback } from 'react';
+import InfluencerInfoModal from '../common/Modal/InfluencerInfoModal';
 
 interface InfluencerListTemplateProps {
   data: any[];

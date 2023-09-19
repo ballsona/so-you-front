@@ -7,26 +7,24 @@ interface ProgressBarProps {
   activeStep: number;
 }
 
-const ProgressBar = ({ activeStep }: ProgressBarProps) => {
-  return (
-    <BarWrapper>
-      {new Array(5).fill(0).map((v, idx) =>
-        activeStep === idx ? (
-          <ActiveCircleBorder key={idx}>
-            <ActiveCircle>
-              <Text size={12} weight="400" color={COLORS.white}>
-                {activeStep + 1}
-              </Text>
-            </ActiveCircle>
-          </ActiveCircleBorder>
-        ) : (
-          <Circle key={idx} />
-        ),
-      )}
-      <Bar />
-    </BarWrapper>
-  );
-};
+const ProgressBar = ({ activeStep }: ProgressBarProps) => (
+  <BarWrapper>
+    {new Array(5).fill(0).map((v, idx) =>
+      activeStep === idx ? (
+        <ActiveCircleBorder key={idx}>
+          <ActiveCircle>
+            <Text size={12} weight="400" color={COLORS.white}>
+              {activeStep + 1}
+            </Text>
+          </ActiveCircle>
+        </ActiveCircleBorder>
+      ) : (
+        <Circle key={idx} />
+      ),
+    )}
+    <Bar />
+  </BarWrapper>
+);
 
 export default ProgressBar;
 

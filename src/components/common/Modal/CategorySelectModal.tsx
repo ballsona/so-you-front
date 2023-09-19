@@ -19,19 +19,17 @@ const CategoryItem = React.memo(
     label: CategoryType;
     isSelected: boolean;
     onClickItem: (c: CategoryType) => void;
-  }) => {
-    return (
-      <Text
-        size={12}
-        weight="700"
-        color={isSelected ? COLORS.primary : COLORS.gray484}
-        className="category"
-        onClick={() => onClickItem(label)}
-      >
-        {label}
-      </Text>
-    );
-  },
+  }) => (
+    <Text
+      size={12}
+      weight="700"
+      color={isSelected ? COLORS.primary : COLORS.gray484}
+      className="category"
+      onClick={() => onClickItem(label)}
+    >
+      {label}
+    </Text>
+  ),
 );
 
 const CategorySelectModal = () => {

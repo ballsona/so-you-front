@@ -136,22 +136,23 @@ API.interceptors.response.use(
         });
 
         if (res.isSuccess) {
-          const { accessToken, refreshToken } = res.result.response;
+          const { accessToken: aToken, refreshToken: rToken } =
+            res.result.response;
 
           // 갱신된 토큰을 쿠키에 저장
-          setTokenInCookieAsync(accessToken, refreshToken);
+          setTokenInCookieAsync(aToken, rToken);
 
           // 갱신된 토큰을 가지고 api 요청 재시도
           return axios.request({
             ...error.config,
             headers: {
               ...error.config?.headers,
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${aToken}`,
             },
           });
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
         window.location.href = '/user/login';
       }
     }

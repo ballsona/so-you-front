@@ -7,16 +7,16 @@ import {
 } from '@/apis/project';
 import InfluencerList from '@/components/influencer/InfluencerList';
 import Text from '@/components/common/Text';
-import ProgressBar from './ProgressBar';
-import RequestForm from './RequestForm';
 
 import { useModal } from '@/hooks/useModal';
 import InfluencerSelectModal from '@/components/common/Modal/InfluenceSelectModal';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { projectRequestData, projectRequestForm } from '@/stores/projectState';
+import { useRecoilState } from 'recoil';
+import { projectRequestForm } from '@/stores/projectState';
 import { getUserInfoAsync } from '@/apis/user';
-import RegisterManager from '../RegisterManager';
 import styled from '@emotion/styled';
+import RegisterManager from '../RegisterManager';
+import RequestForm from './RequestForm';
+import ProgressBar from './ProgressBar';
 
 export const TITLE = [
   '프로젝트 의뢰',
@@ -103,6 +103,9 @@ const ProjectRequestTemplate = () => {
       }
       case 4: {
         return <>결제 단계는 준비중입니다</>;
+      }
+      default: {
+        return <>잘못된 경로입니다.</>;
       }
     }
   };

@@ -53,8 +53,8 @@ const InfluencerInfoModal = ({ info }: { info: any }) => {
         </Text>
       </ProfileWrap>
       <DetailInfoWrap>
-        {/*<Field>소요기간</Field>
-        <Data>{working_time}일</Data>*/}
+        {/* <Field>소요기간</Field>
+        <Data>{working_time}일</Data> */}
         <Field>금액</Field>
         <Data>{formatCountVal(cost)}원</Data>
         <Field>카테고리</Field>

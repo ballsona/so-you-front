@@ -10,14 +10,14 @@ export const costRanges = [
 ] as const;
 export type CostRangeType = (typeof costRanges)[number];
 
-//export const popularities = [
+// export const popularities = [
 //  '50만 초과',
 //  '10만 초과 50만 이하',
 //  '1만 초과 10만 이하',
 //  '5천 초과 1만 이하',
 //  '5천 이하',
-//] as const;
-//export type PopularityType = (typeof popularities)[number];
+// ] as const;
+// export type PopularityType = (typeof popularities)[number];
 
 export const popularityDegree = [5, 4, 3, 2, 1] as const;
 export type PopularityDegreeType = (typeof popularityDegree)[number];

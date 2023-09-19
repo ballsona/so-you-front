@@ -1,4 +1,4 @@
-let easing = [0.175, 0.85, 0.42, 0.96];
+const easing = [0.175, 0.85, 0.42, 0.96];
 
 export const mainPageTitleVariants = {
   exit: { y: -15, opacity: 0, transition: { duration: 0.2, ease: easing } },

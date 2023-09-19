@@ -6,7 +6,8 @@ export const globalStyles = css`
     font-weight: 100 800;
     font-style: normal;
     font-display: swap;
-    src: local('Pretendard Variable'),
+    src:
+      local('Pretendard Variable'),
       url('/PretendardVariable.woff2') format('woff2-variations');
   }
 

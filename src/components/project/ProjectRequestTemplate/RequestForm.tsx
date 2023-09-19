@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import {
-  CostRangeType,
-  popularityDegree,
-  seasons,
-} from '@/constants/influencer';
+import { CostRangeType, popularityDegree } from '@/constants/influencer';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { categoryListAtom } from '@/stores/categoryState';
@@ -23,9 +19,8 @@ import 'react-calendar/dist/Calendar.css';
 
 import Calendar from 'react-calendar';
 
-const formatDate = (date: Date) => {
-  return `${date.getFullYear()}월 ${date.getMonth() + 1}월 ${date.getDate()}일`;
-};
+const formatDate = (date: Date) =>
+  `${date.getFullYear()}월 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
 const RequestForm = ({
   onSubmit,

@@ -1,8 +1,8 @@
-import { postAsync } from '.';
 import { ApiResponse } from '@/types/api';
 import { uInfluencerDataType } from '@/types/influencer';
 import { CostRangeType, PopularityDegreeType } from '@/constants/influencer';
 import { CategoryType } from '@/constants/category';
+import { postAsync } from '.';
 
 // 토큰 빼기
 /** 인플루언서 검색 */

@@ -1,7 +1,7 @@
 import { ApiResponse } from '@/types/api';
-import { postAsync } from '.';
 import { CostRangeType, PopularityDegreeType } from '@/constants/influencer';
 import { CategoryType } from '@/constants/category';
+import { postAsync } from '.';
 
 export async function getMatchingInfluencerListAsync(
   popularity?: PopularityDegreeType,
@@ -16,9 +16,8 @@ export async function getMatchingInfluencerListAsync(
   return response;
 }
 
-const formatDate = (date: Date) => {
-  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
-};
+const formatDate = (date: Date) =>
+  `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 
 // TODO refactor
 export async function requestProjectAsync(
@@ -37,7 +36,8 @@ export async function requestProjectAsync(
   const renderDate = () => {
     if (startDate && endDate) {
       return `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
-    } else return '';
+    }
+    return '';
   };
   const response = await postAsync('/api/user/project-request', {
     client_name: clientName,

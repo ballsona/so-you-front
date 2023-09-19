@@ -5,12 +5,12 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
-import Text from '../common/Text';
-import TextInput, { TextInputProps } from '../common/TextInput';
 import { COLORS } from '@/styles/theme';
 import { createReportAsync } from '@/apis/admin';
 import { useModal } from '@/hooks/useModal';
 import { useRouter } from 'next/router';
+import TextInput, { TextInputProps } from '../common/TextInput';
+import Text from '../common/Text';
 
 const ContentInput = ({
   name,

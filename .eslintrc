@@ -3,7 +3,7 @@
     "browser": true,
     "es6": true
   },
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "eslint-plugin-prettier"],
   "extends": [
     "airbnb",
     "airbnb/hooks",
@@ -35,10 +35,16 @@
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "warn",
+    "react/no-array-index-key": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": "off",
     "no-unused-vars": "warn",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "camelcase": "off",
+    "no-useless-escape": "warn",
+    "no-use-before-define": "off",
+    "no-alert": "off",
+    "no-return-assign": "off"
   }
 }

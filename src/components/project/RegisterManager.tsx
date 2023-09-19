@@ -1,16 +1,17 @@
 import { useModal } from '@/hooks/useModal';
 import { useEffect, useState } from 'react';
-import ManagerModal from './ManagerModal';
-import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import Text from '../common/Text';
+import ManagerModal from './ManagerModal';
 
 const RegisterManager = ({ goNextStep }: any) => {
   const { openModal, closeModal } = useModal();
 
   useEffect(() => {
     let tId;
+    // eslint-disable-next-line prefer-const
     tId = setTimeout(() => {
       openModal(
         <ManagerModal
@@ -21,8 +22,6 @@ const RegisterManager = ({ goNextStep }: any) => {
         />,
       );
     }, 2000);
-
-    return;
   }, []);
 
   return (

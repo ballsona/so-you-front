@@ -3,11 +3,11 @@ import {
   LoginOutputType,
   RegisterFormType,
   RegisterOutputType,
+  UserType,
 } from '@/types/user';
-import { getAsync, postAsync, putAsync } from '.';
 import { ApiResponse } from '@/types/api';
-import { UserType } from '@/types/user';
 import { CategoryType } from '@/constants/category';
+import { getAsync, postAsync, putAsync } from '.';
 
 /** 로그인 요청 함수 */
 export async function loginAsync(

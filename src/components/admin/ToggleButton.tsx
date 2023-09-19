@@ -2,7 +2,6 @@ import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import Text from '../common/Text';
-import { useState } from 'react';
 
 const ButtonTransition = {
   type: 'spring',

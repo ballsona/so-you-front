@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { COLORS } from '@/styles/theme';
 import { UserType } from '@/types/user';
 import Text from '@/components/common/Text';
-import RegisterForm from './RegisterForm';
 import RegisterSide from '@/assets/image/register-side-img.jpg';
+import RegisterForm from './RegisterForm';
 
 export interface RegisterTemplateProps {
   type: UserType;

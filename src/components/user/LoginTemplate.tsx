@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
-import LoginForm from './LoginForm';
 import { COLORS } from '@/styles/theme';
 
 import KakaoLogoIcon from '@/assets/icon/kakao-logo.svg';
 import NaverLogoIcon from '@/assets/icon/naver-logo.svg';
 import GoogleLogoIcon from '@/assets/icon/google-logo.svg';
+import LoginForm from './LoginForm';
 
 const LoginTemplate = () => {
   const onClickSocialLoginButton = () => {

@@ -3,9 +3,7 @@ import { UserType } from '@/types/user';
 import { withAuth } from '@/utils/withAuth';
 import RegisterTemplate from '@/components/user/RegisterTemplate';
 
-export const getServerSideProps = withAuth(async (ctx) => {
-  return { props: {} };
-});
+export const getServerSideProps = withAuth(async (ctx) => ({ props: {} }));
 
 const Register = () => {
   const router = useRouter();

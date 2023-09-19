@@ -26,5 +26,6 @@ export const projectRequestData = selector({
         email,
       };
     }
+    return null;
   },
 });

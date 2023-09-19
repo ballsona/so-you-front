@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { NAV_INFO, NavType } from '@/constants/navigation';
 import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
-import Text from './Text';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { searchFilter, searchKeyWord } from '@/stores/influencerState';
 import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
-import ArrowButton from './ArrowButton';
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
 
 import SearchIcon from '@/assets/icon/search.svg';
 import ProfileIcon from '@/assets/icon/default-profile-icon.svg';
 import { UserType } from '@/types/user';
+import ArrowButton from './ArrowButton';
+import Text from './Text';
 
 interface NavigationBarProps {
   userType?: UserType;
@@ -46,9 +46,11 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
   };
 
   const handleModal = () => {
-    visible
-      ? closeModal()
-      : openModal(<DetailSearchModal />, false, 'search-filter');
+    if (visible) {
+      closeModal();
+    } else {
+      openModal(<DetailSearchModal />, false, 'search-filter');
+    }
   };
 
   const onSearchButtonClick = async () => {
@@ -70,54 +72,52 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
   };
 
   return (
-    <>
-      <Wrapper>
-        <Text
-          size={25}
-          weight="700"
-          color={COLORS.white}
-          className="logo-text"
-          onClick={() => router.push('/')}
+    <Wrapper>
+      <Text
+        size={25}
+        weight="700"
+        color={COLORS.white}
+        className="logo-text"
+        onClick={() => router.push('/')}
+      >
+        SoYOU
+      </Text>
+      <SearchBar>
+        <DetailSearchButton
+          onClick={handleModal}
+          initial={false}
+          animate={visible && name === 'search-filter' ? 'open' : 'closed'}
         >
-          SoYOU
-        </Text>
-        <SearchBar>
-          <DetailSearchButton
-            onClick={handleModal}
-            initial={false}
-            animate={visible && name === 'search-filter' ? 'open' : 'closed'}
-          >
-            <ArrowButton color={COLORS.white} />
-            <Text size={14} weight="400" color={COLORS.white}>
-              상세 검색
+          <ArrowButton color={COLORS.white} />
+          <Text size={14} weight="400" color={COLORS.white}>
+            상세 검색
+          </Text>
+        </DetailSearchButton>
+        <SearchIcon onClick={onSearchButtonClick} className="search-icon" />
+        <SearchBarInput value={keyword} onChange={handleKeyword} />
+      </SearchBar>
+      <NavListContainer>
+        {navMenu.map((menu) =>
+          menu === 'mypage' ? (
+            <ProfileIcon
+              key={menu}
+              onClick={() => router.push(NAV_INFO[menu].url)}
+            />
+          ) : (
+            <Text
+              key={menu}
+              size={15}
+              weight={activeTab === menu ? '700' : '400'}
+              color={COLORS.white}
+              className="nav-item"
+              onClick={() => router.push(NAV_INFO[menu].url)}
+            >
+              {NAV_INFO[menu].label}
             </Text>
-          </DetailSearchButton>
-          <SearchIcon onClick={onSearchButtonClick} className="search-icon" />
-          <SearchBarInput value={keyword} onChange={handleKeyword} />
-        </SearchBar>
-        <NavListContainer>
-          {navMenu.map((menu) =>
-            menu === 'mypage' ? (
-              <ProfileIcon
-                key={menu}
-                onClick={() => router.push(NAV_INFO[menu].url)}
-              />
-            ) : (
-              <Text
-                key={menu}
-                size={15}
-                weight={activeTab === menu ? '700' : '400'}
-                color={COLORS.white}
-                className="nav-item"
-                onClick={() => router.push(NAV_INFO[menu].url)}
-              >
-                {NAV_INFO[menu].label}
-              </Text>
-            ),
-          )}
-        </NavListContainer>
-      </Wrapper>
-    </>
+          ),
+        )}
+      </NavListContainer>
+    </Wrapper>
   );
 };
 

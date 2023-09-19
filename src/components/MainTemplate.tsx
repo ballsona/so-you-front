@@ -1,10 +1,10 @@
 import { COLORS } from '@/styles/theme';
-import IntroSection from './common/IntroSection';
-import Text from './common/Text';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { NAV_INFO } from '@/constants/navigation';
 import { removeTokenAsync, removeUserTypeAsync } from '@/apis/auth';
+import Text from './common/Text';
+import IntroSection from './common/IntroSection';
 
 const MainTemplate = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const router = useRouter();

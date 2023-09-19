@@ -14,12 +14,10 @@ export const getServerSideProps = withAuth(async (ctx) => {
   return { props: { userType } };
 });
 
-const MyPage = ({ userType }: MyPageProps) => {
-  return (
-    <Layout activeTab="mypage">
-      <MyPageTemplate userType={userType} />
-    </Layout>
-  );
-};
+const MyPage = ({ userType }: MyPageProps) => (
+  <Layout activeTab="mypage">
+    <MyPageTemplate userType={userType} />
+  </Layout>
+);
 
 export default MyPage;

@@ -1,20 +1,17 @@
 import { useRouter } from 'next/router';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
-
 import { MyPageFormType, UserType } from '@/types/user';
 import { COLORS } from '@/styles/theme';
 import { useMessageRefs } from '@/hooks/useMessageRefs';
 import { useModal } from '@/hooks/useModal';
-
 import { categoryListAtom } from '@/stores/categoryState';
-
+import { useEffect } from 'react';
+import { updateUserInfoAsync } from '@/apis/user';
 import TextInput from '../common/TextInput';
 import CategoryTag from '../common/CategoryTag';
 import CategorySelectModal from '../common/Modal/CategorySelectModal';
-import { useEffect } from 'react';
-import { updateUserInfoAsync } from '@/apis/user';
 import UpdatePasswordModal from '../common/Modal/UpdatePasswordModal';
 
 type PE = HTMLParagraphElement;
@@ -137,8 +134,8 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
           <>
             <InputWrap className="category-row">
               <Label>카테고리</Label>
-              {selectedCategories.map((category) => (
-                <CategoryTag key={category} theme={category} />
+              {selectedCategories.map((c) => (
+                <CategoryTag key={c} theme={c} />
               ))}
               <MiniButton
                 onClick={() => openModal(<CategorySelectModal />, true)}

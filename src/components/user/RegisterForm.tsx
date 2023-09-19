@@ -16,12 +16,12 @@ import {
 } from '@/apis/user';
 import { categoryListAtom } from '@/stores/categoryState';
 
-import TextInput from '../common/TextInput';
-import CategoryTag from '../common/CategoryTag';
-import CategorySelectModal from '../common/Modal/CategorySelectModal';
 import { validateDate, validatePw } from '@/utils/validation';
 import { NAV_INFO } from '@/constants/navigation';
 import ChannelInfoIcon from '@/assets/icon/channel-icon.svg';
+import TextInput from '../common/TextInput';
+import CategoryTag from '../common/CategoryTag';
+import CategorySelectModal from '../common/Modal/CategorySelectModal';
 
 type PE = HTMLParagraphElement;
 
@@ -80,7 +80,6 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       } else {
         setMessage(0, response.result.errorMessage);
       }
-      return;
     }
   };
 
@@ -101,7 +100,7 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
 
   const register = async (data: RegisterFormType) => {
     const {
-      email,
+      email: emailData,
       password,
       passwordCheck,
       name,
@@ -144,7 +143,7 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
 
     const response = await registerAsync(
       type,
-      email,
+      emailData,
       password,
       name,
       birth_date,
@@ -253,7 +252,11 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
             </InputWrap>
             <InputWrap>
               {showInfo && (
-                <img src="/channel-info-img.jpg" className="channel-info-img" />
+                <img
+                  src="/channel-info-img.jpg"
+                  alt="channel-img"
+                  className="channel-info-img"
+                />
               )}
               <ChannelInfoIcon
                 className="channel-info-icon"

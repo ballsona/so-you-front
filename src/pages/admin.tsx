@@ -4,9 +4,7 @@ import Layout from '@/components/common/Layout';
 import { useEffect, useState } from 'react';
 import { withAuth } from '@/utils/withAuth';
 
-export const getServerSideProps = withAuth(async (ctx) => {
-  return { props: {} };
-});
+export const getServerSideProps = withAuth(async (ctx) => ({ props: {} }));
 
 const Admin = () => {
   const [matchingData, setMatchingData] = useState<any[]>([]);

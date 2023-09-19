@@ -1,5 +1,4 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
-import NavigationBar from './NavigationBar';
 import UserElement from '@/assets/image/user-element.png';
 import AdminElement from '@/assets/image/admin-element.svg';
 import styled from '@emotion/styled';
@@ -7,6 +6,7 @@ import Image from 'next/image';
 import { NavType } from '@/constants/navigation';
 import { useModal } from '@/hooks/useModal';
 import { getUserTypeAsync } from '@/apis/auth';
+import NavigationBar from './NavigationBar';
 
 interface LayoutProps {
   /** 현재 활성화된 탭 */
@@ -21,8 +21,8 @@ const Layout = ({ activeTab, children }: PropsWithChildren<LayoutProps>) => {
     const init = async () => {
       closeModal();
 
-      const { userType } = await getUserTypeAsync();
-      setUserType(userType);
+      const { userType: uType } = await getUserTypeAsync();
+      setUserType(uType);
     };
     init();
   }, []);

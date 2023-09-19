@@ -12,27 +12,20 @@ const Report = () => {
 
   useEffect(() => {
     const getData = async () => {
-      //const res = await getReportDataAsync(id);
-      //if (res.isSuccess) {
+      // const res = await getReportDataAsync(id);
+      // if (res.isSuccess) {
       //  setData(res.result.response);
-      //}
+      // }
       setData(sData.filter((d: any) => d.id === id)[0]);
     };
 
     if (id) getData();
   }, [id]);
 
-  if (!data) return;
+  if (!data) return <>데이터가 존재하지 않습니다</>;
 
   return (
     <Layout activeTab="report">
-      {/*{data ? (
-        <ReportTemplate data={data} />
-      ) : (
-        <div style={{ height: '100vh', position: 'fixed', top: 100, left: 30 }}>
-          리포트 데이터가 없습니다
-        </div>
-      )}*/}
       <ReportTemplate data={data} />
     </Layout>
   );

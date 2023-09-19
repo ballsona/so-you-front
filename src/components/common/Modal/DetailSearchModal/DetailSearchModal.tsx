@@ -11,8 +11,8 @@ import {
 import { useRecoilState } from 'recoil';
 import { searchFilter } from '@/stores/influencerState';
 
-import * as styles from './DetailSearchModal.style';
 import { useModal } from '@/hooks/useModal';
+import * as styles from './DetailSearchModal.style';
 
 const Label = ({ text }: { text: string }) => (
   <Text color={COLORS.primary} size={14} weight="400" className="label">

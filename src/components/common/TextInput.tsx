@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import {
   useController,
-  type Control,
   type FieldValues,
   FieldPath,
   UseControllerProps,

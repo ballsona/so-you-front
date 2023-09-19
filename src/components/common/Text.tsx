@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface TextProps {
   size?: number;
@@ -37,6 +37,6 @@ const TextWrapper = styled.div(
     fontSize: size,
     fontWeight: weight,
     lineHeight: size ? `${size * 1.5}px` : 'auto',
-    color: color,
+    color,
   }),
 );

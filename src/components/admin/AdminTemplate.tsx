@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import Text from '../common/Text';
 import { COLORS } from '@/styles/theme';
+import { useState } from 'react';
+import Text from '../common/Text';
 import MatchingList from './MatchingList';
 import ToggleButton from './ToggleButton';
-import { useState } from 'react';
 
 const AdminTemplate = ({ matchingData }: any) => {
   const [activeStatus, setActiveStatus] = useState(1);

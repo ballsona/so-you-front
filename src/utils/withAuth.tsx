@@ -34,6 +34,7 @@ export function withAuth(getServerSideProps: GetServerSideProps) {
       };
     }
 
+    // eslint-disable-next-line no-return-await
     return await getServerSideProps(context);
   };
 }

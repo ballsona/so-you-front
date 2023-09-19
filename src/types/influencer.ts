@@ -48,7 +48,7 @@ export interface InfluencerDetailDataType extends InfluencerDataType {
   total_views: number;
   /** 팔로워 변동 퍼센트 (30일 기준) */
   followers_change_pct: number;
-  /** 조회수 평균 변동 퍼센트 (30일 기준)*/
+  /** 조회수 평균 변동 퍼센트 (30일 기준) */
   average_views_change_pct: number;
   /** 동영상 개수 */
   video_count: number;

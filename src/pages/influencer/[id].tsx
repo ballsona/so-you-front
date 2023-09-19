@@ -8,9 +8,7 @@ import {
 import Layout from '@/components/common/Layout';
 import { withAuth } from '@/utils/withAuth';
 
-export const getServerSideProps = withAuth(async (ctx) => {
-  return { props: {} };
-});
+export const getServerSideProps = withAuth(async (ctx) => ({ props: {} }));
 
 const InfluencerDetail = () => {
   const router = useRouter();
@@ -32,7 +30,7 @@ const InfluencerDetail = () => {
     if (id) getDetailData();
   }, [id]);
 
-  if (!data) return;
+  if (!data) return <>데이터가 존재하지 않습니다</>;
 
   return (
     <Layout activeTab="influencer">

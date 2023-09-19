@@ -7,14 +7,12 @@ interface InputFieldProps extends PropsWithChildren {
   className?: string;
 }
 
-const InputField = ({ label, className, children }: InputFieldProps) => {
-  return (
-    <InputWrapper className={className}>
-      <Label>{label}</Label>
-      {children}
-    </InputWrapper>
-  );
-};
+const InputField = ({ label, className, children }: InputFieldProps) => (
+  <InputWrapper className={className}>
+    <Label>{label}</Label>
+    {children}
+  </InputWrapper>
+);
 
 export default InputField;
 

@@ -2,13 +2,11 @@ import styled from '@emotion/styled';
 import { COLORS } from '@/styles/theme';
 import Text from '@/components/common/Text';
 import CloseIcon from '@/assets/icon/close.svg';
-import { useRouter } from 'next/router';
 import { useModal } from '@/hooks/useModal';
-import Image from 'next/image';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import TextInput from '../TextInput';
 import { updatePasswordAsync } from '@/apis/user';
+import TextInput from '../TextInput';
 
 interface InputType {
   password: string;

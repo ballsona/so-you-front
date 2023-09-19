@@ -34,7 +34,7 @@
     ],
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
-    "react/jsx-props-no-spreading": "warn",
+    "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "warn",
     "react-hooks/exhaustive-deps": "warn",
     "import/no-extraneous-dependencies": "off",

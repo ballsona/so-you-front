@@ -8,7 +8,7 @@ const Row = ({ label, data }: { label: string; data: string }) => (
     <Text size={14} weight="700" color="#484848">
       {label}
     </Text>
-    <Text size={12} weight="400" color="#484848">
+    <Text size={12} weight="400" color="#484848" className="content">
       {data}
     </Text>
   </RowWrap>
@@ -81,10 +81,13 @@ const ContentWrap = styled.div`
 
 const RowWrap = styled.div`
   display: grid;
-  grid-template-columns: 70px 1000px;
-  height: 25px;
+  grid-template-columns: 70px 100px;
 
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 15px;
+
+  .content {
+    word-break: normal;
+  }
 `;

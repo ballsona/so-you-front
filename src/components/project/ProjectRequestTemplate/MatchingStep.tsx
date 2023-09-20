@@ -44,11 +44,11 @@ const MatchingStep = ({
 
   const requestProject = () => {
     if (
+      category.length < 0 ||
       !popularity ||
       !dateRange ||
       dateRange.length < 0 ||
-      !costRange ||
-      !category
+      !costRange
     ) {
       alert('값을 모두 선택해주세요!');
       return;

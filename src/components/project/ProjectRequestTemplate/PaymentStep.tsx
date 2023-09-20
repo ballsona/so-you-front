@@ -2,6 +2,16 @@ import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import Text from '@/components/common/Text';
 
+import CardIcon from '@/assets/icon/payment/card.svg';
+import PhoneIcon from '@/assets/icon/payment/phone.svg';
+import DepositIcon from '@/assets/icon/payment/deposit.svg';
+
+const paymentMenu = [
+  { type: '일반결제', menu: '신용카드', icon: <CardIcon /> },
+  { type: '카드간편결제', menu: '휴대폰', icon: <PhoneIcon /> },
+  { type: '계좌간편결제', menu: '계좌이체', icon: <DepositIcon /> },
+];
+
 interface PaymentStepProps {
   goBeforeStep: () => void;
   goNextStep: () => void;
@@ -9,6 +19,26 @@ interface PaymentStepProps {
 
 const PaymentStep = ({ goBeforeStep, goNextStep }: PaymentStepProps) => (
   <Wrapper>
+    <PaymentMenuList>
+      {paymentMenu.map(({ type, menu, icon }, idx) => (
+        <MenuWrap key={type}>
+          <Text color={COLORS.white} weight="700" size={14} className="type">
+            {type}
+          </Text>
+          <Menu className={idx === 2 ? 'deposit' : ''}>
+            <Text
+              color={idx === 2 ? COLORS.primary : COLORS.black}
+              weight="400"
+              size={14}
+              className="menu"
+            >
+              {menu}
+            </Text>
+            {icon}
+          </Menu>
+        </MenuWrap>
+      ))}
+    </PaymentMenuList>
     <DepositInfoWrap>
       <Text color="#262627" weight="700" size={16} className="title">
         입금정보
@@ -43,7 +73,46 @@ export default PaymentStep;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 48px;
+`;
+
+const PaymentMenuList = styled.div`
+  display: flex;
+`;
+
+const MenuWrap = styled.div`
+  cursor: pointer;
+
+  .type {
+    width: 200px;
+    height: 43px;
+    background-color: ${COLORS.primary};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .deposit {
+    background-color: #f4f6fa;
+  }
+`;
+
+export const Menu = styled.div`
+  width: 200px;
+  height: 150px;
+  background-color: ${COLORS.white};
+  box-shadow: 0px 4px 10px -2px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .menu {
+    margin-bottom: 7px;
+  }
 `;
 
 const DepositInfoWrap = styled.div`

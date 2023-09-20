@@ -32,7 +32,7 @@ export default function tokenHandler(
       }
 
       res.setHeader('Set-Cookie', [
-        `accessToken=${accessToken}; path=/; Max-Age=2700;`, // TODO samesite=lax
+        `accessToken=${accessToken}; path=/; Max-Age=5400;`, // TODO samesite=lax
         `refreshToken=${refreshToken}; path=/; Max-Age=86400;`,
       ]);
       return res.status(200).json({

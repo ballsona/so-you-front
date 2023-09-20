@@ -43,16 +43,16 @@ const MatchingStep = ({
   };
 
   const requestProject = () => {
-    // if (
-    //  !popularity ||
-    //  !dateRange ||
-    //  dateRange.length < 0 ||
-    //  !costRange ||
-    //  category.length < 0
-    // ) {
-    //  alert('값을 모두 선택해주세요!');
-    //  return;
-    // }
+    if (
+      !popularity ||
+      !dateRange ||
+      dateRange.length < 0 ||
+      !costRange ||
+      !category
+    ) {
+      alert('값을 모두 선택해주세요!');
+      return;
+    }
 
     onSubmit({ popularity, dateRange, costRange, category });
   };

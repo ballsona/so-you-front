@@ -43,14 +43,23 @@ const MatchingStep = ({
   };
 
   const requestProject = () => {
-    if (
-      category.length < 0 ||
-      !popularity ||
-      !dateRange ||
-      dateRange.length < 0 ||
-      !costRange
-    ) {
-      alert('값을 모두 선택해주세요!');
+    if (!category.length) {
+      alert('카테고리를 한 개 이상 선택해주세요');
+      return;
+    }
+
+    if (!popularity) {
+      alert('인지도를 선택해주세요');
+      return;
+    }
+
+    if (!dateRange || !dateRange.length) {
+      alert('기간을 설정해주세요');
+      return;
+    }
+
+    if (!costRange) {
+      alert('예산을 선택해주세요');
       return;
     }
 

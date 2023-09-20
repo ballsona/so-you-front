@@ -14,15 +14,25 @@ interface ReportTemplateProps {
   data: any;
 }
 
+const ContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  span {
+    font-weight: 700;
+  }
+`;
+
 export const sData: any = [
   {
     id: 1,
     report_title: '유튜버 히밥 피자집 마케팅',
-    report_name: '먹방 담당자 (1)',
+    report_name: '권석원',
     report_content:
-      '부천 피자 음식점 “Y”와 유튜버 히밥 마케팅 매칭 리포트 입니다.\n예산 : 50,00,000원\n매칭 및 미팅 일정 조율 : 2023.06.19. ~ 2023.06.23.\n마케팅 금액 조율 완료\n송출 일정 : 2023.07.28. ~ 2023.08.04.\n예상 조회수 200,000',
-    date: '2023.06.19 ~ 2023.06.23',
-    cost: '5,000,000',
+      '부천 피자 음식점 “Y”와 유튜버 히밥 마케팅 매칭 리포트 입니다.',
+    report_cost: '5,000,0000원',
+    project_date: '2023.06.19. ~ 2023.12.23.',
+    video_date: '2023.07.28. ~ 2023.08.04.',
 
     link: 'https://www.youtube.com/watch?v=SNTxRbJ9wYg',
     view_count: '290,000',
@@ -45,11 +55,12 @@ export const sData: any = [
   {
     id: 2,
     report_title: '유튜버 히밥 중국집 마케팅',
-    report_name: '먹방 담당자 (1)',
-    date: '2023.07.13 ~ 2023.07.20',
-    cost: '6,000,000',
-    report_content:
-      '분당 중식집 “W”와 유튜버 히밥 마케팅 매칭 리포트 입니다.\n예산 : 60,00,000원\n매칭 및 미팅 일정 조율 : 2023.07.13. ~ 2023.07.20.\n마케팅 금액 조율 완료\n송출 일정 : 2023.08.11. ~ 2023.08.17.\n예상 조회수 350,000',
+    report_name: '권석원',
+    report_content: '분당 중식집 “W”와 유튜버 히밥 마케팅 매칭 리포트 입니다.',
+    report_cost: '6,000,000원',
+    project_date: '2023.07.13 ~ 2023.07.20',
+    video_date: '2023.07.28. ~ 2023.08.04.',
+
     link: 'https://www.youtube.com/watch?v=3O1V1QsyjEM&t=497s',
     view_count: '305,000',
     subscribe_count: '1,520,000',
@@ -70,11 +81,13 @@ export const sData: any = [
   {
     id: 3,
     report_title: '유튜버 히밥 양념대창, 주먹밥 마케팅',
-    report_name: '먹방 담당자 (1)',
-    date: '2023.07.24 ~ 2023.07.28',
-    cost: '3,000,000',
+    report_name: '권석원',
     report_content:
-      '유튜버 히밥 양념대창 주먹밥 협찬 마케팅 매칭 리포트 입니다.\n예산 : 30,00,000원\n매칭 및 미팅 일정 조율 : 2023.07.24. ~ 2023.07.28.\n마케팅 금액 조율 완료\n송출 일정 : 2023.08.13. ~ 2023.08.19.\n예상 조회수 250,000',
+      '유튜버 히밥 양념대창 주먹밥 협찬 마케팅 매칭 리포트 입니다.',
+    report_cost: '3,000,000원',
+    project_date: '2023.07.24. ~ 2023.07.28.',
+    video_date: '2023.08.13. ~ 2023.08.19.',
+
     link: 'https://www.youtube.com/watch?v=cRk6iYYyw6s',
     view_count: '230,000',
     subscribe_count: '1,520,000',
@@ -102,8 +115,10 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
     report_title,
     report_name, // 작성자
     report_content,
-    date,
-    cost,
+    report_cost,
+    project_date,
+    video_date,
+
     link,
     view_count,
     subscribe_count,
@@ -141,7 +156,7 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
           <DataBoxWrap className="content-box">
             <TextWrap>
               <Text size={14} weight="700" color={COLORS.gray484}>
-                제목
+                프로젝트 명
               </Text>
               <Text size={14} weight="400" color={COLORS.gray484}>
                 {report_title}
@@ -149,23 +164,42 @@ const ReportTemplate = ({ data }: ReportTemplateProps) => {
             </TextWrap>
             <TextWrap>
               <Text size={14} weight="700" color={COLORS.gray484}>
-                작성자
+                담당자
               </Text>
               <Text size={14} weight="400" color={COLORS.gray484}>
                 {report_name}
               </Text>
             </TextWrap>
-            <TextWrap className="content">
+            <TextWrap>
               <Text size={14} weight="700" color={COLORS.gray484}>
                 내용
               </Text>
-              <Text
-                size={14}
-                weight="400"
-                color={COLORS.gray484}
-                className="content-txt"
-              >
+              <Text size={14} weight="400" color={COLORS.gray484}>
                 {report_content}
+              </Text>
+            </TextWrap>
+            <TextWrap>
+              <Text size={14} weight="700" color={COLORS.gray484}>
+                예산
+              </Text>
+              <Text size={14} weight="400" color={COLORS.gray484}>
+                {report_cost}
+              </Text>
+            </TextWrap>
+            <TextWrap>
+              <Text size={14} weight="700" color={COLORS.gray484}>
+                매칭 및 미팅 일정 조율
+              </Text>
+              <Text size={14} weight="400" color={COLORS.gray484}>
+                {project_date}
+              </Text>
+            </TextWrap>
+            <TextWrap>
+              <Text size={14} weight="700" color={COLORS.gray484}>
+                송출 일정
+              </Text>
+              <Text size={14} weight="400" color={COLORS.gray484}>
+                {video_date}
               </Text>
             </TextWrap>
           </DataBoxWrap>
@@ -362,10 +396,6 @@ const DataBoxWrap = styled.div`
     margin-bottom: 26px;
   }
 
-  .content {
-    flex-direction: column;
-  }
-
   .content-txt {
     white-space: pre-wrap;
   }
@@ -396,15 +426,17 @@ const BasicDataWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 
   .content-box {
     height: 260px;
     padding: 25px;
     margin-left: 25px;
+    justify-content: center;
   }
 
   .data-box {
-    width: 300px;
+    width: 100%;
     height: 200px;
   }
 `;

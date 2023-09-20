@@ -35,12 +35,12 @@ const ReportList = ({ data, onClickItem }: ReportListTemplateProps) => (
         </Data>
         <Data>
           <Text size={14} weight="500" color="#547AC3">
-            {d.date}
+            {d.project_date}
           </Text>
         </Data>
         <Data>
           <Text size={14} color={COLORS.gray484}>
-            {d.cost}원
+            {d.report_cost}
           </Text>
         </Data>
       </Body>

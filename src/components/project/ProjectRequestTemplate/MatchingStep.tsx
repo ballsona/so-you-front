@@ -44,7 +44,7 @@ const MatchingStep = ({
 
   const requestProject = () => {
     if (!category.length) {
-      alert('카테고리를 한 개 이상 선택해주세요');
+      alert('카테고리를 선택해주세요');
       return;
     }
 
@@ -75,7 +75,9 @@ const MatchingStep = ({
               카테고리
             </Text>
             <CategoryButton
-              onClick={() => openModal(<CategorySelectModal />, true, '')}
+              onClick={() =>
+                openModal(<CategorySelectModal maxCount={1} />, true, '')
+              }
             >
               추가
             </CategoryButton>

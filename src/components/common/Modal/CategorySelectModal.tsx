@@ -32,7 +32,11 @@ const CategoryItem = React.memo(
   ),
 );
 
-const CategorySelectModal = () => {
+const CategorySelectModal = ({
+  maxCount,
+}: {
+  maxCount?: number; // 선택할 수 있는 카테고리 최대 개수
+}) => {
   const { closeModal } = useModal();
 
   // 최종적으로 선택된 카테고리 목록
@@ -43,18 +47,29 @@ const CategorySelectModal = () => {
   const [tempSelectedList, setTempSelectedList] =
     useState<CategoryType[]>(selectedCategories);
 
-  const onClickCategory = useCallback(
-    (c: CategoryType) => {
-      if (!tempSelectedList.includes(c) && tempSelectedList.length >= 5) {
-        alert('카테고리는 5개 이하로 선택해주세요');
-      } else if (!tempSelectedList.includes(c) && tempSelectedList.length < 5) {
-        setTempSelectedList((prev) => [...prev, c]);
-      } else {
-        setTempSelectedList((prev) => prev.filter((t) => t !== c));
-      }
-    },
-    [tempSelectedList],
-  );
+  const onClickCategory = (c: CategoryType) => {
+    // 최대 개수 제한에 걸려서 선택 실패
+    if (
+      maxCount &&
+      !tempSelectedList.includes(c) &&
+      tempSelectedList.length >= maxCount
+    ) {
+      alert(`카테고리는 ${maxCount}개만 선택해주세요.`); // TODO only Matching Step
+      return;
+    }
+    // 선택 성공
+    if (
+      maxCount &&
+      !tempSelectedList.includes(c) &&
+      tempSelectedList.length < maxCount
+    ) {
+      setTempSelectedList((prev) => [...prev, c]);
+      return;
+    }
+
+    // 선택 해제
+    setTempSelectedList((prev) => prev.filter((t) => t !== c));
+  };
 
   const onSubmitModal = () => {
     setSelectedCategories(tempSelectedList);
@@ -73,7 +88,7 @@ const CategorySelectModal = () => {
         카테고리 추가
       </Text>
       <Text size={12} color={COLORS.grayB5B} className="modal-title">
-        내게 맞는 테마를 1개 이상 선택해주세요.
+        {maxCount && `내게 맞는 테마를 ${maxCount}개 이하 선택해주세요.`}
       </Text>
       <Hr />
       <CategorysWrap>

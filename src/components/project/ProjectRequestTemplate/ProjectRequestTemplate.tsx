@@ -50,7 +50,6 @@ const ProjectRequestTemplate = () => {
       alert('매칭할 수 있는 인플루언서가 없습니다.');
       return;
     }
-
     setRequestForm(formFields);
     setInfluencerList(res.result.response);
     goNextStep();

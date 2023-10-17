@@ -1,6 +1,7 @@
 import {
   InfluencerDataType,
   InfluencerSearchFilterType,
+  uInfluencerDataType,
 } from '@/types/influencer';
 import { atom } from 'recoil';
 
@@ -12,7 +13,7 @@ export const focusedInfluencerData = atom<InfluencerDataType | null>({
 
 /** 검색 키워드 */
 export const searchKeyWord = atom<string>({
-  key: 'SearchKeyWord',
+  key: 'searchKeyWord',
   default: '',
 });
 
@@ -22,4 +23,10 @@ export const searchFilter = atom<InfluencerSearchFilterType>({
   default: {
     category: [],
   },
+});
+
+/** 검색 결과 데이터 */
+export const searchResult = atom<uInfluencerDataType[]>({
+  key: 'searchResult',
+  default: [],
 });

@@ -79,6 +79,7 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
     const data = res.result.response as uInfluencerDataType[];
     setSearchData(data);
     router.push({ pathname: '/search', query: { keyword } });
+    closeModal();
   };
 
   return (

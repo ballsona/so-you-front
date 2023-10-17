@@ -5,13 +5,18 @@ import { motion } from 'framer-motion';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { searchFilter, searchKeyWord } from '@/stores/influencerState';
+import {
+  searchFilter,
+  searchKeyWord,
+  searchResult,
+} from '@/stores/influencerState';
 import DetailSearchModal from '@/components/common/Modal/DetailSearchModal';
 import { searchInfluencerAsync } from '@/apis/search';
 import { useModal } from '@/hooks/useModal';
 import SearchIcon from '@/assets/icon/search.svg';
 import ProfileIcon from '@/assets/icon/default-profile-icon.svg';
 import { UserType } from '@/types/user';
+import { uInfluencerDataType } from '@/types/influencer';
 import ArrowButton from './ArrowButton';
 import Text from './Text';
 
@@ -38,6 +43,8 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
   const [keyword, setKeyword] = useRecoilState(searchKeyWord);
   // 상세 검색 필터
   const { category, popularity, costRange } = useRecoilValue(searchFilter);
+  // 검색 결과 데이터
+  const [searchData, setSearchData] = useRecoilState(searchResult);
 
   const handleKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -65,8 +72,13 @@ const NavigationBar = ({ userType, activeTab }: NavigationBarProps) => {
     );
 
     if (!res.isSuccess) {
-      alert(res.result.errorMessage);
+      setSearchData([]);
     }
+
+    // 검색 결과 있으면
+    const data = res.result.response as uInfluencerDataType[];
+    setSearchData(data);
+    router.push({ pathname: '/search', query: { keyword } });
   };
 
   return (

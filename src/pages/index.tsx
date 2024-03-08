@@ -19,7 +19,7 @@ const Main = ({ isLoggedIn }: MainPageProps) => {
 
   useEffect(() => {
     closeModal();
-  }, []);
+  }, [closeModal]);
 
   return <MainTemplate isLoggedIn={isLoggedIn} />;
 };

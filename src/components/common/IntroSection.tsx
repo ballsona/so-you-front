@@ -70,6 +70,7 @@ export const IntroSection = ({
           className="background-img"
           layout="fill"
           sizes="50vw"
+          quality={1}
           priority
         />
       </MainSection>
@@ -114,6 +115,7 @@ export const IntroSection = ({
           className="background-img"
           layout="fill"
           sizes="50vw"
+          quality={1}
           priority
         />
       </MainSection>

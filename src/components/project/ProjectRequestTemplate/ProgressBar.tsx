@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import Text from '@/components/common/Text';
 import { COLORS } from '@/styles/theme';
 import styled from '@emotion/styled';

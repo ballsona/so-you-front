@@ -32,8 +32,8 @@ export default function tokenHandler(
       }
 
       res.setHeader('Set-Cookie', [
-        `accessToken=${accessToken}; path=/; Max-Age=5400;`, // TODO samesite=lax
-        `refreshToken=${refreshToken}; path=/; Max-Age=86400;`,
+        `accessToken=${accessToken}; path=/; Max-Age=5400; HttpOnly; Secure; Samesite=lax`,
+        `refreshToken=${refreshToken}; path=/; Max-Age=86400; HttpOnly; Secure; Samesite=lax`,
       ]);
       return res.status(200).json({
         code: 200,

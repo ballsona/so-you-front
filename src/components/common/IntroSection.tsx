@@ -69,6 +69,8 @@ export const IntroSection = ({
           alt="client"
           className="background-img"
           layout="fill"
+          sizes="50vw"
+          priority
         />
       </MainSection>
       <MainSection>
@@ -111,6 +113,8 @@ export const IntroSection = ({
           alt="influencer"
           className="background-img"
           layout="fill"
+          sizes="50vw"
+          priority
         />
       </MainSection>
     </SectionsWrap>

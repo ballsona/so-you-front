@@ -48,7 +48,7 @@ const MyPageForm = ({ type, defaultData }: MyPageFormProps) => {
   // 카테고리 세팅
   useEffect(() => {
     setSelectedCategories(category ? JSON.parse(category) : []);
-  }, []);
+  }, [category, setSelectedCategories]);
 
   // 정보 변경
   const updateInfo = async () => {

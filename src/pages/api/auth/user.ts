@@ -23,7 +23,7 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       res.setHeader('Set-Cookie', [
-        `userType=${userType}; path=/; Max-Age=2700;`,
+        `userType=${userType}; path=/; Max-Age=2700; HttpOnly; Secure; Samesite=lax`,
       ]);
       return res.status(200).json({
         code: 200,

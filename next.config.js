@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
 
-module.exports = {
-  ...nextConfig,
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: true,
+  openAnalyzer: true,
+});
+
+module.exports = withBundleAnalyzer({
   images: {
     remotePatterns: [
       {
@@ -19,4 +22,4 @@ module.exports = {
     });
     return config;
   },
-};
+});

@@ -25,7 +25,7 @@ const Layout = ({ activeTab, children }: PropsWithChildren<LayoutProps>) => {
       setUserType(uType);
     };
     init();
-  }, []);
+  }, [closeModal]);
 
   return (
     <>

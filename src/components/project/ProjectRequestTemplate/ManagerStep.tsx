@@ -31,8 +31,9 @@ const ManagerStep = ({ goBeforeStep, goNextStep }: any) => {
   }, [closeModal, openModal, goBeforeStep, goNextStep]);
 
   useEffect(() => {
-    setTimeout(() => openManagerModal(), 2000);
-  }, []);
+    const tid = setTimeout(() => openManagerModal(), 2000);
+    return clearTimeout(tid);
+  }, [openManagerModal]);
 
   return (
     <Wrapper>

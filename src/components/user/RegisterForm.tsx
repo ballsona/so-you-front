@@ -19,6 +19,7 @@ import { categoryListAtom } from '@/stores/categoryState';
 import { validateDate, validatePw } from '@/utils/validation';
 import { NAV_INFO } from '@/constants/navigation';
 import ChannelInfoIcon from '@/assets/icon/channel-icon.svg';
+import Image from 'next/image';
 import TextInput from '../common/TextInput';
 import CategoryTag from '../common/CategoryTag';
 import CategorySelectModal from '../common/Modal/CategorySelectModal';
@@ -123,7 +124,6 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
       return;
     }
     if (!validateDate(String(birth_date))) {
-      console.log(birth_date);
       setMessage(3, '생년월일 형식이 유효하지 않습니다');
       return;
     }
@@ -252,10 +252,12 @@ const RegisterForm = ({ type }: RegisterFormProps) => {
             </InputWrap>
             <InputWrap>
               {showInfo && (
-                <img
+                <Image
                   src="/channel-info-img.jpg"
                   alt="channel-img"
                   className="channel-info-img"
+                  width={500}
+                  height={280}
                 />
               )}
               <ChannelInfoIcon

@@ -6,6 +6,7 @@ export function validatePw(password: string) {
 
 /** YYYY-MM-DD */
 export function validateDate(date: string) {
+  // eslint-disable-next-line no-useless-escape
   const regex = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
   return regex.test(date);
 }

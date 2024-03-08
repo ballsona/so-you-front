@@ -152,7 +152,6 @@ API.interceptors.response.use(
           });
         }
       } catch (err) {
-        console.error(err);
         window.location.href = '/user/login';
       }
     }

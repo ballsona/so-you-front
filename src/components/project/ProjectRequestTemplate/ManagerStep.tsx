@@ -13,10 +13,10 @@ const ManagerStep = ({ goBeforeStep, goNextStep }: any) => {
     openModal(
       <ManagerModal
         managerInfo={{
-          name: '권석원',
+          name: '권xx',
           position: '대표',
-          phoneNumber: '010-5034-1316',
-          email: 'tjrtns25@naver.com',
+          phoneNumber: '010-xxxx-xxxx',
+          email: 'xxx@naver.com',
         }}
         onCancel={() => {
           closeModal();
